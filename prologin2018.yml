@@ -1,0 +1,176 @@
+name: prologin2018
+rules_type: turnbased
+
+constant:
+  -
+    cst_name: TAILLE_ICEBERG
+    cst_val: 20
+    cst_comment: Taille de l'iceberg (longueur et largeur).
+  -
+    cst_name: NB_POINTS_ACTION
+    cst_val: 10
+    cst_comment: Nombre de points d'action par tour.
+  -
+    cst_name: COUT_GLISSADE
+    cst_val: 3
+    cst_comment: Nombre de points d'action que coûte une glissade.
+  -
+    cst_name: COUT_DEPLACEMENT
+    cst_val: 1
+    cst_comment: Nombre de point d'action que coûte un déplacement.
+  -
+    cst_name: NB_AGENTS
+    cst_val: 4
+    cst_comment: Nombre d'agents par joueur.
+  -
+    cst_name: NB_TOURS_CAPTURE
+    cst_val: 3
+    cst_comment: Nombre de tours nécessaires pour capturer un objectif.
+
+enum:
+  -
+    enum_name: case_type
+    enum_summary: "Types de cases"
+    enum_field:
+      - [vide, "Case vide"]
+      - [mur, "Mur"]
+      - [erreur, "Erreur"]
+  -
+    enum_name: direction
+    enum_summary: "Point cardinaux"
+    enum_field:
+      - [nord, "Direction : nord"]
+      - [est, "Direction : est"]
+      - [sud, "Direction : sud"]
+      - [ouest, "Direction : ouest"]
+  -
+    enum_name: erreur
+    enum_summary: "Erreurs possibles"
+    enum_field:
+      - [ok, "L'action s'est effectuée avec succès"]
+      - [placement_invalide, "La direction spécfiée est déjà occupée"]
+      - [direction_invalide, "La direction spécifiée n'est pas sur l'iceberg"]
+      - [points_insuffisants, "Il ne reste pas assez de points pour pouvoir faire cette action"]
+
+struct:
+  -
+    str_name: position
+    str_summary: Position sur la carte, donnée par deux coordonnées
+    str_tuple: yes
+    str_field:
+      - [x, int, "Coordonnée en X"]
+      - [y, int, "Coordonnée en Y"]
+  -
+    str_name: alien
+    str_summary: Alien et objectif de la mission
+    str_tuple: yes
+    str_field:
+      - [x, int, "Coordonnée en X"]
+      - [y, int, "Coordonnée en Y"]
+      - [puissance, int, "Nombre de points obtenus pour la capture de cet alien"]
+
+function:
+
+# Actions
+
+  -
+    fct_name: deplacer
+    fct_summary: Déplace l'agent ``id_agent`` dans la direction choisie d'une case.
+    fct_ret_type: erreur
+    fct_action: yes
+    fct_arg:
+      - [id_agent, int, "Numéro de l'agent"]
+      - [dir, direction, "Direction visée"]
+  -
+    fct_name: glisser
+    fct_summary: Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il heurte
+        un mur ou un autre agent. S'il y a un autre agent sur la case adjacente dans cette direction,
+        cet agent est poussé dans la direction jusqu'à ce qu'il rencontre un obstacle.
+    fct_ret_type: erreur
+    fct_action: yes
+    fct_arg:
+      - [id_agent, int, "Numéro de l'agent"]
+      - [dir, direction, "Direction visée"]
+
+# Fonctions de requête de l'état du jeu
+
+  -
+    fct_name: type_case
+    fct_summary: Renvoie le type d'une case donnée.
+    fct_ret_type: case_type
+    fct_arg:
+      - [pos, position, "Case choisie"]
+  -
+    fct_name: position_agent
+    fct_summary: Indique la position de l'agent désigné par le numéro ``id_agent``.
+    fct_ret_type: position
+    fct_arg:
+      - [id_agent, int, "Numéro de l'agent"]
+  -
+    fct_name: liste_agents
+    fct_summary: Renvoie la liste de tous les agents du joueur désigné par le numéro ``id_joueur``.
+    fct_ret_type: int array
+    fct_arg:
+      - [id_joueur, int, "Numéro du joueur"]
+  -
+    fct_name: liste_aliens
+    fct_summary: Renvoie la liste de tous les aliens présent sur l'iceberg.
+    fct_ret_type: alien array
+    fct_arg: []
+  -
+    fct_name: liste_rafales
+    fct_summary: Renvoie la liste des tours où se produisent une rafale.
+    fct_ret_type: int array
+    fct_arg: []
+  -
+    fct_name: direction_rafale
+    fct_summary: Renvoie la direction des rafales.
+    fct_ret_type: direction
+    fct_arg: []
+
+# Autres
+
+  -
+    fct_name: score
+    fct_summary: "Renvoie le score du joueur ``id_joueur``. Renvoie -1 si le joueur est invalide."
+    fct_ret_type: int
+    fct_arg: 
+        - [id_joueur, int, "Numéro du joueur"]
+  -
+    fct_name: moi
+    fct_summary: "Renvoie votre numéro de joueur."
+    fct_ret_type: int
+    fct_arg: []
+  -
+    fct_name: adversaire
+    fct_summary: "Renvoie le numéro de joueur de votre adversaire."
+    fct_ret_type: int
+    fct_arg: []
+  -
+    fct_name: annuler
+    fct_summary: "Annule la dernière action.
+         Renvoie ``false`` quand il n'y a pas d'action à annuler ce tour-ci."
+    fct_ret_type: bool
+    fct_arg: []
+  -
+    fct_name: tour_actuel
+    fct_summary: "Retourne le numéro du tour actuel."
+    fct_ret_type: int
+    fct_arg: []
+
+user_function:
+  -
+    fct_name: partie_init
+    fct_summary: Fonction appelée au début de la partie.
+    fct_ret_type: void
+    fct_arg: []
+  -
+    fct_name: jouer_tour
+    fct_summary: Fonction appelée à chaque tour.
+    fct_ret_type: void
+    fct_arg: []
+  -
+    fct_name: partie_fin
+    fct_summary: Fonction appelée à la fin de la partie.
+    fct_ret_type: void
+    fct_arg: []
