@@ -65,8 +65,7 @@ struct:
     str_summary: Alien et objectif de la mission
     str_tuple: yes
     str_field:
-      - [x, int, "Coordonnée en X"]
-      - [y, int, "Coordonnée en Y"]
+      - [position, position, "Position de l'alien"]
       - [puissance, int, "Nombre de points obtenus pour la capture de cet alien"]
 
 function:
