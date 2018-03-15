@@ -7,6 +7,10 @@ constant:
     cst_val: 20
     cst_comment: Taille de l'iceberg (longueur et largeur).
   -
+    cst_name: NB_TOURS
+    cst_val: 100
+    cst_comment: Nombre de tours à jouer avant la fin de la partie.
+  -
     cst_name: NB_POINTS_ACTION
     cst_val: 10
     cst_comment: Nombre de points d'action par tour.
@@ -32,12 +36,12 @@ enum:
     enum_name: case_type
     enum_summary: "Types de cases"
     enum_field:
-      - [vide, "Case vide"]
+      - [libre, "Case libre"]
       - [mur, "Mur"]
       - [erreur, "Erreur"]
   -
     enum_name: direction
-    enum_summary: "Point cardinaux"
+    enum_summary: "Points cardinaux"
     enum_field:
       - [nord, "Direction : nord"]
       - [est, "Direction : est"]
@@ -47,25 +51,27 @@ enum:
     enum_name: erreur
     enum_summary: "Erreurs possibles"
     enum_field:
-      - [ok, "L'action s'est effectuée avec succès"]
-      - [placement_invalide, "La direction spécfiée est déjà occupée"]
-      - [direction_invalide, "La direction spécifiée n'est pas sur l'iceberg"]
-      - [points_insuffisants, "Il ne reste pas assez de points pour pouvoir faire cette action"]
+      - [ok, "L'action s'est effectuée avec succès."]
+      - [pa_insuffisants, "Vous ne possédez pas assez de points d'action pour réaliser cette action."]
+      - [position_invalide, "La position spécifiée n'est pas sur l'iceberg."]
+      - [direction_invalide, "La direction spécifiée n'existe pas."]
+      - [id_agent_invalide, "L'agent spécifié n'existe pas."]
+      - [id_joueur_invalide, "Le joueur spécifié n'existe pas."]
 
 struct:
   -
     str_name: position
-    str_summary: Position sur la carte, donnée par deux coordonnées
+    str_summary: Position sur l'iceberg, donnée par deux coordonnées.
     str_tuple: yes
     str_field:
       - [x, int, "Coordonnée en X"]
       - [y, int, "Coordonnée en Y"]
   -
     str_name: alien
-    str_summary: Alien et objectif de la mission
+    str_summary: Alien à capturer durant la mission.
     str_tuple: yes
     str_field:
-      - [position, position, "Position de l'alien"]
+      - [pos, position, "Position de l'alien"]
       - [puissance, int, "Nombre de points obtenus pour la capture de cet alien"]
 
 function:
@@ -83,8 +89,9 @@ function:
   -
     fct_name: glisser
     fct_summary: Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il heurte
-        un mur ou un autre agent. S'il y a un autre agent sur la case adjacente dans cette direction,
-        cet agent est poussé dans la direction jusqu'à ce qu'il rencontre un obstacle.
+        un obstacle, c'est-à-dire soit un mur soit un autre agent. Si au début de la glissade,
+        il y a un autre agent sur une case adjacente dans cette direction, alors cet agent est
+        poussé dans la direction jusqu'à ce qu'il rencontre un obstacle.
     fct_ret_type: erreur
     fct_action: yes
     fct_arg:
@@ -101,7 +108,7 @@ function:
       - [pos, position, "Case choisie"]
   -
     fct_name: position_agent
-    fct_summary: Indique la position de l'agent désigné par le numéro ``id_agent``.
+    fct_summary: Indique la position de l'agent sur l'iceberg désigné par le numéro ``id_agent``.
     fct_ret_type: position
     fct_arg:
       - [id_agent, int, "Numéro de l'agent"]
@@ -113,7 +120,7 @@ function:
       - [id_joueur, int, "Numéro du joueur"]
   -
     fct_name: liste_aliens
-    fct_summary: Renvoie la liste de tous les aliens présent sur l'iceberg.
+    fct_summary: Renvoie la liste de tous les aliens présents sur l'iceberg.
     fct_ret_type: alien array
     fct_arg: []
   -
@@ -131,7 +138,8 @@ function:
 
   -
     fct_name: score
-    fct_summary: "Renvoie le score du joueur ``id_joueur``. Renvoie -1 si le joueur est invalide."
+    fct_summary: "Renvoie le score du joueur ``id_joueur``.
+        Renvoie -1 si le joueur est invalide."
     fct_ret_type: int
     fct_arg: 
         - [id_joueur, int, "Numéro du joueur"]
