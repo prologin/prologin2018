@@ -52,7 +52,8 @@ enum:
     enum_summary: "Erreurs possibles"
     enum_field:
       - [ok, "L'action s'est effectuée avec succès."]
-      - [pa_insuffisants, "Vous ne possédez pas assez de points d'action pour réaliser cette action."]
+      - [pa_insuffisants, "Vous ne possédez pas assez de points d'action pour
+                           réaliser cette action."]
       - [position_invalide, "La position spécifiée n'est pas sur l'iceberg."]
       - [direction_invalide, "La direction spécifiée n'existe pas."]
       - [id_agent_invalide, "L'agent spécifié n'existe pas."]
@@ -72,7 +73,8 @@ struct:
     str_tuple: yes
     str_field:
       - [pos, position, "Position de l'alien"]
-      - [puissance, int, "Nombre de points obtenus pour la capture de cet alien"]
+      - [puissance, int, "Nombre de points obtenus pour la capture de cet
+                          alien"]
 
 function:
 
@@ -80,7 +82,8 @@ function:
 
   -
     fct_name: deplacer
-    fct_summary: Déplace l'agent ``id_agent`` dans la direction choisie d'une case.
+    fct_summary: Déplace l'agent ``id_agent`` dans la direction choisie d'une
+                 case.
     fct_ret_type: erreur
     fct_action: yes
     fct_arg:
@@ -88,10 +91,12 @@ function:
       - [dir, direction, "Direction visée"]
   -
     fct_name: glisser
-    fct_summary: Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il heurte
-        un obstacle, c'est-à-dire soit un mur soit un autre agent. Si au début de la glissade,
-        il y a un autre agent sur une case adjacente dans cette direction, alors cet agent est
-        poussé dans la direction jusqu'à ce qu'il rencontre un obstacle.
+    fct_summary: Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à
+                 ce qu'il heurte un obstacle, c'est-à-dire soit un mur soit un
+                 autre agent. Si au début de la glissade, il y a un autre agent
+                 sur une case adjacente dans cette direction, alors cet agent
+                 est poussé dans la direction jusqu'à ce qu'il rencontre un
+                 obstacle.
     fct_ret_type: erreur
     fct_action: yes
     fct_arg:
@@ -108,13 +113,15 @@ function:
       - [pos, position, "Case choisie"]
   -
     fct_name: position_agent
-    fct_summary: Indique la position de l'agent sur l'iceberg désigné par le numéro ``id_agent``.
+    fct_summary: Indique la position de l'agent sur l'iceberg désigné par le
+                 numéro ``id_agent``.
     fct_ret_type: position
     fct_arg:
       - [id_agent, int, "Numéro de l'agent"]
   -
     fct_name: liste_agents
-    fct_summary: Renvoie la liste de tous les agents du joueur désigné par le numéro ``id_joueur``.
+    fct_summary: Renvoie la liste de tous les agents du joueur désigné par le
+                 numéro ``id_joueur``.
     fct_ret_type: int array
     fct_arg:
       - [id_joueur, int, "Numéro du joueur"]
@@ -138,30 +145,31 @@ function:
 
   -
     fct_name: score
-    fct_summary: "Renvoie le score du joueur ``id_joueur``.
-        Renvoie -1 si le joueur est invalide."
+    fct_summary: Renvoie le score du joueur ``id_joueur``.
+                 Renvoie -1 si le joueur est invalide.
     fct_ret_type: int
     fct_arg: 
         - [id_joueur, int, "Numéro du joueur"]
   -
     fct_name: moi
-    fct_summary: "Renvoie votre numéro de joueur."
+    fct_summary: Renvoie votre numéro de joueur.
     fct_ret_type: int
     fct_arg: []
   -
     fct_name: adversaire
-    fct_summary: "Renvoie le numéro de joueur de votre adversaire."
+    fct_summary: Renvoie le numéro de joueur de votre adversaire.
     fct_ret_type: int
     fct_arg: []
   -
     fct_name: annuler
-    fct_summary: "Annule la dernière action.
-         Renvoie ``false`` quand il n'y a pas d'action à annuler ce tour-ci."
+    fct_summary: Annule la dernière action.
+                 Renvoie ``false`` quand il n'y a pas d'action à annuler ce
+                 tour-ci.
     fct_ret_type: bool
     fct_arg: []
   -
     fct_name: tour_actuel
-    fct_summary: "Retourne le numéro du tour actuel."
+    fct_summary: Retourne le numéro du tour actuel.
     fct_ret_type: int
     fct_arg: []
 
