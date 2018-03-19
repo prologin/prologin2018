@@ -74,9 +74,9 @@ struct:
       - [x, int, "Coordonnée en X"]
       - [y, int, "Coordonnée en Y"]
   -
-    str_name: alien
+    str_name: alien_info
     str_summary: Alien à capturer durant la mission.
-    str_tuple: yes
+    str_tuple: no
     str_field:
       - [pos, position, "Position de l'alien"]
       - [puissance, int, "Nombre de points obtenus pour la capture de cet
@@ -145,7 +145,7 @@ function:
   -
     fct_name: liste_aliens
     fct_summary: Renvoie la liste de tous les aliens présents sur l'iceberg.
-    fct_ret_type: alien array
+    fct_ret_type: alien_info array
     fct_arg: []
   -
     fct_name: liste_rafales
