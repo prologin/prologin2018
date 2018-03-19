@@ -58,6 +58,12 @@ enum:
       - [direction_invalide, "La direction spécifiée n'existe pas."]
       - [id_agent_invalide, "L'agent spécifié n'existe pas."]
       - [id_joueur_invalide, "Le joueur spécifié n'existe pas."]
+  -
+    enum_name: action_type
+    enum_summary: "Types d'actions"
+    enum_field:
+      - [action_deplacer, "Action ``deplacer``"]
+      - [action_glisser, "Action ``glisser``"]
 
 struct:
   -
@@ -78,6 +84,14 @@ struct:
       - [tour_invasion, int, "Tour où l'alien débarque sur la banquise"]
       - [duree_invasion, int, "Nombre de tours où l'alien reste sur la
                                banquise"]
+  -
+    str_name: action_hist
+    str_summary: Action représentée dans l'historique.
+    str_tuple: no
+    str_field:
+      - [type, action_type, "Type de l'action"]
+      - [id_agent, int, "Numéro de l'agent concerné par l'action"]
+      - [dir, direction, "Direction visée par l'agent durant l'action"]
 
 function:
 
@@ -142,6 +156,15 @@ function:
     fct_name: direction_rafale
     fct_summary: Renvoie la direction des rafales.
     fct_ret_type: direction
+    fct_arg: []
+
+# Historique (actions de l'adversaire durant le tour précédent)
+
+  -
+    fct_name: historique
+    fct_summary: Renvoie la liste des actions effectuées par l’adversaire
+                 durant son tour, dans l'ordre chronologique.
+    fct_ret_type: action_hist array
     fct_arg: []
 
 # Autres
