@@ -75,6 +75,9 @@ struct:
       - [pos, position, "Position de l'alien"]
       - [puissance, int, "Nombre de points obtenus pour la capture de cet
                           alien"]
+      - [tour_invasion, int, "Tour où l'alien débarque sur la banquise"]
+      - [duree_invasion, int, "Nombre de tours où l'alien reste sur la
+                               banquise"]
 
 function:
 
