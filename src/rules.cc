@@ -13,6 +13,8 @@
 ** along with Prologin2018.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <fstream>
+
 #include "rules.hh"
 #include "actions.hh"
 
@@ -31,7 +33,11 @@ Rules::Rules(const rules::Options opt)
             champion_dll_->get<f_champion_partie_fin>("partie_fin");
     }
 
-    GameState* game_state = new GameState(opt.players);
+    std::ifstream ifs(opt.map_file);
+    if (!ifs.is_open())
+        FATAL("Cannot open file: %s", opt.map_file.c_str());
+
+    GameState* game_state = new GameState(ifs, opt.players);
     api_ = std::make_unique<Api>(game_state, opt.player);
     register_actions();
 }

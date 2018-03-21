@@ -19,19 +19,35 @@
 #include <rules/game-state.hh>
 #include <rules/player.hh>
 
+#include <array>
+#include <unordered_map>
+
+#include "player_info.hh"
+#include "map.hh"
+
 class GameState : public rules::GameState
 {
     public:
-        // FIXME
-        // additional parameters? for instance map
-        GameState(rules::Players_sptr players);
-        GameState(const GameState& st);
+        GameState(std::istream& map_stream, rules::Players_sptr players);
         rules::GameState* copy() const override;
-        ~GameState();
+
+        void reset_action_points();
+
+        unsigned int opponent(unsigned int player) const;
+
+        void increment_turn();
+        unsigned int get_turn() const;
+
+        bool is_finished() const;
+
+        void reset_history(unsigned int player_id);
 
     private:
-        rules::Players_sptr players_;
+        std::unordered_map<unsigned int, PlayerInfo> player_info_;
+        std::array<unsigned int, 2> player_ids_;
+
+        std::shared_ptr<const Map> map_;
+        unsigned int turn_;
 };
 
 #endif /* !GAME_STATE_HH */
-

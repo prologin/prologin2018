@@ -15,6 +15,8 @@ def build(bld):
             src/entry.cc
             src/game_state.cc
             src/interface.cc
+            src/map.cc
+            src/player_info.cc
             src/rules.cc
         ''',
         defines = ['MODULE_COLOR=ANSI_COL_BROWN', 'MODULE_NAME="rules"'],
