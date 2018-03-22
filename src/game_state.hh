@@ -51,7 +51,7 @@ private:
     std::unordered_map<unsigned int, PlayerInfo> player_info_;
     std::array<unsigned int, 2> player_ids_;
 
-    std::shared_ptr<const Map> map_;
+    Map* map_;
     unsigned int turn_;
 };
 

@@ -201,12 +201,12 @@ std::string convert_to_string(std::vector<action_type> in)
 }
 std::string convert_to_string(position in)
 {
-    std::string x = convert_to_string(in.x);
-    std::string y = convert_to_string(in.y);
+    std::string ligne = convert_to_string(in.ligne);
+    std::string colonne = convert_to_string(in.colonne);
     std::string out = "{";
-    out += "x:" + x;
+    out += "ligne:" + ligne;
     out += ", ";
-    out += "y:" + y;
+    out += "colonne:" + colonne;
     return out + "}";
 }
 
@@ -499,11 +499,11 @@ extern "C" void api_afficher_action_type(action_type v)
 std::ostream& operator<<(std::ostream& os, position v)
 {
     os << "{ ";
-    os << "x"
-       << "=" << v.x;
+    os << "ligne"
+       << "=" << v.ligne;
     os << ", ";
-    os << "y"
-       << "=" << v.y;
+    os << "colonne"
+       << "=" << v.colonne;
     os << " }";
     return os;
 }

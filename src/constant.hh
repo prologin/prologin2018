@@ -118,8 +118,8 @@ template <> struct hash<action_type>
 /// Position sur l'iceberg, donnée par deux coordonnées.
 typedef struct position
 {
-    int x; /* <- Coordonnée en X */
-    int y; /* <- Coordonnée en Y */
+    int ligne;   /* <- Coordonnée : ligne */
+    int colonne; /* <- Coordonnée : colonne */
 } position;
 
 /// Alien à capturer durant la mission.

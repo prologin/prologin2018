@@ -71,8 +71,8 @@ struct:
     str_summary: Position sur l'iceberg, donnée par deux coordonnées.
     str_tuple: yes
     str_field:
-      - [x, int, "Coordonnée en X"]
-      - [y, int, "Coordonnée en Y"]
+      - [ligne, int, "Coordonnée : ligne"]
+      - [colonne, int, "Coordonnée : colonne"]
   -
     str_name: alien_info
     str_summary: Alien à capturer durant la mission.
