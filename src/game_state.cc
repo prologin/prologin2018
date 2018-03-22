@@ -17,9 +17,9 @@
 #include "constant.hh"
 
 GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
-    : rules::GameState(),
-      map_(new Map(map_stream)),
-      turn_(0)
+    : rules::GameState()
+    , map_(new Map(map_stream))
+    , turn_(0)
 {
     int nb_player = 0;
     for (auto& player : players->players)
@@ -28,7 +28,8 @@ GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
             FATAL("This game does not support more than two players.");
         if (player->type == rules::PLAYER)
         {
-            player_info_.emplace(std::make_pair(player->id, PlayerInfo(player)));
+            player_info_.emplace(
+                std::make_pair(player->id, PlayerInfo(player)));
             player_ids_[nb_player] = player->id;
             nb_player++;
         }

@@ -22,9 +22,9 @@
 #include "rules.hh"
 
 // Forward decls
-namespace rules {
-    struct Options;
-
+namespace rules
+{
+struct Options;
 }
 
 static Rules* rules_;
@@ -33,7 +33,7 @@ extern "C" {
 
 void rules_init(const rules::Options& opt)
 {
-    utils::Logger::get().level() = (utils::Logger::DisplayLevel) opt.verbose;
+    utils::Logger::get().level() = (utils::Logger::DisplayLevel)opt.verbose;
     rules_ = new Rules(opt);
 }
 

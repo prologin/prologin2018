@@ -15,11 +15,12 @@
 
 #include <fstream>
 
-#include "rules.hh"
 #include "actions.hh"
+#include "rules.hh"
 
 Rules::Rules(const rules::Options opt)
-    : TurnBasedRules(opt), sandbox_(opt.time)
+    : TurnBasedRules(opt)
+    , sandbox_(opt.time)
 {
     if (!opt.champion_lib.empty())
     {
@@ -46,12 +47,10 @@ void Rules::register_actions()
 {
     api_->actions()->register_action(
         ID_ACTION_DEPLACER,
-        []() -> rules::IAction* { return new ActionDeplacer(); }
-        );
+        []() -> rules::IAction* { return new ActionDeplacer(); });
     api_->actions()->register_action(
         ID_ACTION_GLISSER,
-        []() -> rules::IAction* { return new ActionGlisser(); }
-        );
+        []() -> rules::IAction* { return new ActionGlisser(); });
 }
 
 rules::Actions* Rules::get_actions()

@@ -19,13 +19,18 @@
 #include <rules/action.hh>
 
 #include "actions.hh"
-#include "game_state.hh"
 #include "constant.hh"
+#include "game_state.hh"
 
 class ActionGlisser : public rules::Action<GameState>
 {
 public:
-    ActionGlisser(int id_agent, direction dir, int player_id) : id_agent_(id_agent), dir_(dir), player_id_(player_id) {}
+    ActionGlisser(int id_agent, direction dir, int player_id)
+        : id_agent_(id_agent)
+        , dir_(dir)
+        , player_id_(player_id)
+    {
+    }
     ActionGlisser() {} // for register_action()
 
     int check(const GameState* st) const override;

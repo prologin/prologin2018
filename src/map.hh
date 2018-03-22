@@ -20,9 +20,10 @@
 
 class Map
 {
-    public:
-        Map(std::istream& s);
-    private:
+public:
+    Map(std::istream& s);
+
+private:
 };
 
 #endif

@@ -22,32 +22,32 @@
 #include <array>
 #include <unordered_map>
 
-#include "player_info.hh"
 #include "map.hh"
+#include "player_info.hh"
 
 class GameState : public rules::GameState
 {
-    public:
-        GameState(std::istream& map_stream, rules::Players_sptr players);
-        rules::GameState* copy() const override;
+public:
+    GameState(std::istream& map_stream, rules::Players_sptr players);
+    rules::GameState* copy() const override;
 
-        void reset_action_points();
+    void reset_action_points();
 
-        unsigned int opponent(unsigned int player) const;
+    unsigned int opponent(unsigned int player) const;
 
-        void increment_turn();
-        unsigned int get_turn() const;
+    void increment_turn();
+    unsigned int get_turn() const;
 
-        bool is_finished() const;
+    bool is_finished() const;
 
-        void reset_history(unsigned int player_id);
+    void reset_history(unsigned int player_id);
 
-    private:
-        std::unordered_map<unsigned int, PlayerInfo> player_info_;
-        std::array<unsigned int, 2> player_ids_;
+private:
+    std::unordered_map<unsigned int, PlayerInfo> player_info_;
+    std::array<unsigned int, 2> player_ids_;
 
-        std::shared_ptr<const Map> map_;
-        unsigned int turn_;
+    std::shared_ptr<const Map> map_;
+    unsigned int turn_;
 };
 
 #endif /* !GAME_STATE_HH */

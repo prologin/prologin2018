@@ -25,27 +25,27 @@
 
 class PlayerInfo
 {
-    public:
-        PlayerInfo(rules::Player_sptr player);
+public:
+    PlayerInfo(rules::Player_sptr player);
 
-        unsigned int get_action_points() const;
-        void decrease_action_points(unsigned int delta);
-        void reset_action_points();
+    unsigned int get_action_points() const;
+    void decrease_action_points(unsigned int delta);
+    void reset_action_points();
 
-        int get_score() const;
+    int get_score() const;
 
-        const std::string& get_name() const;
-        void set_name(const std::string& name);
+    const std::string& get_name() const;
+    void set_name(const std::string& name);
 
-        const std::vector<action_hist>& get_actions() const;
-        void reset_actions();
-        void add_action(action_hist action);
+    const std::vector<action_hist>& get_actions() const;
+    void reset_actions();
+    void add_action(action_hist action);
 
-    private:
-        rules::Player_sptr player_;
-        std::vector<action_hist> actions_;
+private:
+    rules::Player_sptr player_;
+    std::vector<action_hist> actions_;
 
-        unsigned int action_points;
+    unsigned int action_points;
 };
 
 #endif
