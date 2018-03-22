@@ -63,39 +63,31 @@ erreur Api::glisser(int id_agent, direction dir)
 /// Renvoie le type d'une case donnée.
 case_type Api::type_case(position pos)
 {
-    // TODO
-    abort();
+    return game_state_->get_cell_type(pos);
 }
 
 /// Indique si un agent se trouve sur une case donnée. Renvoie faux si la
 /// position est invalide.
 bool Api::agent_sur_case(position pos)
 {
-    // TODO
-    abort();
+    for (int player = 0; player < 2; player++)
+        for (int agent = 0; agent < NB_AGENTS; agent++)
+            if (position_agent(player, agent) == pos)
+                return true;
+    return false;
 }
 
 /// Indique la position de l'agent sur l'iceberg désigné par le numéro
-/// ``id_agent``.
-position Api::position_agent(int id_agent)
+/// ``id_agent`` appartenant au joueur ``id_joueur``.
+position Api::position_agent(int id_joueur, int id_agent)
 {
-    // TODO
-    abort();
-}
-
-/// Renvoie la liste de tous les agents du joueur désigné par le numéro
-/// ``id_joueur``.
-std::vector<int> Api::liste_agents(int id_joueur)
-{
-    // TODO
-    abort();
+    return game_state_->get_agent_position(id_joueur, id_agent);
 }
 
 /// Renvoie la liste de tous les aliens présents sur l'iceberg.
 std::vector<alien_info> Api::liste_aliens()
 {
-    // TODO
-    abort();
+    return game_state_->get_alien_info();
 }
 
 /// Renvoie la liste des tours où se produisent une rafale.
@@ -116,50 +108,50 @@ direction Api::direction_rafale()
 /// dans l'ordre chronologique.
 std::vector<action_hist> Api::historique()
 {
-    // TODO
-    abort();
+    return game_state_->get_history(adversaire());
 }
 
 /// Renvoie le score du joueur ``id_joueur``. Renvoie -1 si le joueur est
 /// invalide.
 int Api::score(int id_joueur)
 {
-    // TODO
-    abort();
+    if (id_joueur == moi() || id_joueur == adversaire())
+        return game_state_->get_score(id_joueur);
+    else
+        return -1;
 }
 
 /// Renvoie votre numéro de joueur.
 int Api::moi()
 {
-    // TODO
-    abort();
+    return player_->id;
 }
 
 /// Renvoie le numéro de joueur de votre adversaire.
 int Api::adversaire()
 {
-    // TODO
-    abort();
+    return game_state_->opponent(moi());
 }
 
 /// Annule la dernière action. Renvoie ``false`` quand il n'y a pas d'action à
 /// annuler ce tour-ci.
 bool Api::annuler()
 {
-    // TODO
-    abort();
+    if (!game_state_->can_cancel())
+        return false;
+    actions_.cancel();
+    game_state_ = rules::cancel(game_state_);
+    return true;
 }
 
 /// Retourne le numéro du tour actuel.
 int Api::tour_actuel()
 {
-    // TODO
-    abort();
+    return game_state_->get_turn();
 }
 
 /// Renvoie votre nombre de points d'action restants pour le tour.
 int Api::points_action()
 {
-    // TODO
-    abort();
+    return game_state_->get_action_points(moi());
 }

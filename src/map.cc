@@ -78,16 +78,22 @@ Map::Map(std::istream& stream)
     }
 }
 
+case_type Map::get_cell_type(position pos) const
+{
+    if (inside_map(pos))
+        return map_[pos.ligne][pos.colonne];
+    else
+        return case_type::ERREUR;
+}
+
 bool Map::is_empty(position pos) const
 {
-    assert(inside_map(pos));
-    return map_[pos.ligne][pos.colonne] == LIBRE;
+    return get_cell_type(pos) == LIBRE;
 }
 
 bool Map::is_wall(position pos) const
 {
-    assert(inside_map(pos));
-    return map_[pos.ligne][pos.colonne] == MUR;
+    return get_cell_type(pos) == MUR;
 }
 
 const std::array<position, NB_AGENTS>&

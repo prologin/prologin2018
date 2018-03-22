@@ -31,6 +31,12 @@ public:
     GameState(std::istream& map_stream, rules::Players_sptr players);
     rules::GameState* copy() const override;
 
+    case_type get_cell_type(position pos) const;
+
+    position get_agent_position(unsigned int player_id,
+                                unsigned int agent_id) const;
+    const std::vector<alien_info>& get_alien_info() const;
+
     unsigned int get_action_points(unsigned int player_id) const;
     void reset_action_points(unsigned int player_id);
 

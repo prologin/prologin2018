@@ -28,6 +28,7 @@ class Map
 public:
     Map(std::istream& stream);
 
+    case_type get_cell_type(position pos) const;
     bool is_empty(position pos) const;
     bool is_wall(position pos) const;
 

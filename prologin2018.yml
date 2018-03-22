@@ -140,17 +140,11 @@ function:
   -
     fct_name: position_agent
     fct_summary: Indique la position de l'agent sur l'iceberg désigné par le
-                 numéro ``id_agent``.
+                 numéro ``id_agent`` appartenant au joueur ``id_joueur``.
     fct_ret_type: position
     fct_arg:
-      - [id_agent, int, "Numéro de l'agent"]
-  -
-    fct_name: liste_agents
-    fct_summary: Renvoie la liste de tous les agents du joueur désigné par le
-                 numéro ``id_joueur``.
-    fct_ret_type: int array
-    fct_arg:
       - [id_joueur, int, "Numéro du joueur"]
+      - [id_agent, int, "Numéro de l'agent"]
   -
     fct_name: liste_aliens
     fct_summary: Renvoie la liste de tous les aliens présents sur l'iceberg.

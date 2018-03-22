@@ -71,12 +71,8 @@ public:
     bool agent_sur_case(position pos);
 
     /// Indique la position de l'agent sur l'iceberg désigné par le numéro
-    /// ``id_agent``.
-    position position_agent(int id_agent);
-
-    /// Renvoie la liste de tous les agents du joueur désigné par le numéro
-    /// ``id_joueur``.
-    std::vector<int> liste_agents(int id_joueur);
+    /// ``id_agent`` appartenant au joueur ``id_joueur``.
+    position position_agent(int id_joueur, int id_agent);
 
     /// Renvoie la liste de tous les aliens présents sur l'iceberg.
     std::vector<alien_info> liste_aliens();

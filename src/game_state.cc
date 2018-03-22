@@ -41,6 +41,23 @@ rules::GameState* GameState::copy() const
     return new GameState(*this);
 }
 
+case_type GameState::get_cell_type(position pos) const
+{
+    return map_->get_cell_type(pos);
+}
+
+position GameState::get_agent_position(unsigned int player_id,
+                                       unsigned int agent_id) const
+{
+    assert(player_info_.count(player_id) != 0);
+    return player_info_.at(player_id).get_agent_position(agent_id);
+}
+
+const std::vector<alien_info>& GameState::get_alien_info() const
+{
+    return map_->get_alien_info();
+}
+
 unsigned int GameState::get_action_points(unsigned int player_id) const
 {
     assert(player_info_.count(player_id) != 0);
