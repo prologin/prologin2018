@@ -25,8 +25,8 @@
 class ActionDeplacer : public rules::Action<GameState>
 {
 public:
-    ActionDeplacer(int id_agent, position dest, int player_id)
-        : id_agent_(id_agent)
+    ActionDeplacer(int agent_id, position dest, int player_id)
+        : agent_id_(agent_id)
         , dest_(dest)
         , player_id_(player_id)
     {
@@ -38,7 +38,7 @@ public:
 
     void handle_buffer(utils::Buffer& buf) override
     {
-        buf.handle(id_agent_);
+        buf.handle(agent_id_);
         buf.handle(dest_);
         buf.handle(player_id_);
     }
@@ -47,7 +47,7 @@ public:
     uint32_t id() const override { return ID_ACTION_DEPLACER; }
 
 private:
-    int id_agent_;
+    int agent_id_;
     position dest_;
     int player_id_;
 };

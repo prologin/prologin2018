@@ -28,13 +28,10 @@ position PlayerInfo::get_agent_position(unsigned int agent_id) const
     return agents[agent_id];
 }
 
-bool PlayerInfo::is_agent_on_position(position pos) const
+void PlayerInfo::set_agent_position(unsigned int agent_id, position pos)
 {
-    assert(inside_map(pos));
-    for (int id = 0; id < NB_AGENTS; id++)
-        if (agents[id] == pos)
-            return true;
-    return false;
+    assert(agent_id < NB_AGENTS);
+    agents[agent_id] = pos;
 }
 
 unsigned int PlayerInfo::get_action_points() const

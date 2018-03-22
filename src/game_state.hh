@@ -35,9 +35,13 @@ public:
 
     position get_agent_position(unsigned int player_id,
                                 unsigned int agent_id) const;
+    void set_agent_position(unsigned int player_id, unsigned int agent_id,
+                            position pos);
+
     const std::vector<alien_info>& get_alien_info() const;
 
     unsigned int get_action_points(unsigned int player_id) const;
+    void decrease_action_points(unsigned int player_id, unsigned int delta);
     void reset_action_points(unsigned int player_id);
 
     unsigned int opponent(unsigned int player) const;

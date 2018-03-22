@@ -17,11 +17,24 @@
 
 int ActionDeplacer::check(const GameState* st) const
 {
-    // FIXME
-    return 0;
+    if (agent_id_ >= NB_AGENTS)
+        return ID_AGENT_INVALIDE;
+    if (!inside_map(dest_))
+        return POSITION_INVALIDE;
+
+    position start = st->get_agent_position(player_id_, agent_id_);
+    unsigned int cost = distance(start, dest_) * COUT_DEPLACEMENT;
+    if (cost > st->get_action_points(player_id_))
+        return PA_INSUFFISANTS;
+
+    return OK;
 }
 
 void ActionDeplacer::apply_on(GameState* st) const
 {
-    // FIXME
+    position start = st->get_agent_position(player_id_, agent_id_);
+    unsigned int cost = distance(start, dest_) * COUT_DEPLACEMENT;
+
+    st->decrease_action_points(player_id_, cost);
+    st->set_agent_position(player_id_, agent_id_, dest_);
 }

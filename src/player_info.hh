@@ -31,7 +31,7 @@ public:
     PlayerInfo(rules::Player_sptr player);
 
     position get_agent_position(unsigned int agent_id) const;
-    bool is_agent_on_position(position pos) const;
+    void set_agent_position(unsigned int agent_id, position pos);
 
     unsigned int get_action_points() const;
     void decrease_action_points(unsigned int delta);

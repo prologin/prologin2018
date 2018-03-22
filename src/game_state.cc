@@ -53,6 +53,13 @@ position GameState::get_agent_position(unsigned int player_id,
     return player_info_.at(player_id).get_agent_position(agent_id);
 }
 
+void GameState::set_agent_position(unsigned int player_id,
+                                   unsigned int agent_id, position pos)
+{
+    assert(player_info_.count(player_id) != 0);
+    player_info_.at(player_id).set_agent_position(agent_id, pos);
+}
+
 const std::vector<alien_info>& GameState::get_alien_info() const
 {
     return map_->get_alien_info();
@@ -62,6 +69,13 @@ unsigned int GameState::get_action_points(unsigned int player_id) const
 {
     assert(player_info_.count(player_id) != 0);
     return player_info_.at(player_id).get_action_points();
+}
+
+void GameState::decrease_action_points(unsigned int player_id,
+                                       unsigned int delta)
+{
+    assert(player_info_.count(player_id) != 0);
+    player_info_.at(player_id).decrease_action_points(delta);
 }
 
 void GameState::reset_action_points(unsigned int player_id)
