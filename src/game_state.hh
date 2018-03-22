@@ -32,11 +32,14 @@ public:
     rules::GameState* copy() const override;
 
     case_type get_cell_type(position pos) const;
+    bool is_obstacle(position pos) const;
 
     position get_agent_position(unsigned int player_id,
                                 unsigned int agent_id) const;
+    std::pair<int, int> get_agent_id(position pos) const;
     void set_agent_position(unsigned int player_id, unsigned int agent_id,
                             position pos);
+    bool is_agent_on_position(position pos) const;
 
     const std::vector<alien_info>& get_alien_info() const;
 
@@ -62,6 +65,7 @@ private:
     std::array<unsigned int, 2> player_ids_;
 
     Map* map_;
+    std::array<std::array<position, NB_AGENTS>, 2> agent_info_;
     unsigned int turn_;
 };
 

@@ -18,7 +18,6 @@
 
 #include <rules/player.hh>
 
-#include <array>
 #include <string>
 #include <vector>
 
@@ -29,9 +28,6 @@ class PlayerInfo
 {
 public:
     PlayerInfo(rules::Player_sptr player);
-
-    position get_agent_position(unsigned int agent_id) const;
-    void set_agent_position(unsigned int agent_id, position pos);
 
     unsigned int get_action_points() const;
     void decrease_action_points(unsigned int delta);
@@ -50,9 +46,7 @@ public:
 private:
     rules::Player_sptr player_;
     std::vector<action_hist> actions_;
-
-    std::array<position, NB_AGENTS> agents;
-    unsigned int action_points;
+    unsigned int action_points_;
 };
 
 #endif

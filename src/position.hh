@@ -74,6 +74,8 @@ inline bool inside_map(const position& pos)
            pos.colonne < TAILLE_ICEBERG;
 }
 
+static const position offset[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
 // This is needed for old compilers
 namespace std
 {

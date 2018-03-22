@@ -46,18 +46,43 @@ case_type GameState::get_cell_type(position pos) const
     return map_->get_cell_type(pos);
 }
 
+bool GameState::is_obstacle(position pos) const
+{
+    return map_->is_wall(pos) || is_agent_on_position(pos);
+}
+
 position GameState::get_agent_position(unsigned int player_id,
                                        unsigned int agent_id) const
 {
-    assert(player_info_.count(player_id) != 0);
-    return player_info_.at(player_id).get_agent_position(agent_id);
+    assert(player_id < 2);
+    assert(agent_id < NB_AGENTS);
+    return agent_info_[player_id][agent_id];
+}
+
+std::pair<int, int> GameState::get_agent_id(position pos) const
+{
+    for (int player = 0; player < 2; player++)
+        for (int agent = 0; agent < NB_AGENTS; agent++)
+            if (get_agent_position(player, agent) == pos)
+                return std::make_pair(player, agent);
+    return std::make_pair(-1, -1);
 }
 
 void GameState::set_agent_position(unsigned int player_id,
                                    unsigned int agent_id, position pos)
 {
-    assert(player_info_.count(player_id) != 0);
-    player_info_.at(player_id).set_agent_position(agent_id, pos);
+    assert(player_id < 2);
+    assert(agent_id < NB_AGENTS);
+    agent_info_[player_id][agent_id] = pos;
+}
+
+bool GameState::is_agent_on_position(position pos) const
+{
+    for (int player = 0; player < 2; player++)
+        for (int agent = 0; agent < NB_AGENTS; agent++)
+            if (get_agent_position(player, agent) == pos)
+                return true;
+    return false;
 }
 
 const std::vector<alien_info>& GameState::get_alien_info() const

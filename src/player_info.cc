@@ -22,31 +22,19 @@ PlayerInfo::PlayerInfo(rules::Player_sptr player)
     player_->score = 0;
 }
 
-position PlayerInfo::get_agent_position(unsigned int agent_id) const
-{
-    assert(agent_id < NB_AGENTS);
-    return agents[agent_id];
-}
-
-void PlayerInfo::set_agent_position(unsigned int agent_id, position pos)
-{
-    assert(agent_id < NB_AGENTS);
-    agents[agent_id] = pos;
-}
-
 unsigned int PlayerInfo::get_action_points() const
 {
-    return action_points;
+    return action_points_;
 }
 
 void PlayerInfo::decrease_action_points(unsigned int delta)
 {
-    action_points -= delta;
+    action_points_ -= delta;
 }
 
 void PlayerInfo::reset_action_points()
 {
-    action_points = NB_POINTS_ACTION;
+    action_points_ = NB_POINTS_ACTION;
 }
 
 int PlayerInfo::get_score() const

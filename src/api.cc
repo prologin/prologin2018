@@ -70,11 +70,7 @@ case_type Api::type_case(position pos)
 /// position est invalide.
 bool Api::agent_sur_case(position pos)
 {
-    for (int player = 0; player < 2; player++)
-        for (int agent = 0; agent < NB_AGENTS; agent++)
-            if (position_agent(player, agent) == pos)
-                return true;
-    return false;
+    return game_state_->is_agent_on_position(pos);
 }
 
 /// Indique la position de l'agent sur l'iceberg désigné par le numéro
