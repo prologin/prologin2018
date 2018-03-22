@@ -18,21 +18,27 @@
 
 #include <rules/player.hh>
 
+#include <array>
 #include <string>
 #include <vector>
 
 #include "constant.hh"
+#include "position.hh"
 
 class PlayerInfo
 {
 public:
     PlayerInfo(rules::Player_sptr player);
 
+    position get_agent_position(unsigned int agent_id) const;
+    bool is_agent_on_position(position pos) const;
+
     unsigned int get_action_points() const;
     void decrease_action_points(unsigned int delta);
     void reset_action_points();
 
     int get_score() const;
+    void increase_score(unsigned int delta);
 
     const std::string& get_name() const;
     void set_name(const std::string& name);
@@ -45,6 +51,7 @@ private:
     rules::Player_sptr player_;
     std::vector<action_hist> actions_;
 
+    std::array<position, NB_AGENTS> agents;
     unsigned int action_points;
 };
 

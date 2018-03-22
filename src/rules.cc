@@ -126,8 +126,8 @@ void Rules::spectator_turn()
 
 void Rules::start_of_player_turn(unsigned int player_id)
 {
-    api_->game_state()->reset_action_points();
     api_->game_state()->increment_turn();
+    api_->game_state()->reset_action_points(player_id);
     api_->game_state()->reset_history(player_id);
 }
 

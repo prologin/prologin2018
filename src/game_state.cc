@@ -41,15 +41,33 @@ rules::GameState* GameState::copy() const
     return new GameState(*this);
 }
 
-void GameState::reset_action_points()
+unsigned int GameState::get_action_points(unsigned int player_id) const
 {
-    for (auto& player : player_info_)
-        player.second.reset_action_points();
+    assert(player_info_.count(player_id) != 0);
+    return player_info_.at(player_id).get_action_points();
+}
+
+void GameState::reset_action_points(unsigned int player_id)
+{
+    assert(player_info_.count(player_id) != 0);
+    player_info_.at(player_id).reset_action_points();
 }
 
 unsigned int GameState::opponent(unsigned int player) const
 {
     return (player_ids_[0] == player) ? player_ids_[1] : player_ids_[0];
+}
+
+unsigned int GameState::get_score(unsigned int player_id) const
+{
+    assert(player_info_.count(player_id) != 0);
+    return player_info_.at(player_id).get_score();
+}
+
+void GameState::increase_score(unsigned int player_id, unsigned int delta)
+{
+    assert(player_info_.count(player_id) != 0);
+    player_info_.at(player_id).increase_score(delta);
 }
 
 void GameState::increment_turn()
@@ -65,6 +83,13 @@ unsigned int GameState::get_turn() const
 bool GameState::is_finished() const
 {
     return turn_ > NB_TOURS;
+}
+
+const std::vector<action_hist>&
+GameState::get_history(unsigned int player_id) const
+{
+    assert(player_info_.count(player_id) != 0);
+    return player_info_.at(player_id).get_actions();
 }
 
 void GameState::reset_history(unsigned int player_id)

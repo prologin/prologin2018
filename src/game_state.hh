@@ -31,15 +31,20 @@ public:
     GameState(std::istream& map_stream, rules::Players_sptr players);
     rules::GameState* copy() const override;
 
-    void reset_action_points();
+    unsigned int get_action_points(unsigned int player_id) const;
+    void reset_action_points(unsigned int player_id);
 
     unsigned int opponent(unsigned int player) const;
+
+    unsigned int get_score(unsigned int player_id) const;
+    void increase_score(unsigned int player_id, unsigned int delta);
 
     void increment_turn();
     unsigned int get_turn() const;
 
     bool is_finished() const;
 
+    const std::vector<action_hist>& get_history(unsigned int player_id) const;
     void reset_history(unsigned int player_id);
 
 private:

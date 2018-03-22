@@ -22,6 +22,21 @@ PlayerInfo::PlayerInfo(rules::Player_sptr player)
     player_->score = 0;
 }
 
+position PlayerInfo::get_agent_position(unsigned int agent_id) const
+{
+    assert(agent_id < NB_AGENTS);
+    return agents[agent_id];
+}
+
+bool PlayerInfo::is_agent_on_position(position pos) const
+{
+    assert(inside_map(pos));
+    for (int id = 0; id < NB_AGENTS; id++)
+        if (agents[id] == pos)
+            return true;
+    return false;
+}
+
 unsigned int PlayerInfo::get_action_points() const
 {
     return action_points;
@@ -40,6 +55,11 @@ void PlayerInfo::reset_action_points()
 int PlayerInfo::get_score() const
 {
     return player_->score;
+}
+
+void PlayerInfo::increase_score(unsigned int delta)
+{
+    player_->score += delta;
 }
 
 const std::string& PlayerInfo::get_name() const
