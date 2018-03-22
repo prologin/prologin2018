@@ -153,3 +153,9 @@ void GameState::reset_history(unsigned int player_id)
     assert(player_info_.count(player_id) != 0);
     player_info_.at(player_id).reset_actions();
 }
+
+void GameState::add_to_history(unsigned int player_id, action_hist action)
+{
+    assert(player_info_.count(player_id) != 0);
+    player_info_.at(player_id).add_action(action);
+}

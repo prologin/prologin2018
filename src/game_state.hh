@@ -59,6 +59,7 @@ public:
 
     const std::vector<action_hist>& get_history(unsigned int player_id) const;
     void reset_history(unsigned int player_id);
+    void add_to_history(unsigned int player_id, action_hist action);
 
 private:
     std::unordered_map<unsigned int, PlayerInfo> player_info_;
