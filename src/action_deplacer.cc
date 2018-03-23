@@ -19,12 +19,13 @@ int ActionDeplacer::check(const GameState* st) const
 {
     if (agent_id_ >= NB_AGENTS)
         return ID_AGENT_INVALIDE;
-    if (!inside_map(dest_))
+    if (!inside_map(dest_) || st->is_obstacle(dest_))
         return POSITION_INVALIDE;
 
+    int action_points = st->get_action_points(player_id_);
     position start = st->get_agent_position(player_id_, agent_id_);
-    unsigned int cost = distance(start, dest_) * COUT_DEPLACEMENT;
-    if (cost > st->get_action_points(player_id_))
+    int cost = st->shortest_path(start, dest_);
+    if (cost == -1 || cost > action_points)
         return PA_INSUFFISANTS;
 
     return OK;
@@ -33,7 +34,7 @@ int ActionDeplacer::check(const GameState* st) const
 void ActionDeplacer::apply_on(GameState* st) const
 {
     position start = st->get_agent_position(player_id_, agent_id_);
-    unsigned int cost = distance(start, dest_) * COUT_DEPLACEMENT;
+    int cost = st->shortest_path(start, dest_);
 
     st->decrease_action_points(player_id_, cost);
     st->set_agent_position(player_id_, agent_id_, dest_);

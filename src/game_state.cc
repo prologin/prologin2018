@@ -13,8 +13,10 @@
 ** along with Prologin2018.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "game_state.hh"
+#include <queue>
+
 #include "constant.hh"
+#include "game_state.hh"
 
 GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
     : rules::GameState()
@@ -39,6 +41,35 @@ GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
 rules::GameState* GameState::copy() const
 {
     return new GameState(*this);
+}
+
+int GameState::shortest_path(position start, position dest) const
+{
+    std::queue<std::pair<position, int>> q;
+    std::array<std::array<bool, TAILLE_ICEBERG>, TAILLE_ICEBERG> seen{};
+    q.push(std::make_pair(start, 0));
+    while (!q.empty())
+    {
+        std::pair<position, int> cur = q.front();
+        q.pop();
+        if (cur.first == dest)
+            return cur.second;
+        if (cur.second > NB_POINTS_ACTION)
+            return -1;
+
+        for (int dir = 0; dir < 4; dir++)
+        {
+            position next_pos = cur.first + offset[dir];
+            if (inside_map(next_pos) &&
+                !seen[next_pos.ligne][next_pos.colonne] &&
+                !is_obstacle(next_pos))
+            {
+                seen[next_pos.ligne][next_pos.colonne] = true;
+                q.push(std::make_pair(next_pos, cur.second + COUT_DEPLACEMENT));
+            }
+        }
+    }
+    return -1;
 }
 
 case_type GameState::get_cell_type(position pos) const

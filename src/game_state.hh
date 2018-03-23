@@ -31,6 +31,7 @@ public:
     GameState(std::istream& map_stream, rules::Players_sptr players);
     rules::GameState* copy() const override;
 
+    int shortest_path(position start, position dest) const;
     case_type get_cell_type(position pos) const;
     bool is_obstacle(position pos) const;
 
