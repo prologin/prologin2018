@@ -84,6 +84,9 @@ struct:
       - [tour_invasion, int, "Tour où l'alien débarque sur la banquise"]
       - [duree_invasion, int, "Nombre de tours où l'alien reste sur la
                                banquise"]
+      - [capture_en_cours, int, "Nombre de tours de la capture en cours,
+                                 l'alien est considéré comme capturé si la
+                                 variable atteint NB_TOURS_CAPTURE"]
   -
     str_name: action_hist
     str_summary: Action représentée dans l'historique.
@@ -138,6 +141,13 @@ function:
     fct_arg:
       - [pos, position, "Case choisie"]
   -
+    fct_name: alien_sur_case 
+    fct_summary: Indique si un alien se trouve sur une case donnée.
+                 Renvoie faux si la position est invalide.
+    fct_ret_type: bool
+    fct_arg:
+      - [pos, position, "Case choisie"]
+  -
     fct_name: position_agent
     fct_summary: Indique la position de l'agent sur l'iceberg désigné par le
                  numéro ``id_agent`` appartenant au joueur ``id_joueur``.
@@ -145,6 +155,13 @@ function:
     fct_arg:
       - [id_joueur, int, "Numéro du joueur"]
       - [id_agent, int, "Numéro de l'agent"]
+  -
+    fct_name: info_alien
+    fct_summary: Renvoie la description d'un alien en fonction d'une position
+                 donnée.
+    fct_ret_type: alien_info
+    fct_arg:
+      - [pos, position, "Case choisie"]
   -
     fct_name: liste_aliens
     fct_summary: Renvoie la liste de tous les aliens présents sur l'iceberg.

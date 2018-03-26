@@ -50,6 +50,8 @@ void ActionGlisser::apply_on(GameState* st) const
 
     st->decrease_action_points(player_id_, COUT_GLISSADE);
     st->set_agent_position(player_mv, agent_mv, pos);
+    if (init_pos != pos && st->is_alien_on_position(init_pos))
+        st->reset_alien_capture_time(init_pos);
 
     action_hist action;
     action.type = ACTION_GLISSER;

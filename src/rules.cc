@@ -126,7 +126,6 @@ void Rules::spectator_turn()
 
 void Rules::start_of_player_turn(unsigned int player_id)
 {
-    api_->game_state()->increment_turn();
     api_->game_state()->reset_action_points(player_id);
     api_->game_state()->reset_history(player_id);
 }
@@ -137,6 +136,18 @@ void Rules::end_of_player_turn(unsigned int player_id)
     // We need the linked list of game states only for undo and history,
     // therefore old states are not needed anymore after the turn ends.
     api_->game_state()->clear_old_version();
+}
+
+// A round is made up of 2 turns, one for each player.
+void Rules::start_of_round()
+{
+    api_->game_state()->increment_round();
+    api_->game_state()->check_presence_alien();
+}
+
+void Rules::end_of_round()
+{
+    api_->game_state()->update_scores();
 }
 
 bool Rules::is_finished()

@@ -42,7 +42,12 @@ public:
                             position pos);
     bool is_agent_on_position(position pos) const;
 
+    bool is_alien_on_position(position pos) const;
     const std::vector<alien_info>& get_alien_info() const;
+    const alien_info get_alien_info(position pos) const;
+    void reset_alien_capture_time(position pos);
+    void check_presence_alien();
+    void update_scores();
 
     unsigned int get_action_points(unsigned int player_id) const;
     void decrease_action_points(unsigned int player_id, unsigned int delta);
@@ -53,8 +58,8 @@ public:
     unsigned int get_score(unsigned int player_id) const;
     void increase_score(unsigned int player_id, unsigned int delta);
 
-    void increment_turn();
-    unsigned int get_turn() const;
+    void increment_round();
+    unsigned int get_round() const;
 
     bool is_finished() const;
 
@@ -68,7 +73,7 @@ private:
 
     Map* map_;
     std::array<std::array<position, NB_AGENTS>, 2> agent_info_;
-    unsigned int turn_;
+    unsigned int round_;
 };
 
 #endif /* !GAME_STATE_HH */

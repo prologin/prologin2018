@@ -34,13 +34,22 @@ public:
 
     const std::array<position, NB_AGENTS>&
     get_start_position(unsigned int player_id) const;
+
+    bool is_alien_on_position(position pos) const;
     const std::vector<alien_info>& get_alien_info() const;
+    const alien_info get_alien_info(position pos) const;
+    void check_presence_alien(int round);
+    bool is_alien_captured(unsigned int alien_id) const;
+    std::vector<alien_info> get_captured_alien();
+    void reset_alien_capture_time(position pos);
 
 private:
     std::array<std::array<case_type, TAILLE_ICEBERG>, TAILLE_ICEBERG> map_;
 
     std::array<std::array<position, NB_AGENTS>, 2> start_position_;
+
     std::vector<alien_info> alien_;
+    std::vector<bool> is_alien_on_map_;
 };
 
 #endif

@@ -21,7 +21,7 @@
 GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
     : rules::GameState()
     , map_(new Map(map_stream))
-    , turn_(0)
+    , round_(0)
 {
     int nb_player = 0;
     for (auto& player : players->players)
@@ -116,9 +116,39 @@ bool GameState::is_agent_on_position(position pos) const
     return false;
 }
 
+bool GameState::is_alien_on_position(position pos) const
+{
+    return map_->is_alien_on_position(pos);
+}
+
 const std::vector<alien_info>& GameState::get_alien_info() const
 {
     return map_->get_alien_info();
+}
+
+const alien_info GameState::get_alien_info(position pos) const
+{
+    return map_->get_alien_info(pos);
+}
+
+void GameState::reset_alien_capture_time(position pos)
+{
+    map_->reset_alien_capture_time(pos);
+}
+
+void GameState::check_presence_alien()
+{
+    map_->check_presence_alien(round_);
+}
+
+void GameState::update_scores()
+{
+    std::vector<alien_info> captured_alien = map_->get_captured_alien();
+    for (auto alien : captured_alien)
+        for (int player = 0; player < 2; player++)
+            for (int agent = 0; agent < NB_AGENTS; agent++)
+                if (get_agent_position(player, agent) == alien.pos)
+                    increase_score(player, alien.puissance);
 }
 
 unsigned int GameState::get_action_points(unsigned int player_id) const
@@ -157,19 +187,19 @@ void GameState::increase_score(unsigned int player_id, unsigned int delta)
     player_info_.at(player_id).increase_score(delta);
 }
 
-void GameState::increment_turn()
+void GameState::increment_round()
 {
-    turn_++;
+    round_++;
 }
 
-unsigned int GameState::get_turn() const
+unsigned int GameState::get_round() const
 {
-    return turn_;
+    return round_;
 }
 
 bool GameState::is_finished() const
 {
-    return turn_ > NB_TOURS;
+    return round_ >= NB_TOURS;
 }
 
 const std::vector<action_hist>&

@@ -38,6 +38,8 @@ void ActionDeplacer::apply_on(GameState* st) const
 
     st->decrease_action_points(player_id_, cost);
     st->set_agent_position(player_id_, agent_id_, dest_);
+    if (start != dest_ && st->is_alien_on_position(start))
+        st->reset_alien_capture_time(start);
 
     action_hist action;
     action.type = ACTION_DEPLACER;

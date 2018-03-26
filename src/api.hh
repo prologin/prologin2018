@@ -70,9 +70,16 @@ public:
     /// position est invalide.
     bool agent_sur_case(position pos);
 
+    /// Indique si un alien se trouve sur une case donnée. Renvoie faux si la
+    /// position est invalide.
+    bool alien_sur_case(position pos);
+
     /// Indique la position de l'agent sur l'iceberg désigné par le numéro
     /// ``id_agent`` appartenant au joueur ``id_joueur``.
     position position_agent(int id_joueur, int id_agent);
+
+    /// Renvoie la description d'un alien en fonction d'une position donnée.
+    alien_info info_alien(position pos);
 
     /// Renvoie la liste de tous les aliens présents sur l'iceberg.
     std::vector<alien_info> liste_aliens();

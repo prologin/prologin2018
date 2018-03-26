@@ -73,11 +73,24 @@ bool Api::agent_sur_case(position pos)
     return game_state_->is_agent_on_position(pos);
 }
 
+/// Indique si un alien se trouve sur une case donnée. Renvoie faux si la
+/// position est invalide.
+bool Api::alien_sur_case(position pos)
+{
+    return game_state_->is_alien_on_position(pos);
+}
+
 /// Indique la position de l'agent sur l'iceberg désigné par le numéro
 /// ``id_agent`` appartenant au joueur ``id_joueur``.
 position Api::position_agent(int id_joueur, int id_agent)
 {
     return game_state_->get_agent_position(id_joueur, id_agent);
+}
+
+/// Renvoie la description d'un alien en fonction d'une position donnée.
+alien_info Api::info_alien(position pos)
+{
+    return game_state_->get_alien_info(pos);
 }
 
 /// Renvoie la liste de tous les aliens présents sur l'iceberg.
@@ -143,7 +156,7 @@ bool Api::annuler()
 /// Retourne le numéro du tour actuel.
 int Api::tour_actuel()
 {
-    return game_state_->get_turn();
+    return game_state_->get_round();
 }
 
 /// Renvoie votre nombre de points d'action restants pour le tour.

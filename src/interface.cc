@@ -232,6 +232,7 @@ std::string convert_to_string(alien_info in)
     std::string puissance = convert_to_string(in.puissance);
     std::string tour_invasion = convert_to_string(in.tour_invasion);
     std::string duree_invasion = convert_to_string(in.duree_invasion);
+    std::string capture_en_cours = convert_to_string(in.capture_en_cours);
     std::string out = "{";
     out += "pos:" + pos;
     out += ", ";
@@ -240,6 +241,8 @@ std::string convert_to_string(alien_info in)
     out += "tour_invasion:" + tour_invasion;
     out += ", ";
     out += "duree_invasion:" + duree_invasion;
+    out += ", ";
+    out += "capture_en_cours:" + capture_en_cours;
     return out + "}";
 }
 
@@ -321,11 +324,24 @@ extern "C" bool api_agent_sur_case(position pos)
     return api->agent_sur_case(pos);
 }
 
+/// Indique si un alien se trouve sur une case donnée. Renvoie faux si la
+/// position est invalide.
+extern "C" bool api_alien_sur_case(position pos)
+{
+    return api->alien_sur_case(pos);
+}
+
 /// Indique la position de l'agent sur l'iceberg désigné par le numéro
 /// ``id_agent`` appartenant au joueur ``id_joueur``.
 extern "C" position api_position_agent(int id_joueur, int id_agent)
 {
     return api->position_agent(id_joueur, id_agent);
+}
+
+/// Renvoie la description d'un alien en fonction d'une position donnée.
+extern "C" alien_info api_info_alien(position pos)
+{
+    return api->info_alien(pos);
 }
 
 /// Renvoie la liste de tous les aliens présents sur l'iceberg.
@@ -520,6 +536,9 @@ std::ostream& operator<<(std::ostream& os, alien_info v)
     os << ", ";
     os << "duree_invasion"
        << "=" << v.duree_invasion;
+    os << ", ";
+    os << "capture_en_cours"
+       << "=" << v.capture_en_cours;
     os << " }";
     return os;
 }

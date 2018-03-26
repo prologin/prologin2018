@@ -68,13 +68,15 @@ Map::Map(std::istream& stream)
     alien_.resize(nb_alien);
     for (int alien = 0; alien < nb_alien; alien++)
     {
-        int l, c, p;
-        stream >> l >> c >> p;
+        int l, c;
+        int nb_point;
+        int round_spawn, round_span;
+        stream >> l >> c >> nb_point >> round_spawn >> round_span;
         position pos = {l, c};
         if (!inside_map(pos))
             FATAL("starting position (%d;%d) for alien %d is invalid", l, c,
                   alien + 1);
-        alien_[alien] = alien_info{pos, p};
+        alien_[alien] = alien_info{pos, nb_point, round_spawn, round_span, 0};
     }
 }
 
@@ -103,7 +105,64 @@ Map::get_start_position(unsigned int player_id) const
     return start_position_[player_id];
 }
 
+bool Map::is_alien_on_position(position pos) const
+{
+    assert(inside_map(pos));
+    for (auto alien : alien_)
+        if (alien.pos == pos)
+            return true;
+    return false;
+}
+
 const std::vector<alien_info>& Map::get_alien_info() const
 {
     return alien_;
+}
+
+const alien_info Map::get_alien_info(position pos) const
+{
+    for (auto alien : alien_)
+        if (alien.pos == pos)
+            return alien;
+    return alien_info{};
+}
+
+void Map::check_presence_alien(int round)
+{
+    for (unsigned int id = 0; id < alien_.size(); id++)
+    {
+        if (alien_[id].tour_invasion == round)
+            is_alien_on_map_[id] = true;
+        else if (alien_[id].tour_invasion + alien_[id].duree_invasion == round)
+            is_alien_on_map_[id] = false;
+    }
+}
+
+bool Map::is_alien_captured(unsigned int alien_id) const
+{
+    assert(alien_id < alien_.size());
+    return alien_[alien_id].capture_en_cours == NB_TOURS_CAPTURE;
+}
+
+std::vector<alien_info> Map::get_captured_alien()
+{
+    std::vector<alien_info> captured_alien;
+    for (unsigned int id = 0; id < alien_.size(); id++)
+        if (is_alien_on_map_[id] && !is_alien_captured(id))
+        {
+            alien_[id].capture_en_cours++;
+            if (is_alien_captured(id))
+            {
+                is_alien_on_map_[id] = false;
+                captured_alien.emplace_back(alien_[id]);
+            }
+        }
+    return captured_alien;
+}
+
+void Map::reset_alien_capture_time(position pos)
+{
+    for (unsigned int id = 0; id < alien_.size(); id++)
+        if (alien_[id].pos == pos && !is_alien_captured(id))
+            alien_[id].capture_en_cours = 0;
 }

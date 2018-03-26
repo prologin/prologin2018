@@ -131,6 +131,9 @@ typedef struct alien_info
     int tour_invasion;  /* <- Tour où l'alien débarque sur la banquise */
     int duree_invasion; /* <- Nombre de tours où l'alien reste sur la banquise
                            */
+    int capture_en_cours; /* <- Nombre de tours de la capture en cours, l'alien
+                                est considéré comme capturé si la variable
+                                atteint NB_TOURS_CAPTURE */
 } alien_info;
 
 /// Action représentée dans l'historique. L'action ``deplacer`` utilise

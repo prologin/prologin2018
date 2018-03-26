@@ -54,6 +54,9 @@ public:
     void start_of_player_turn(unsigned int player_id) override;
     void end_of_player_turn(unsigned int player_id) override;
 
+    void start_of_round() override;
+    void end_of_round() override;
+
     void dump_state(std::ostream& out) override;
 
 protected:
