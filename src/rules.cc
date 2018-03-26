@@ -130,7 +130,7 @@ void Rules::start_of_player_turn(unsigned int player_id)
     api_->game_state()->reset_history(player_id);
 }
 
-void Rules::end_of_player_turn(unsigned int player_id)
+void Rules::end_of_player_turn(unsigned int /* player_id */)
 {
     // Clear the list of game states at the end of each turn (half-round)
     // We need the linked list of game states only for undo and history,
