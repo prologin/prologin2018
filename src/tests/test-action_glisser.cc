@@ -28,7 +28,7 @@ TEST_F(ActionTest, ActionGlisser_NotEnoughActionPoints)
 
 TEST_F(ActionTest, ActionGlisser_InvalidDirection)
 {
-    ActionGlisser act(0, (direction) 10, PLAYER_1);
+    ActionGlisser act(0, (direction)10, PLAYER_1);
     EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
 }
 
