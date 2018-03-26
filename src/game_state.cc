@@ -82,8 +82,7 @@ bool GameState::is_obstacle(position pos) const
     return map_->is_wall(pos) || is_agent_on_position(pos);
 }
 
-position GameState::get_agent_position(unsigned int player_id,
-                                       unsigned int agent_id) const
+position GameState::get_agent_position(int player_id, int agent_id) const
 {
     assert(player_id < 2);
     assert(agent_id < NB_AGENTS);
@@ -99,8 +98,7 @@ std::pair<int, int> GameState::get_agent_id(position pos) const
     return std::make_pair(-1, -1);
 }
 
-void GameState::set_agent_position(unsigned int player_id,
-                                   unsigned int agent_id, position pos)
+void GameState::set_agent_position(int player_id, int agent_id, position pos)
 {
     assert(player_id < 2);
     assert(agent_id < NB_AGENTS);
@@ -151,37 +149,36 @@ void GameState::update_scores()
                     increase_score(player, alien.puissance);
 }
 
-unsigned int GameState::get_action_points(unsigned int player_id) const
+int GameState::get_action_points(int player_id) const
 {
     assert(player_info_.count(player_id) != 0);
     return player_info_.at(player_id).get_action_points();
 }
 
-void GameState::decrease_action_points(unsigned int player_id,
-                                       unsigned int delta)
+void GameState::decrease_action_points(int player_id, int delta)
 {
     assert(player_info_.count(player_id) != 0);
     player_info_.at(player_id).decrease_action_points(delta);
 }
 
-void GameState::reset_action_points(unsigned int player_id)
+void GameState::reset_action_points(int player_id)
 {
     assert(player_info_.count(player_id) != 0);
     player_info_.at(player_id).reset_action_points();
 }
 
-unsigned int GameState::opponent(unsigned int player) const
+int GameState::opponent(int player) const
 {
     return (player_ids_[0] == player) ? player_ids_[1] : player_ids_[0];
 }
 
-unsigned int GameState::get_score(unsigned int player_id) const
+int GameState::get_score(int player_id) const
 {
     assert(player_info_.count(player_id) != 0);
     return player_info_.at(player_id).get_score();
 }
 
-void GameState::increase_score(unsigned int player_id, unsigned int delta)
+void GameState::increase_score(int player_id, int delta)
 {
     assert(player_info_.count(player_id) != 0);
     player_info_.at(player_id).increase_score(delta);
@@ -192,7 +189,7 @@ void GameState::increment_round()
     round_++;
 }
 
-unsigned int GameState::get_round() const
+int GameState::get_round() const
 {
     return round_;
 }
@@ -202,20 +199,19 @@ bool GameState::is_finished() const
     return round_ >= NB_TOURS;
 }
 
-const std::vector<action_hist>&
-GameState::get_history(unsigned int player_id) const
+const std::vector<action_hist>& GameState::get_history(int player_id) const
 {
     assert(player_info_.count(player_id) != 0);
     return player_info_.at(player_id).get_actions();
 }
 
-void GameState::reset_history(unsigned int player_id)
+void GameState::reset_history(int player_id)
 {
     assert(player_info_.count(player_id) != 0);
     player_info_.at(player_id).reset_actions();
 }
 
-void GameState::add_to_history(unsigned int player_id, action_hist action)
+void GameState::add_to_history(int player_id, action_hist action)
 {
     assert(player_info_.count(player_id) != 0);
     player_info_.at(player_id).add_action(action);

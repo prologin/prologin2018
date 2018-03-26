@@ -22,12 +22,12 @@ PlayerInfo::PlayerInfo(rules::Player_sptr player)
     player_->score = 0;
 }
 
-unsigned int PlayerInfo::get_action_points() const
+int PlayerInfo::get_action_points() const
 {
     return action_points_;
 }
 
-void PlayerInfo::decrease_action_points(unsigned int delta)
+void PlayerInfo::decrease_action_points(int delta)
 {
     action_points_ -= delta;
 }
@@ -42,7 +42,7 @@ int PlayerInfo::get_score() const
     return player_->score;
 }
 
-void PlayerInfo::increase_score(unsigned int delta)
+void PlayerInfo::increase_score(int delta)
 {
     player_->score += delta;
 }

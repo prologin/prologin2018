@@ -29,12 +29,12 @@ class PlayerInfo
 public:
     PlayerInfo(rules::Player_sptr player);
 
-    unsigned int get_action_points() const;
-    void decrease_action_points(unsigned int delta);
+    int get_action_points() const;
+    void decrease_action_points(int delta);
     void reset_action_points();
 
     int get_score() const;
-    void increase_score(unsigned int delta);
+    void increase_score(int delta);
 
     const std::string& get_name() const;
     void set_name(const std::string& name);
@@ -46,7 +46,7 @@ public:
 private:
     rules::Player_sptr player_;
     std::vector<action_hist> actions_;
-    unsigned int action_points_;
+    int action_points_;
 };
 
 #endif

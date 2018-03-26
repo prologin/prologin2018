@@ -35,11 +35,9 @@ public:
     case_type get_cell_type(position pos) const;
     bool is_obstacle(position pos) const;
 
-    position get_agent_position(unsigned int player_id,
-                                unsigned int agent_id) const;
+    position get_agent_position(int player_id, int agent_id) const;
     std::pair<int, int> get_agent_id(position pos) const;
-    void set_agent_position(unsigned int player_id, unsigned int agent_id,
-                            position pos);
+    void set_agent_position(int player_id, int agent_id, position pos);
     bool is_agent_on_position(position pos) const;
 
     bool is_alien_on_position(position pos) const;
@@ -49,31 +47,31 @@ public:
     void check_presence_alien();
     void update_scores();
 
-    unsigned int get_action_points(unsigned int player_id) const;
-    void decrease_action_points(unsigned int player_id, unsigned int delta);
-    void reset_action_points(unsigned int player_id);
+    int get_action_points(int player_id) const;
+    void decrease_action_points(int player_id, int delta);
+    void reset_action_points(int player_id);
 
-    unsigned int opponent(unsigned int player) const;
+    int opponent(int player) const;
 
-    unsigned int get_score(unsigned int player_id) const;
-    void increase_score(unsigned int player_id, unsigned int delta);
+    int get_score(int player_id) const;
+    void increase_score(int player_id, int delta);
 
     void increment_round();
-    unsigned int get_round() const;
+    int get_round() const;
 
     bool is_finished() const;
 
-    const std::vector<action_hist>& get_history(unsigned int player_id) const;
-    void reset_history(unsigned int player_id);
-    void add_to_history(unsigned int player_id, action_hist action);
+    const std::vector<action_hist>& get_history(int player_id) const;
+    void reset_history(int player_id);
+    void add_to_history(int player_id, action_hist action);
 
 private:
-    std::unordered_map<unsigned int, PlayerInfo> player_info_;
-    std::array<unsigned int, 2> player_ids_;
+    std::unordered_map<int, PlayerInfo> player_info_;
+    std::array<int, 2> player_ids_;
 
     Map* map_;
     std::array<std::array<position, NB_AGENTS>, 2> agent_info_;
-    unsigned int round_;
+    int round_;
 };
 
 #endif /* !GAME_STATE_HH */

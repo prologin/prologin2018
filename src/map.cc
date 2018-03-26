@@ -99,7 +99,7 @@ bool Map::is_wall(position pos) const
 }
 
 const std::array<position, NB_AGENTS>&
-Map::get_start_position(unsigned int player_id) const
+Map::get_start_position(int player_id) const
 {
     assert(player_id < 2);
     return start_position_[player_id];
@@ -129,7 +129,7 @@ const alien_info Map::get_alien_info(position pos) const
 
 void Map::check_presence_alien(int round)
 {
-    for (unsigned int id = 0; id < alien_.size(); id++)
+    for (size_t id = 0; id < alien_.size(); id++)
     {
         if (alien_[id].tour_invasion == round)
             is_alien_on_map_[id] = true;
@@ -138,16 +138,16 @@ void Map::check_presence_alien(int round)
     }
 }
 
-bool Map::is_alien_captured(unsigned int alien_id) const
+bool Map::is_alien_captured(int alien_id) const
 {
-    assert(alien_id < alien_.size());
+    assert(alien_id < (int)alien_.size());
     return alien_[alien_id].capture_en_cours == NB_TOURS_CAPTURE;
 }
 
 std::vector<alien_info> Map::get_captured_alien()
 {
     std::vector<alien_info> captured_alien;
-    for (unsigned int id = 0; id < alien_.size(); id++)
+    for (size_t id = 0; id < alien_.size(); id++)
         if (is_alien_on_map_[id] && !is_alien_captured(id))
         {
             alien_[id].capture_en_cours++;
@@ -162,7 +162,7 @@ std::vector<alien_info> Map::get_captured_alien()
 
 void Map::reset_alien_capture_time(position pos)
 {
-    for (unsigned int id = 0; id < alien_.size(); id++)
+    for (size_t id = 0; id < alien_.size(); id++)
         if (alien_[id].pos == pos && !is_alien_captured(id))
             alien_[id].capture_en_cours = 0;
 }
