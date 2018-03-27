@@ -15,13 +15,17 @@ constant:
     cst_val: 10
     cst_comment: Nombre de points d'action par tour.
   -
+    cst_name: COUT_DEPLACEMENT
+    cst_val: 1
+    cst_comment: Nombre de point d'action que coûte un déplacement.
+  -
     cst_name: COUT_GLISSADE
     cst_val: 3
     cst_comment: Nombre de points d'action que coûte une glissade.
   -
-    cst_name: COUT_DEPLACEMENT
-    cst_val: 1
-    cst_comment: Nombre de point d'action que coûte un déplacement.
+    cst_name: COUT_POUSSER
+    cst_val: 4
+    cst_comment: Nombre de points d'action nécessaires pour pousser un agent.
   -
     cst_name: NB_AGENTS
     cst_val: 4
@@ -58,12 +62,14 @@ enum:
       - [direction_invalide, "La direction spécifiée n'existe pas."]
       - [id_agent_invalide, "L'agent spécifié n'existe pas."]
       - [id_joueur_invalide, "Le joueur spécifié n'existe pas."]
+      - [rien_a_pousser, "Aucun agent à pousser dans la direction indiquée."]
   -
     enum_name: action_type
     enum_summary: "Types d'actions"
     enum_field:
       - [action_deplacer, "Action ``deplacer``"]
       - [action_glisser, "Action ``glisser``"]
+      - [action_pousser, "Action ``pousser``"]
 
 struct:
   -
@@ -92,12 +98,14 @@ struct:
     str_summary: Action représentée dans l'historique.
                  L'action ``deplacer`` utilise ``id_agent`` et ``dest``.
                  L'action ``glisser`` utilise ``id_agent`` et ``dir``.
+                 L'action ``pousser`` utilise ``id_agent`` et ``dir``.
     str_tuple: no
     str_field:
       - [type, action_type, "Type de l'action"]
       - [id_agent, int, "Numéro de l'agent concerné par l'action"]
       - [dest, position, "Case de destination lors d'un déplacement de l'agent"]
-      - [dir, direction, "Direction visée par l'agent durant une glissade"]
+      - [dir, direction, "Direction visée lorsqu'un agent pousse ou glisse sur
+                          l'iceberg"]
 
 function:
 
@@ -115,10 +123,18 @@ function:
     fct_name: glisser
     fct_summary: Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à
                  ce qu'il heurte un obstacle, c'est-à-dire soit un mur soit un
-                 autre agent. Si au début de la glissade, il y a un autre agent
-                 sur une case adjacente dans cette direction, alors cet agent
-                 est poussé dans la direction jusqu'à ce qu'il rencontre un
-                 obstacle.
+                 autre agent.
+    fct_ret_type: erreur
+    fct_action: yes
+    fct_arg:
+      - [id_agent, int, "Numéro de l'agent"]
+      - [dir, direction, "Direction visée"]
+  -
+    fct_name: pousser
+    fct_summary: L'agent ``id_agent`` pousse tout autre agent se trouvant sur
+                 la case adjacente dans la direction indiquée. Ce dernier est
+                 propulsé jusqu'à ce qu'il rencontre un obstacle, c'est-à-dire
+                 soit un mur soit un autre agent.
     fct_ret_type: erreur
     fct_action: yes
     fct_arg:
