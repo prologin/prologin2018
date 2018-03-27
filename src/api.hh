@@ -57,11 +57,14 @@ public:
     erreur deplacer(int id_agent, position dest);
 
     /// Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il
-    /// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent. Si au
-    /// début de la glissade, il y a un autre agent sur une case adjacente dans
-    /// cette direction, alors cet agent est poussé dans la direction jusqu'à ce
-    /// qu'il rencontre un obstacle.
+    /// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent.
     erreur glisser(int id_agent, direction dir);
+
+    /// L'agent ``id_agent`` pousse tout autre agent se trouvant sur la case
+    /// adjacente dans la direction indiquée. Ce dernier est propulsé jusqu'à ce
+    /// qu'il rencontre un obstacle, c'est-à-dire soit un mur soit un autre
+    /// agent.
+    erreur pousser(int id_agent, direction dir);
 
     /// Renvoie le type d'une case donnée.
     case_type type_case(position pos);

@@ -51,6 +51,9 @@ void Rules::register_actions()
     api_->actions()->register_action(
         ID_ACTION_GLISSER,
         []() -> rules::IAction* { return new ActionGlisser(); });
+    api_->actions()->register_action(
+        ID_ACTION_POUSSER,
+        []() -> rules::IAction* { return new ActionPousser(); });
 }
 
 rules::Actions* Rules::get_actions()

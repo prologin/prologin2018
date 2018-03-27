@@ -13,18 +13,15 @@
 ** along with Prologin2018.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ACTIONS_HH
-#define ACTIONS_HH
+#include "actions.hh"
 
-enum action_id
+int ActionPousser::check(const GameState* st) const
 {
-    ID_ACTION_DEPLACER,
-    ID_ACTION_GLISSER,
-    ID_ACTION_POUSSER
-};
+    // FIXME
+    return 0;
+}
 
-#include "action_deplacer.hh"
-#include "action_glisser.hh"
-#include "action_pousser.hh"
-
-#endif // !ACTIONS_HH
+void ActionPousser::apply_on(GameState* st) const
+{
+    // FIXME
+}

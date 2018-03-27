@@ -43,13 +43,26 @@ erreur Api::deplacer(int id_agent, position dest)
 }
 
 /// Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il
-/// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent. Si au
-/// début de la glissade, il y a un autre agent sur une case adjacente dans
-/// cette direction, alors cet agent est poussé dans la direction jusqu'à ce
-/// qu'il rencontre un obstacle.
+/// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent.
 erreur Api::glisser(int id_agent, direction dir)
 {
     rules::IAction_sptr action(new ActionGlisser(id_agent, dir, player_->id));
+
+    erreur err;
+    if ((err = static_cast<erreur>(action->check(game_state_))) != OK)
+        return err;
+
+    actions_.add(action);
+    game_state_set(action->apply(game_state_));
+    return OK;
+}
+
+/// L'agent ``id_agent`` pousse tout autre agent se trouvant sur la case
+/// adjacente dans la direction indiquée. Ce dernier est propulsé jusqu'à ce
+/// qu'il rencontre un obstacle, c'est-à-dire soit un mur soit un autre agent.
+erreur Api::pousser(int id_agent, direction dir)
+{
+    rules::IAction_sptr action(new ActionPousser(id_agent, dir, player_->id));
 
     erreur err;
     if ((err = static_cast<erreur>(action->check(game_state_))) != OK)

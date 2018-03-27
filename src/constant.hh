@@ -27,11 +27,14 @@
 /// Nombre de points d'action par tour.
 #define NB_POINTS_ACTION 10
 
+/// Nombre de point d'action que coûte un déplacement.
+#define COUT_DEPLACEMENT 1
+
 /// Nombre de points d'action que coûte une glissade.
 #define COUT_GLISSADE 3
 
-/// Nombre de point d'action que coûte un déplacement.
-#define COUT_DEPLACEMENT 1
+/// Nombre de points d'action nécessaires pour pousser un agent.
+#define COUT_POUSSER 4
 
 /// Nombre d'agents par joueur.
 #define NB_AGENTS 4
@@ -85,6 +88,7 @@ typedef enum erreur {
     DIRECTION_INVALIDE, /* <- La direction spécifiée n'existe pas. */
     ID_AGENT_INVALIDE,  /* <- L'agent spécifié n'existe pas. */
     ID_JOUEUR_INVALIDE, /* <- Le joueur spécifié n'existe pas. */
+    RIEN_A_POUSSER, /* <- Aucun agent à pousser dans la direction indiquée. */
 } erreur;
 // This is needed for old compilers
 namespace std
@@ -102,6 +106,7 @@ template <> struct hash<erreur>
 typedef enum action_type {
     ACTION_DEPLACER, /* <- Action ``deplacer`` */
     ACTION_GLISSER,  /* <- Action ``glisser`` */
+    ACTION_POUSSER,  /* <- Action ``pousser`` */
 } action_type;
 // This is needed for old compilers
 namespace std
@@ -138,13 +143,14 @@ typedef struct alien_info
 
 /// Action représentée dans l'historique. L'action ``deplacer`` utilise
 /// ``id_agent`` et ``dest``. L'action ``glisser`` utilise ``id_agent`` et
-/// ``dir``.
+/// ``dir``. L'action ``pousser`` utiliser ``id_agent`` et ``dir``.
 typedef struct action_hist
 {
     action_type type; /* <- Type de l'action */
     int id_agent;     /* <- Numéro de l'agent concerné par l'action */
     position dest; /* <- Case de destination lors d'un déplacement de l'agent */
-    direction dir; /* <- Direction visée par l'agent durant une glissade */
+    direction dir; /* <- Direction visée lorsqu'un agent pousse ou glisse sur
+                      l'iceberg */
 } action_hist;
 
 #endif // !CONSTANT_HH_

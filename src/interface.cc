@@ -153,6 +153,8 @@ std::string convert_to_string(erreur in)
         return "\"id_agent_invalide\"";
     case ID_JOUEUR_INVALIDE:
         return "\"id_joueur_invalide\"";
+    case RIEN_A_POUSSER:
+        return "\"rien_a_pousser\"";
     }
     return "bad value";
 }
@@ -180,6 +182,8 @@ std::string convert_to_string(action_type in)
         return "\"action_deplacer\"";
     case ACTION_GLISSER:
         return "\"action_glisser\"";
+    case ACTION_POUSSER:
+        return "\"action_pousser\"";
     }
     return "bad value";
 }
@@ -302,13 +306,18 @@ extern "C" erreur api_deplacer(int id_agent, position dest)
 }
 
 /// Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il
-/// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent. Si au
-/// début de la glissade, il y a un autre agent sur une case adjacente dans
-/// cette direction, alors cet agent est poussé dans la direction jusqu'à ce
-/// qu'il rencontre un obstacle.
+/// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent.
 extern "C" erreur api_glisser(int id_agent, direction dir)
 {
     return api->glisser(id_agent, dir);
+}
+
+/// L'agent ``id_agent`` pousse tout autre agent se trouvant sur la case
+/// adjacente dans la direction indiquée. Ce dernier est propulsé jusqu'à ce
+/// qu'il rencontre un obstacle, c'est-à-dire soit un mur soit un autre agent.
+extern "C" erreur api_pousser(int id_agent, direction dir)
+{
+    return api->pousser(id_agent, dir);
 }
 
 /// Renvoie le type d'une case donnée.
@@ -477,6 +486,9 @@ std::ostream& operator<<(std::ostream& os, erreur v)
     case ID_JOUEUR_INVALIDE:
         os << "ID_JOUEUR_INVALIDE";
         break;
+    case RIEN_A_POUSSER:
+        os << "RIEN_A_POUSSER";
+        break;
     }
     return os;
 }
@@ -495,6 +507,9 @@ std::ostream& operator<<(std::ostream& os, action_type v)
         break;
     case ACTION_GLISSER:
         os << "ACTION_GLISSER";
+        break;
+    case ACTION_POUSSER:
+        os << "ACTION_POUSSER";
         break;
     }
     return os;
