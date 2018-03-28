@@ -27,7 +27,9 @@
 class PlayerInfo
 {
 public:
-    PlayerInfo(rules::Player_sptr player);
+    PlayerInfo(rules::Player_sptr player, int internal_id);
+
+    int get_internal_id() const;
 
     int get_action_points() const;
     void decrease_action_points(int delta);
@@ -47,6 +49,7 @@ private:
     rules::Player_sptr player_;
     std::vector<action_hist> actions_;
     int action_points_;
+    int internal_id_;
 };
 
 #endif

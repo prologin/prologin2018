@@ -23,17 +23,17 @@ GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
     , map_(new Map(map_stream))
     , round_(0)
 {
-    int nb_player = 0;
+    int id = 0;
     for (auto& player : players->players)
     {
-        if (nb_player > 2)
+        if (id > 2)
             FATAL("This game does not support more than two players.");
         if (player->type == rules::PLAYER)
         {
             player_info_.emplace(
-                std::make_pair(player->id, PlayerInfo(player)));
-            player_ids_[nb_player] = player->id;
-            nb_player++;
+                std::make_pair(player->id, PlayerInfo(player, id)));
+            player_ids_[id] = player->id;
+            id++;
         }
     }
 }
@@ -82,32 +82,34 @@ bool GameState::is_obstacle(position pos) const
     return map_->is_wall(pos) || is_agent_on_position(pos);
 }
 
-position GameState::get_agent_position(int player_id, int agent_id) const
-{
-    assert(player_id < 2);
-    assert(agent_id < NB_AGENTS);
-    return agent_info_[player_id][agent_id];
-}
-
 std::pair<int, int> GameState::get_agent_id(position pos) const
 {
-    for (int player = 0; player < 2; player++)
+    for (auto player : player_ids_)
         for (int agent = 0; agent < NB_AGENTS; agent++)
             if (get_agent_position(player, agent) == pos)
                 return std::make_pair(player, agent);
     return std::make_pair(-1, -1);
 }
 
+position GameState::get_agent_position(int player_id, int agent_id) const
+{
+    assert(agent_id < NB_AGENTS);
+    assert(player_info_.count(player_id) != 0);
+    int internal_player_id = player_info_.at(player_id).get_internal_id();
+    return agent_info_[internal_player_id][agent_id];
+}
+
 void GameState::set_agent_position(int player_id, int agent_id, position pos)
 {
-    assert(player_id < 2);
     assert(agent_id < NB_AGENTS);
-    agent_info_[player_id][agent_id] = pos;
+    assert(player_info_.count(player_id) != 0);
+    int internal_player_id = player_info_.at(player_id).get_internal_id();
+    agent_info_[internal_player_id][agent_id] = pos;
 }
 
 bool GameState::is_agent_on_position(position pos) const
 {
-    for (int player = 0; player < 2; player++)
+    for (auto player : player_ids_)
         for (int agent = 0; agent < NB_AGENTS; agent++)
             if (get_agent_position(player, agent) == pos)
                 return true;
@@ -143,7 +145,7 @@ void GameState::update_scores()
 {
     std::vector<alien_info> captured_alien = map_->get_captured_alien();
     for (auto alien : captured_alien)
-        for (int player = 0; player < 2; player++)
+        for (auto player : player_ids_)
             for (int agent = 0; agent < NB_AGENTS; agent++)
                 if (get_agent_position(player, agent) == alien.pos)
                     increase_score(player, alien.puissance);
