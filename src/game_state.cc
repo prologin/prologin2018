@@ -36,6 +36,9 @@ GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
             id++;
         }
     }
+
+    for (int player = 0; player < 2; player++)
+        agent_info_[player] = map_->get_start_position(player);
 }
 
 rules::GameState* GameState::copy() const
@@ -121,12 +124,12 @@ bool GameState::is_alien_on_position(position pos) const
     return map_->is_alien_on_position(pos);
 }
 
-const std::vector<alien_info>& GameState::get_alien_info() const
+std::vector<alien_info> GameState::get_alien_info() const
 {
     return map_->get_alien_info();
 }
 
-const alien_info GameState::get_alien_info(position pos) const
+alien_info GameState::get_alien_info(position pos) const
 {
     return map_->get_alien_info(pos);
 }

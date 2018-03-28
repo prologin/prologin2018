@@ -98,8 +98,7 @@ bool Map::is_wall(position pos) const
     return get_cell_type(pos) == MUR;
 }
 
-const std::array<position, NB_AGENTS>&
-Map::get_start_position(int player_id) const
+std::array<position, NB_AGENTS> Map::get_start_position(int player_id) const
 {
     assert(player_id < 2);
     return start_position_[player_id];
@@ -113,12 +112,12 @@ bool Map::is_alien_on_position(position pos) const
     return false;
 }
 
-const std::vector<alien_info>& Map::get_alien_info() const
+std::vector<alien_info> Map::get_alien_info() const
 {
     return alien_;
 }
 
-const alien_info Map::get_alien_info(position pos) const
+alien_info Map::get_alien_info(position pos) const
 {
     for (auto alien : alien_)
         if (alien.pos == pos)

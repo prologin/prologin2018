@@ -41,8 +41,8 @@ public:
     bool is_agent_on_position(position pos) const;
 
     bool is_alien_on_position(position pos) const;
-    const std::vector<alien_info>& get_alien_info() const;
-    const alien_info get_alien_info(position pos) const;
+    std::vector<alien_info> get_alien_info() const;
+    alien_info get_alien_info(position pos) const;
     void reset_alien_capture_time(position pos);
     void check_presence_alien();
     void update_scores();
