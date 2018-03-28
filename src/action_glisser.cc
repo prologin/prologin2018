@@ -29,18 +29,6 @@ int ActionGlisser::check(const GameState* st) const
 void ActionGlisser::apply_on(GameState* st) const
 {
     position init_pos = st->get_agent_position(player_id_, agent_id_);
-    int player_mv = player_id_;
-    int agent_mv = agent_id_;
-    std::pair<int, int> agent_neigh = st->get_agent_id(init_pos + offset[dir_]);
-
-    // Adjacent agent when sliding => push the other agent until obstacle
-    if (agent_neigh.first != -1)
-    {
-        player_mv = agent_neigh.first;
-        agent_mv = agent_neigh.second;
-        init_pos += offset[dir_];
-    }
-
     position pos = init_pos, next_pos = init_pos;
     do
     {
@@ -49,7 +37,7 @@ void ActionGlisser::apply_on(GameState* st) const
     } while (inside_map(next_pos) && !st->is_obstacle(next_pos));
 
     st->decrease_action_points(player_id_, COUT_GLISSADE);
-    st->set_agent_position(player_mv, agent_mv, pos);
+    st->set_agent_position(player_id_, agent_id_, pos);
     if (init_pos != pos && st->is_alien_on_position(init_pos))
         st->reset_alien_capture_time(init_pos);
 

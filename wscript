@@ -15,6 +15,7 @@ def build(bld):
         source = '''
             src/action_deplacer.cc
             src/action_glisser.cc
+            src/action_pousser.cc
             src/api.cc
             src/entry.cc
             src/game_state.cc
