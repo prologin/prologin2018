@@ -107,7 +107,6 @@ Map::get_start_position(int player_id) const
 
 bool Map::is_alien_on_position(position pos) const
 {
-    assert(inside_map(pos));
     for (auto alien : alien_)
         if (alien.pos == pos)
             return true;

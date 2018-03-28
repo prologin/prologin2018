@@ -35,6 +35,7 @@ int PlayerInfo::get_action_points() const
 
 void PlayerInfo::decrease_action_points(int delta)
 {
+    assert(action_points_ >= delta);
     action_points_ -= delta;
 }
 

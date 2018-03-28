@@ -28,18 +28,21 @@ TEST_F(ActionTest, ActionPousser_NotEnoughActionPoints)
 
 TEST_F(ActionTest, ActionPousser_InvalidDirection)
 {
+    st->reset_action_points(PLAYER_1);
     ActionPousser act(0, (direction)10, PLAYER_1);
     EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
 }
 
 TEST_F(ActionTest, ActionPousser_InvalidAgentID)
 {
+    st->reset_action_points(PLAYER_1);
     ActionPousser act(NB_AGENTS + 5, NORD, PLAYER_1);
     EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
 }
 
 TEST_F(ActionTest, ActionPousser_NothingToPush)
 {
+    st->reset_action_points(PLAYER_1);
     ActionPousser act(0, NORD, PLAYER_1);
     EXPECT_EQ(RIEN_A_POUSSER, act.check(st));
 }
