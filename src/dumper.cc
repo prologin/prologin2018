@@ -228,7 +228,7 @@ static void dump_agents(std::ostream& ss, const GameState& st, int player_id)
 
         position agent_pos = st.get_agent_position(player_id, agent_id);
         ss << "{\"id_agent\": " << agent_id << ", "
-           << "\"pos\": " << angent_pos << "}";
+           << "\"pos\": " << agent_pos << "}";
     }
     ss << "]";
 }
@@ -266,26 +266,21 @@ static void dump_map(std::ostream& ss, const GameState& st)
 {
     ss << "{"
        << "\"cells:\": [";
-    auto sep = "";
     for (int l = 0; l < TAILLE_ICEBERG; l++)
     {
         for (int c = 0; c < TAILLE_ICEBERG; c++)
         {
-            ss << sep;
-            sep = COMMA;
-
-            ss << "{"
-               << "\"l\": " << l << ", "
-               << "\"c\": " << c << ", "
-               << "\"type\": " << st.get_cell_type({l, c})
-               << "}";
+            position pos{l, c};
+            ss << st.get_cell_type(pos);
+            if (!(l == TAILLE_ICEBERG - 1 && c == TAILLE_ICEBERG - 1))
+                ss << ", ";
         }
     }
     ss << "], ";
 
     const auto& aliens = st.get_alien_info();
     ss << "\"aliens:\": [";
-    sep = "";
+    auto sep = "";
     for (const auto& alien : aliens)
     {
         ss << sep;
