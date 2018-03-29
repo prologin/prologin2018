@@ -23,6 +23,7 @@ def build(bld):
             src/map.cc
             src/player_info.cc
             src/rules.cc
+            src/dumper.cc
         ''',
         defines = ['MODULE_COLOR=ANSI_COL_BROWN', 'MODULE_NAME="rules"'],
         target = 'prologin2018',
