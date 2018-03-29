@@ -19,7 +19,7 @@
 #include <functional> // needed for std::hash
 
 /// Taille de l'iceberg (longueur et largeur).
-#define TAILLE_ICEBERG 20
+#define TAILLE_ICEBERG 31
 
 /// Nombre de tours à jouer avant la fin de la partie.
 #define NB_TOURS 100
