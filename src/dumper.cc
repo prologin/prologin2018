@@ -18,8 +18,11 @@
 #include <string>
 
 #include "api.hh"
+#include "constant.hh"
 #include "game_state.hh"
 #include "rules.hh"
+
+constexpr auto COMMA = ", ";
 
 /// Decodes a UTF-8 string to a list of 32 bit unicode codepoints. Ignores
 /// erroneous characters.
@@ -118,9 +121,201 @@ static void dump_string(std::ostream& ss, const std::string& s)
     ss << "\"";
 }
 
+static std::ostream& operator<<(std::ostream& ss, const position& pos)
+{
+    ss << "{\"r\": " << pos.ligne << ", \"c\":" << pos.colonne << "}";
+    return ss;
+}
+
+static std::ostream& operator<<(std::ostream& ss, action_type atype)
+{
+    ss << "\"";
+    switch (atype)
+    {
+    case ACTION_DEPLACER:
+        ss << "ACTION_DEPLACER";
+        break;
+    case ACTION_GLISSER:
+        ss << "ACTION_GLISSER";
+        break;
+    case ACTION_POUSSER:
+        ss << "ACTION_POUSSER";
+        break;
+    }
+    ss << "\"";
+    return ss;
+}
+
+static std::ostream& operator<<(std::ostream& ss, const case_type& ctype)
+{
+    ss << "\"";
+    switch (ctype)
+    {
+    case LIBRE:
+        ss << "LIBRE";
+        break;
+    case MUR:
+        ss << "MUR";
+        break;
+    case ERREUR:
+        ss << "ERREUR";
+        break;
+    }
+    ss << "\"";
+    return ss;
+}
+
+static std::ostream& operator<<(std::ostream& ss, const direction& dir)
+{
+    ss << "\"";
+    switch (dir)
+    {
+    case NORD:
+        ss << "NORD";
+        break;
+    case EST:
+        ss << "EST";
+        break;
+    case SUD:
+        ss << "SUD";
+        break;
+    case OUEST:
+        ss << "OUEST";
+        break;
+    }
+    ss << "\"";
+    return ss;
+}
+
+static void dump_history(std::ostream& ss, const GameState& st, int player_id)
+{
+    const std::vector<action_hist>& history = st.get_history(player_id);
+
+    auto sep = "";
+    ss << "[";
+    for (const auto& action : history)
+    {
+        ss << sep;
+        sep = COMMA;
+
+        ss << "{\"type\": " << action.type << ", "
+           << "\"id_agent\": " << action.id_agent << ", ";
+        switch (action.type)
+        {
+        case ACTION_DEPLACER:
+            ss << "\"dest\": " << action.dest;
+            break;
+        case ACTION_GLISSER:
+            ss << "\"dir\": " << action.dir;
+            break;
+        case ACTION_POUSSER:
+            ss << "\"dir\": " << action.dir;
+            break;
+        }
+        ss << "}";
+    }
+    ss << "]";
+}
+
+static void dump_agents(std::ostream& ss, const GameState& st, int player_id)
+{
+    auto sep = "";
+    ss << "[";
+    for (int agent_id = 0; agent_id < NB_AGENTS; agent_id++)
+    {
+        ss << sep;
+        sep = COMMA;
+
+        position agent_pos = st.get_agent_position(player_id, agent_id);
+        ss << "{\"id_agent\": " << agent_id << ", "
+           << "\"pos\": " << angent_pos << "}";
+    }
+    ss << "]";
+}
+
+static void dump_players(std::ostream& ss, const GameState& st)
+{
+    const auto& players = st.get_player_info();
+
+    auto sep = "";
+    ss << "{";
+    for (const auto& player_info : players)
+    {
+        ss << sep;
+        sep = COMMA;
+
+        int player_id = player_info.first;
+        const auto& player = player_info.second;
+        ss << "\"" << player_id << "\": {"
+           << "\"name\": ";
+        dump_string(ss, player.get_name());
+        ss << ", \"score\": " << player.get_score();
+
+        ss << ", \"agents\": ";
+        dump_agents(ss, st, player_id);
+
+        ss << ", \"history\": ";
+        dump_history(ss, st, player_id);
+
+        ss << "}";
+    }
+    ss << "}";
+}
+
+static void dump_map(std::ostream& ss, const GameState& st)
+{
+    ss << "{"
+       << "\"cells:\": [";
+    auto sep = "";
+    for (int l = 0; l < TAILLE_ICEBERG; l++)
+    {
+        for (int c = 0; c < TAILLE_ICEBERG; c++)
+        {
+            ss << sep;
+            sep = COMMA;
+
+            ss << "{"
+               << "\"l\": " << l << ", "
+               << "\"c\": " << c << ", "
+               << "\"type\": " << st.get_cell_type({l, c})
+               << "}";
+        }
+    }
+    ss << "], ";
+
+    const auto& aliens = st.get_alien_info();
+    ss << "\"aliens:\": [";
+    sep = "";
+    for (const auto& alien : aliens)
+    {
+        ss << sep;
+        sep = COMMA;
+
+        ss << "{"
+           << "\"pos\": " << alien.pos << ", "
+           << "\"puissance\": " << alien.puissance << ", "
+           << "\"tour_invasion\": " << alien.tour_invasion << ", "
+           << "\"duree_invasion\": " << alien.duree_invasion << ", "
+           << "\"capture_en_cours\": " << alien.capture_en_cours
+           << "}";
+    }
+
+    ss << "]"
+       << "}";
+}
+
 static void dump_stream(std::ostream& ss, const GameState& st)
 {
-    // TODO
+    ss << "{";
+    ss << "\"round\": [" << st.get_round() << ", " << NB_TOURS << "] ";
+
+    ss << ", \"players\": ";
+    dump_players(ss, st);
+
+    ss << ", \"map\": ";
+    dump_map(ss, st);
+
+    ss << "}\n";
 }
 
 void Rules::dump_state(std::ostream& ss)
