@@ -19,8 +19,12 @@ int ActionDeplacer::check(const GameState* st) const
 {
     if (agent_id_ >= NB_AGENTS)
         return ID_AGENT_INVALIDE;
-    if (!inside_map(dest_) || st->is_obstacle(dest_))
+    if (!inside_map(dest_))
         return POSITION_INVALIDE;
+    if (st->get_cell_type(dest_) == case_type::MUR)
+        return OBSTACLE_MUR;
+    if (st->is_agent_on_position(dest_))
+        return OBSTACLE_AGENT;
 
     int action_points = st->get_action_points(player_id_);
     position start = st->get_agent_position(player_id_, agent_id_);

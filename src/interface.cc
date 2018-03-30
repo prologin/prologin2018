@@ -147,6 +147,10 @@ std::string convert_to_string(erreur in)
         return "\"pa_insuffisants\"";
     case POSITION_INVALIDE:
         return "\"position_invalide\"";
+    case OBSTACLE_MUR:
+        return "\"obstacle_mur\"";
+    case OBSTACLE_AGENT:
+        return "\"obstacle_agent\"";
     case DIRECTION_INVALIDE:
         return "\"direction_invalide\"";
     case ID_AGENT_INVALIDE:
@@ -476,6 +480,12 @@ std::ostream& operator<<(std::ostream& os, erreur v)
         break;
     case POSITION_INVALIDE:
         os << "POSITION_INVALIDE";
+        break;
+    case OBSTACLE_MUR:
+        os << "OBSTACLE_MUR";
+        break;
+    case OBSTACLE_AGENT:
+        os << "OBSTACLE_AGENT";
         break;
     case DIRECTION_INVALIDE:
         os << "DIRECTION_INVALIDE";
