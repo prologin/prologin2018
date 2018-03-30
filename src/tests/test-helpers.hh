@@ -18,6 +18,7 @@
 
 #include <gtest/gtest.h>
 
+#include <fstream>
 #include <sstream>
 
 #include "../api.hh"
@@ -26,26 +27,37 @@
 #include "../position.hh"
 #include "../rules.hh"
 
-static const std::string test_map = "....................\n"
-                                    "....................\n"
-                                    "...X............X...\n"
-                                    "....................\n"
-                                    ".........XX.........\n"
-                                    ".........XX.........\n"
-                                    "....................\n"
-                                    "...X............X...\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
-                                    "....................\n"
+static const std::string test_map = "...............................\n"
+                                    "...............................\n"
+                                    "...X............X..............\n"
+                                    "...............................\n"
+                                    ".........XX....................\n"
+                                    ".........XX....................\n"
+                                    "...............................\n"
+                                    "...X............X..............\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
+                                    "...............................\n"
                                     "0 0\n" // Player 1 agents
                                     "0 1\n"
                                     "0 2\n"
@@ -89,6 +101,63 @@ protected:
 
     const int PLAYER_1 = 0;
     const int PLAYER_2 = 1;
+};
+
+class ApiTest : public ::testing::Test
+{
+protected:
+    virtual void SetUp()
+    {
+        // Players values are not 0 and 1, because that would be too simple
+        int player_id_1 = 1337;
+        int player_id_2 = 42;
+        utils::Logger::get().level() = utils::Logger::DEBUG_LEVEL;
+        auto players_ptr = make_players(player_id_1, player_id_2);
+        st = make_test_gamestate(test_map, players_ptr);
+        players[0].id = player_id_1;
+        players[0].api = new Api(st, players_ptr->players[0]);
+        players[1].id = player_id_2;
+        players[1].api = new Api(st, players_ptr->players[1]);
+    }
+
+    virtual void TearDown()
+    {
+        delete players[0].api;
+        delete players[1].api;
+    }
+
+    GameState* st;
+
+    struct Player
+    {
+        int id;
+        Api* api;
+    };
+    std::array<Player, 2> players;
+};
+
+class RulesTest : public ::testing::Test
+{
+protected:
+    constexpr static int PLAYER_ID_1 = 1;
+    constexpr static int PLAYER_ID_2 = 2;
+
+    virtual void SetUp()
+    {
+        utils::Logger::get().level() = utils::Logger::DEBUG_LEVEL;
+        auto players_ptr = make_players(PLAYER_ID_1, PLAYER_ID_2);
+        rules::Options opt;
+        if (!std::ifstream("map.txt").good())
+        {
+            std::ofstream map("map.txt");
+            map << test_map;
+        }
+        opt.map_file = "map.txt";
+        opt.players = std::move(players_ptr);
+        rules.reset(new Rules(opt));
+    }
+
+    std::unique_ptr<Rules> rules;
 };
 
 #endif
