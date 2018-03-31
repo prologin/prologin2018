@@ -144,16 +144,21 @@ void Rules::end_of_player_turn(unsigned int /* player_id */)
 // A round is made up of 2 turns, one for each player.
 void Rules::start_of_round()
 {
-    api_->game_state()->increment_round();
     api_->game_state()->check_presence_alien();
 }
 
 void Rules::end_of_round()
 {
     api_->game_state()->update_scores();
+    api_->game_state()->increment_round();
 }
 
 bool Rules::is_finished()
 {
     return api_->game_state()->is_finished();
+}
+
+GameState* Rules::get_game_state() const
+{
+    return api_->game_state();
 }

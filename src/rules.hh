@@ -59,6 +59,8 @@ public:
 
     void dump_state(std::ostream& out) override;
 
+    GameState* get_game_state() const;
+
 protected:
     f_champion_partie_init champion_partie_init_;
     f_champion_jouer_tour champion_jouer_tour_;
