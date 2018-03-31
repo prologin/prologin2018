@@ -43,3 +43,33 @@ TEST_F(ActionTest, ActionPousser_NothingToPush)
     ActionPousser act(0, NORD, PLAYER_1);
     EXPECT_EQ(RIEN_A_POUSSER, act.check(st));
 }
+
+TEST_F(ActionTest, ActionPousser_Valid)
+{
+    position dest1 = {9, 0};
+    position dest2 = {TAILLE_ICEBERG - 1, 0};
+    position dest3 = dest1 + offset[EST];
+    position dest4 = {9, TAILLE_ICEBERG - 1};
+
+    st->set_agent_position(PLAYER_1, 0, dest1);
+
+    ActionPousser* act;
+    act = new ActionPousser(0, SUD, PLAYER_1);
+    EXPECT_EQ(OK, act->check(st));
+    act->apply_on(st);
+    EXPECT_EQ(dest1, st->get_agent_position(PLAYER_1, 0));
+    EXPECT_EQ(dest2, st->get_agent_position(PLAYER_2, 0));
+    delete act;
+
+    st->set_agent_position(PLAYER_2, 1, dest3);
+
+    act = new ActionPousser(0, EST, PLAYER_1);
+    EXPECT_EQ(OK, act->check(st));
+    act->apply_on(st);
+    EXPECT_EQ(dest1, st->get_agent_position(PLAYER_1, 0));
+    EXPECT_EQ(dest4, st->get_agent_position(PLAYER_2, 1));
+    delete act;
+
+    EXPECT_EQ(NB_POINTS_ACTION - 2 * COUT_POUSSER,
+              st->get_action_points(PLAYER_1));
+}

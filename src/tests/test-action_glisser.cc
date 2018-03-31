@@ -37,3 +37,41 @@ TEST_F(ActionTest, ActionGlisser_InvalidAgentID)
     ActionGlisser act(NB_AGENTS + 5, NORD, PLAYER_1);
     EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
 }
+
+TEST_F(ActionTest, ActionGlisser_Valid)
+{
+    position dest1 = {9, 0};
+    position dest2 = {TAILLE_ICEBERG - 1, 0};
+    position dest3 = {1, 3};
+    position dest4 = {10, TAILLE_ICEBERG - 1};
+
+    ActionGlisser* act;
+    act = new ActionGlisser(0, SUD, PLAYER_1);
+    EXPECT_EQ(OK, act->check(st));
+    act->apply_on(st);
+    EXPECT_EQ(dest1, st->get_agent_position(PLAYER_1, 0));
+    delete act;
+
+    act = new ActionGlisser(0, SUD, PLAYER_2);
+    EXPECT_EQ(OK, act->check(st));
+    act->apply_on(st);
+    EXPECT_EQ(dest2, st->get_agent_position(PLAYER_2, 0));
+    delete act;
+
+    act = new ActionGlisser(3, SUD, PLAYER_1);
+    EXPECT_EQ(OK, act->check(st));
+    act->apply_on(st);
+    EXPECT_EQ(dest3, st->get_agent_position(PLAYER_1, 3));
+    delete act;
+
+    act = new ActionGlisser(3, EST, PLAYER_2);
+    EXPECT_EQ(OK, act->check(st));
+    act->apply_on(st);
+    EXPECT_EQ(dest4, st->get_agent_position(PLAYER_2, 3));
+    delete act;
+
+    EXPECT_EQ(NB_POINTS_ACTION - 2 * COUT_GLISSADE,
+              st->get_action_points(PLAYER_1));
+    EXPECT_EQ(NB_POINTS_ACTION - 2 * COUT_GLISSADE,
+              st->get_action_points(PLAYER_2));
+}

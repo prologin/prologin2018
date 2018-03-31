@@ -57,17 +57,33 @@ TEST_F(ActionTest, ActionDeplacer_InvalidAgentID)
 
 TEST_F(ActionTest, ActionDeplacer_Valid)
 {
+    position pos1 = {5, 0};
+    position pos2 = {5, 3};
+    position pos3 = {1, 1};
+    int dist = 0;
 
     ActionDeplacer* act;
-    act = new ActionDeplacer(0, {5, 0}, PLAYER_1);
+    act = new ActionDeplacer(0, pos1, PLAYER_1);
     EXPECT_EQ(OK, act->check(st));
+    dist += st->shortest_path(st->get_agent_position(PLAYER_1, 0), pos1);
+    act->apply_on(st);
+    EXPECT_EQ(pos1, st->get_agent_position(PLAYER_1, 0));
     delete act;
 
-    act = new ActionDeplacer(0, {5, 3}, PLAYER_1);
+    act = new ActionDeplacer(0, pos2, PLAYER_1);
     EXPECT_EQ(OK, act->check(st));
+    dist += st->shortest_path(st->get_agent_position(PLAYER_1, 0), pos2);
+    act->apply_on(st);
+    EXPECT_EQ(pos2, st->get_agent_position(PLAYER_1, 0));
     delete act;
 
-    act = new ActionDeplacer(2, {1, 0}, PLAYER_1);
+    act = new ActionDeplacer(2, pos3, PLAYER_1);
     EXPECT_EQ(OK, act->check(st));
+    dist += st->shortest_path(st->get_agent_position(PLAYER_1, 2), pos3);
+    act->apply_on(st);
+    EXPECT_EQ(pos3, st->get_agent_position(PLAYER_1, 2));
     delete act;
+
+    EXPECT_EQ(NB_POINTS_ACTION - dist * COUT_DEPLACEMENT,
+              st->get_action_points(PLAYER_1));
 }
