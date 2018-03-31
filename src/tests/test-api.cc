@@ -20,7 +20,7 @@
 TEST_F(ApiTest, Api_TypeCase)
 {
     EXPECT_EQ(LIBRE, players[0].api->type_case({0, 0}));
-    EXPECT_EQ(MUR, players[0].api->type_case({2, 3}));
+    EXPECT_EQ(MUR, players[0].api->type_case(TEST_WALL));
 }
 
 TEST_F(ApiTest, Api_AgentSurCase)
@@ -36,7 +36,7 @@ TEST_F(ApiTest, Api_AgentSurCase)
         }
     }
 
-    EXPECT_FALSE(players[0].api->agent_sur_case({1, 1}));
+    EXPECT_FALSE(players[0].api->agent_sur_case(TEST_EMPTY_CELL));
 }
 
 TEST_F(ApiTest, Api_AlienSurCase)
@@ -45,7 +45,7 @@ TEST_F(ApiTest, Api_AlienSurCase)
     for (auto& player : players)
         for (auto& alien : aliens)
             EXPECT_TRUE(player.api->alien_sur_case(alien.pos));
-    EXPECT_FALSE(players[0].api->alien_sur_case({1, 1}));
+    EXPECT_FALSE(players[0].api->alien_sur_case(TEST_EMPTY_CELL));
 }
 
 TEST_F(ApiTest, Api_PositionAgent)

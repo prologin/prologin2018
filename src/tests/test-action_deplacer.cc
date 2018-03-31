@@ -35,17 +35,13 @@ TEST_F(ActionTest, ActionDeplacer_InvalidPosition)
 
 TEST_F(ActionTest, ActionDeplacer_ObstacleWall)
 {
-    position wall = {2, 3};
-    ActionDeplacer act(0, wall, PLAYER_1);
-    EXPECT_EQ(case_type::MUR, st->get_cell_type(wall));
+    ActionDeplacer act(0, TEST_WALL, PLAYER_1);
     EXPECT_EQ(OBSTACLE_MUR, act.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_ObstacleAgent)
 {
-    position agent = {0, 1};
-    ActionDeplacer act(0, agent, PLAYER_1);
-    EXPECT_EQ(true, st->is_agent_on_position(agent));
+    ActionDeplacer act(0, TEST_AGENT, PLAYER_1);
     EXPECT_EQ(OBSTACLE_AGENT, act.check(st));
 }
 
