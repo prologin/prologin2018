@@ -155,4 +155,20 @@ typedef struct action_hist
                       l'iceberg */
 } action_hist;
 
+#include "position.hh"
+
+inline bool operator==(const alien_info& a, const alien_info& b)
+{
+    return a.pos == b.pos && a.puissance == b.puissance &&
+           a.tour_invasion == b.tour_invasion &&
+           a.duree_invasion == b.duree_invasion &&
+           a.capture_en_cours == b.capture_en_cours;
+}
+
+inline bool operator==(const action_hist& a, const action_hist& b)
+{
+    return a.type == b.type && a.id_agent == b.id_agent && a.dest == b.dest &&
+           a.dir == b.dir;
+}
+
 #endif // !CONSTANT_HH_
