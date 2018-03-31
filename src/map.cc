@@ -56,7 +56,7 @@ Map::Map(std::istream& stream)
             int l, c;
             stream >> l >> c;
             position pos = {l, c};
-            if (!inside_map(pos))
+            if (!inside_map(pos) || is_wall(pos))
                 FATAL("starting position (%d;%d) for player %d is invalid", l,
                       c, player + 1);
             start_position_[player][agent] = pos;
@@ -74,7 +74,7 @@ Map::Map(std::istream& stream)
         int round_spawn, round_span;
         stream >> l >> c >> nb_point >> round_spawn >> round_span;
         position pos = {l, c};
-        if (!inside_map(pos))
+        if (!inside_map(pos) || is_wall(pos))
             FATAL("starting position (%d;%d) for alien %d is invalid", l, c,
                   alien + 1);
         alien_[alien] = alien_info{pos, nb_point, round_spawn, round_span, 0};
