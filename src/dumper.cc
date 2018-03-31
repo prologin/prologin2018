@@ -291,8 +291,7 @@ static void dump_map(std::ostream& ss, const GameState& st)
            << "\"puissance\": " << alien.puissance << ", "
            << "\"tour_invasion\": " << alien.tour_invasion << ", "
            << "\"duree_invasion\": " << alien.duree_invasion << ", "
-           << "\"capture_en_cours\": " << alien.capture_en_cours
-           << "}";
+           << "\"capture_en_cours\": " << alien.capture_en_cours << "}";
     }
 
     ss << "]"
