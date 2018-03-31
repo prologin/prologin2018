@@ -29,8 +29,10 @@ int ActionDeplacer::check(const GameState* st) const
     int action_points = st->get_action_points(player_id_);
     position start = st->get_agent_position(player_id_, agent_id_);
     int cost = st->shortest_path(start, dest_);
-    if (cost == -1 || cost > action_points)
+    if (cost > action_points)
         return PA_INSUFFISANTS;
+    if (cost == -1)
+        return POSITION_INVALIDE;
 
     return OK;
 }

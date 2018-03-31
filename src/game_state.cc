@@ -57,8 +57,6 @@ int GameState::shortest_path(position start, position dest) const
         q.pop();
         if (cur.first == dest)
             return cur.second;
-        if (cur.second > NB_POINTS_ACTION)
-            return -1;
 
         for (int dir = 0; dir < 4; dir++)
         {
