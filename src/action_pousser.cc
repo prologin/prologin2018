@@ -53,5 +53,6 @@ void ActionPousser::apply_on(GameState* st) const
     action.type = ACTION_POUSSER;
     action.id_agent = agent_id_;
     action.dir = dir_;
+    action.dest = position{0, 0}; // Not used, so initialized to 0
     st->add_to_history(player_id_, action);
 }

@@ -49,5 +49,6 @@ void ActionDeplacer::apply_on(GameState* st) const
     action.type = ACTION_DEPLACER;
     action.id_agent = agent_id_;
     action.dest = dest_;
+    action.dir = (direction)0; // Not used, so initialized to 0
     st->add_to_history(player_id_, action);
 }

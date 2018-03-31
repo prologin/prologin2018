@@ -66,6 +66,7 @@ Map::Map(std::istream& stream)
     int nb_alien;
     stream >> nb_alien;
     alien_.resize(nb_alien);
+    is_alien_on_map_.resize(nb_alien);
     for (int alien = 0; alien < nb_alien; alien++)
     {
         int l, c;
@@ -77,6 +78,7 @@ Map::Map(std::istream& stream)
             FATAL("starting position (%d;%d) for alien %d is invalid", l, c,
                   alien + 1);
         alien_[alien] = alien_info{pos, nb_point, round_spawn, round_span, 0};
+        is_alien_on_map_[alien] = false;
     }
 }
 
