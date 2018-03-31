@@ -17,6 +17,7 @@
 
 PlayerInfo::PlayerInfo(rules::Player_sptr player, int internal_id)
     : player_(std::move(player))
+    , action_points_(NB_POINTS_ACTION)
     , internal_id_(internal_id)
 {
     assert(player_);

@@ -28,14 +28,12 @@ TEST_F(ActionTest, ActionGlisser_NotEnoughActionPoints)
 
 TEST_F(ActionTest, ActionGlisser_InvalidDirection)
 {
-    st->reset_action_points(PLAYER_1);
     ActionGlisser act(0, (direction)10, PLAYER_1);
     EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
 }
 
 TEST_F(ActionTest, ActionGlisser_InvalidAgentID)
 {
-    st->reset_action_points(PLAYER_1);
     ActionGlisser act(NB_AGENTS + 5, NORD, PLAYER_1);
     EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
 }
