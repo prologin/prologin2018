@@ -11,3 +11,4 @@ config_version=3
 [application]
 
 config/name="Prologin 2018"
+config/icon="res://assets/icon.png"
