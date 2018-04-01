@@ -42,6 +42,10 @@ public:
     std::vector<alien_info> get_captured_alien();
     void reset_alien_capture_time(position pos);
 
+    std::vector<int> get_storm_info() const;
+    direction get_storm_dir() const;
+    bool is_storm_round(int round) const;
+
 private:
     std::array<std::array<case_type, TAILLE_ICEBERG>, TAILLE_ICEBERG> map_;
 
@@ -49,6 +53,9 @@ private:
 
     std::vector<alien_info> alien_;
     std::vector<bool> is_alien_on_map_;
+
+    std::vector<int> storm_round_;
+    direction storm_dir_;
 };
 
 #endif

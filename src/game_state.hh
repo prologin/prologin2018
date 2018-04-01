@@ -50,6 +50,10 @@ public:
     void check_presence_alien();
     void update_scores();
 
+    std::vector<int> get_storm_info() const;
+    direction get_storm_dir() const;
+    void check_storm();
+
     int get_action_points(int player_id) const;
     void decrease_action_points(int player_id, int delta);
     void reset_action_points(int player_id);

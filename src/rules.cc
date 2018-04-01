@@ -144,6 +144,7 @@ void Rules::end_of_player_turn(unsigned int /* player_id */)
 // A round is made up of 2 turns, one for each player.
 void Rules::start_of_round()
 {
+    api_->game_state()->check_storm();
     api_->game_state()->check_presence_alien();
 }
 

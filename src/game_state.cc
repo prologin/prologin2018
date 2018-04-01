@@ -163,6 +163,35 @@ void GameState::update_scores()
                     increase_score(player, alien.puissance);
 }
 
+std::vector<int> GameState::get_storm_info() const
+{
+    return map_->get_storm_info();
+}
+
+direction GameState::get_storm_dir() const
+{
+    return map_->get_storm_dir();
+}
+
+void GameState::check_storm()
+{
+    if (!map_->is_storm_round(round_))
+        return;
+
+    direction storm_dir = map_->get_storm_dir();
+    for (auto player : player_ids_)
+    {
+        for (int agent = 0; agent < NB_AGENTS; agent++)
+        {
+            position cur_pos = get_agent_position(player, agent);
+            position new_pos = slide_end_pos(cur_pos, storm_dir);
+            set_agent_position(player, agent, new_pos);
+            if (cur_pos != new_pos && is_alien_on_position(cur_pos))
+                reset_alien_capture_time(cur_pos);
+        }
+    }
+}
+
 int GameState::get_action_points(int player_id) const
 {
     assert(player_info_.count(player_id) != 0);
