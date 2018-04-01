@@ -81,11 +81,11 @@ TEST_F(ApiTest, Api_ListeAliens)
         EXPECT_EQ(aliens, player.api->liste_aliens());
 }
 
-TEST_F(ApiTest, Api_ListeRafales)
+TEST_F(ApiTest, Api_ListeTempetes)
 {
 }
 
-TEST_F(ApiTest, Api_DirectionRafale)
+TEST_F(ApiTest, Api_DirectionTempete)
 {
 }
 

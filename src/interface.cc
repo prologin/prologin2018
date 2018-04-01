@@ -363,16 +363,16 @@ extern "C" std::vector<alien_info> api_liste_aliens()
     return api->liste_aliens();
 }
 
-/// Renvoie la liste des tours où se produisent une rafale.
-extern "C" std::vector<int> api_liste_rafales()
+/// Renvoie la liste des tours où se produisent une tempête.
+extern "C" std::vector<int> api_liste_tempetes()
 {
-    return api->liste_rafales();
+    return api->liste_tempetes();
 }
 
-/// Renvoie la direction des rafales.
-extern "C" direction api_direction_rafale()
+/// Renvoie la direction des tempêtes.
+extern "C" direction api_direction_tempete()
 {
-    return api->direction_rafale();
+    return api->direction_tempete();
 }
 
 /// Renvoie la liste des actions effectuées par l’adversaire durant son tour,

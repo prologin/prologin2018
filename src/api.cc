@@ -112,15 +112,15 @@ std::vector<alien_info> Api::liste_aliens()
     return game_state_->get_alien_info();
 }
 
-/// Renvoie la liste des tours où se produisent une rafale.
-std::vector<int> Api::liste_rafales()
+/// Renvoie la liste des tours où se produisent une tempête.
+std::vector<int> Api::liste_tempetes()
 {
     // TODO
     abort();
 }
 
-/// Renvoie la direction des rafales.
-direction Api::direction_rafale()
+/// Renvoie la direction des tempêtes.
+direction Api::direction_tempete()
 {
     // TODO
     abort();

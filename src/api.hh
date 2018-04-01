@@ -87,11 +87,11 @@ public:
     /// Renvoie la liste de tous les aliens présents sur l'iceberg.
     std::vector<alien_info> liste_aliens();
 
-    /// Renvoie la liste des tours où se produisent une rafale.
-    std::vector<int> liste_rafales();
+    /// Renvoie la liste des tours où se produisent une tempête.
+    std::vector<int> liste_tempetes();
 
-    /// Renvoie la direction des rafales.
-    direction direction_rafale();
+    /// Renvoie la direction des tempêtes.
+    direction direction_tempete();
 
     /// Renvoie la liste des actions effectuées par l’adversaire durant son
     /// tour, dans l'ordre chronologique.

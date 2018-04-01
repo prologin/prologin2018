@@ -186,13 +186,13 @@ function:
     fct_ret_type: alien_info array
     fct_arg: []
   -
-    fct_name: liste_rafales
-    fct_summary: Renvoie la liste des tours où se produisent une rafale.
+    fct_name: liste_tempetes
+    fct_summary: Renvoie la liste des tours où se produisent une tempête.
     fct_ret_type: int array
     fct_arg: []
   -
-    fct_name: direction_rafale
-    fct_summary: Renvoie la direction des rafales.
+    fct_name: direction_tempete
+    fct_summary: Renvoie la direction des tempêtes.
     fct_ret_type: direction
     fct_arg: []
 
