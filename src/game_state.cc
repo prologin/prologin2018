@@ -115,8 +115,13 @@ void GameState::set_agent_position(int player_id, int agent_id, position pos)
 {
     assert(agent_id < NB_AGENTS);
     assert(player_info_.count(player_id) != 0);
+
     int internal_player_id = player_info_.at(player_id).get_internal_id();
+    position old_pos = agent_info_[internal_player_id][agent_id];
     agent_info_[internal_player_id][agent_id] = pos;
+
+    if (old_pos != pos && is_alien_on_position(old_pos))
+        reset_alien_capture_time(old_pos);
 }
 
 bool GameState::is_agent_on_position(position pos) const
@@ -186,8 +191,6 @@ void GameState::check_storm()
             position cur_pos = get_agent_position(player, agent);
             position new_pos = slide_end_pos(cur_pos, storm_dir);
             set_agent_position(player, agent, new_pos);
-            if (cur_pos != new_pos && is_alien_on_position(cur_pos))
-                reset_alien_capture_time(cur_pos);
         }
     }
 }

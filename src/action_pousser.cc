@@ -41,8 +41,6 @@ void ActionPousser::apply_on(GameState* st) const
 
     st->decrease_action_points(player_id_, COUT_POUSSER);
     st->set_agent_position(player_mv, agent_mv, end);
-    if (start != end && st->is_alien_on_position(start))
-        st->reset_alien_capture_time(start);
 
     action_hist action;
     action.type = ACTION_POUSSER;
