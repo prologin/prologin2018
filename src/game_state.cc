@@ -73,6 +73,17 @@ int GameState::shortest_path(position start, position dest) const
     return -1;
 }
 
+position GameState::slide_end_pos(position start, direction dir) const
+{
+    position pos = start, next_pos = start;
+    do
+    {
+        pos = next_pos;
+        next_pos += offset[dir];
+    } while (inside_map(next_pos) && !is_obstacle(next_pos));
+    return pos;
+}
+
 case_type GameState::get_cell_type(position pos) const
 {
     return map_->get_cell_type(pos);

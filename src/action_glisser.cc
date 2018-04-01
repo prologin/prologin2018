@@ -28,18 +28,13 @@ int ActionGlisser::check(const GameState* st) const
 
 void ActionGlisser::apply_on(GameState* st) const
 {
-    position init_pos = st->get_agent_position(player_id_, agent_id_);
-    position pos = init_pos, next_pos = init_pos;
-    do
-    {
-        pos = next_pos;
-        next_pos += offset[dir_];
-    } while (inside_map(next_pos) && !st->is_obstacle(next_pos));
+    position start = st->get_agent_position(player_id_, agent_id_);
+    position end = st->slide_end_pos(start, dir_);
 
     st->decrease_action_points(player_id_, COUT_GLISSADE);
-    st->set_agent_position(player_id_, agent_id_, pos);
-    if (init_pos != pos && st->is_alien_on_position(init_pos))
-        st->reset_alien_capture_time(init_pos);
+    st->set_agent_position(player_id_, agent_id_, end);
+    if (start != end && st->is_alien_on_position(start))
+        st->reset_alien_capture_time(start);
 
     action_hist action;
     action.type = ACTION_GLISSER;

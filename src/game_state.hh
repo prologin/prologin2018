@@ -34,6 +34,7 @@ public:
     const auto& get_player_info() const { return player_info_; };
 
     int shortest_path(position start, position dest) const;
+    position slide_end_pos(position start, direction dir) const;
     case_type get_cell_type(position pos) const;
     bool is_obstacle(position pos) const;
 

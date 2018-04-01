@@ -31,23 +31,18 @@ int ActionPousser::check(const GameState* st) const
 
 void ActionPousser::apply_on(GameState* st) const
 {
-    position init_pos =
+    position start =
         st->get_agent_position(player_id_, agent_id_) + offset[dir_];
-    std::pair<int, int> agent_neigh = st->get_agent_id(init_pos);
+    position end = st->slide_end_pos(start, dir_);
+
+    std::pair<int, int> agent_neigh = st->get_agent_id(start);
     int player_mv = agent_neigh.first;
     int agent_mv = agent_neigh.second;
 
-    position pos = init_pos, next_pos = init_pos;
-    do
-    {
-        pos = next_pos;
-        next_pos += offset[dir_];
-    } while (inside_map(next_pos) && !st->is_obstacle(next_pos));
-
     st->decrease_action_points(player_id_, COUT_POUSSER);
-    st->set_agent_position(player_mv, agent_mv, pos);
-    if (init_pos != pos && st->is_alien_on_position(init_pos))
-        st->reset_alien_capture_time(init_pos);
+    st->set_agent_position(player_mv, agent_mv, end);
+    if (start != end && st->is_alien_on_position(start))
+        st->reset_alien_capture_time(start);
 
     action_hist action;
     action.type = ACTION_POUSSER;
