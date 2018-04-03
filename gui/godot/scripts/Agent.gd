@@ -14,6 +14,12 @@ func set_team(blue):
 		modulate_color = Color(1, 0.5, 0, 1)
 	set_modulate(modulate_color)
 
+func focus():
+	set_modulate(modulate_color.lightened(0.75))
+
+func unfocus():
+	set_modulate(modulate_color)
+
 func move_to(to, dash):
 	assert not moving
 	_moving_to = to
