@@ -31,6 +31,16 @@ func slide(agent_id, dir, player_id):
 	while $TileMap.is_cell_free(dest + DIR[dir]):
 		dest += DIR[dir]
 	$TileMap.move_agent(internal, dest, true)
+	return true
+
+func push(agent_id, dir, player_id):
+	var internal = agent_id_to_internal(agent_id, player_id)
+	var destination = $TileMap.agents_pos[internal] + DIR[dir]
+	var agent = $TileMap.agents_pos.find(destination)
+	if agent == -1:
+		return false
+	slide(internal_to_agent_id(agent), dir, agent / NB_AGENTS)
+	return true
 
 func _ready():
 	for agent in $TileMap.agents:
@@ -45,7 +55,9 @@ func _input_move(dir):
 	var agent_id = internal_to_agent_id(agent_selected)
 	var player = agent_selected / NB_AGENTS
 	assert player == 0 or player == 1
-	if dash:
+	if Input.is_action_pressed("ui_ctrl"):
+		animating = push(agent_id, dir, player)
+	elif dash:
 		slide(agent_id, dir, player)
 		animating = true
 	else:
