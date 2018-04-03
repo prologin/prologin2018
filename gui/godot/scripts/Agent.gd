@@ -3,6 +3,8 @@
 
 extends KinematicBody2D
 
+signal finished_moving
+
 var modulate_color = Color(1, 1, 1, 1)
 var moving = false
 var _moving_to = Vector2()
@@ -42,6 +44,7 @@ func _process(delta):
 		if diff == Vector2():
 			$AnimatedSprite.play("idle")
 			moving = false
+			emit_signal("finished_moving")
 		else:
 			var speed = SPEED * 2.5 if _dash else SPEED
 			if diff.length() > speed * delta:

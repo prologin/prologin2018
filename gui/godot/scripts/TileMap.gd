@@ -6,14 +6,9 @@ extends TileMap
 const SIZE = 31
 const NB_AGENTS = 4
 
-var team = 0
-
 var walls = []
 var agents = []
 var agents_pos = []
-var agent_selected = 0
-
-var moving_agent = -1
 
 const Util = preload("res://scripts/MapReader.gd")
 
@@ -48,25 +43,10 @@ func is_cell_free(pos):
 		return false
 	return true
 
-func move_agent(i, dir):
-	var dest = agents_pos[i] + dir
-	if not is_cell_free(dest):
-		return false
-	var dash = false
-	if Input.is_action_pressed("ui_shift"):
-		dash = true
-		while is_cell_free(dest + dir):
-			dest += dir
-	moving_agent = i
-	agents[moving_agent].move_to(world_position(dest.x, dest.y), dash)
-	agents_pos[moving_agent] = dest
+func move_agent(i, dest, dash):
+	agents[i].move_to(world_position(dest.x, dest.y), dash)
+	agents_pos[i] = dest
 	return true
-
-func select_agent(i):
-	assert i >= 0 and i < 2 * NB_AGENTS
-	agents[agent_selected].unfocus()
-	agents[i].focus()
-	agent_selected = i
 
 func _ready():
 	var map = Util.parse_map("res://../../maps/test_map")
@@ -74,19 +54,3 @@ func _ready():
 	agents_pos = map.agents
 	set_map()
 	spawn_agents()
-	select_agent(team * NB_AGENTS)
-
-func _process(delta):
-	if moving_agent == -1:
-		if Input.is_action_just_pressed("ui_up"):
-			move_agent(agent_selected, Vector2(0, -1))
-		elif Input.is_action_just_pressed("ui_down"):
-			move_agent(agent_selected, Vector2(0, 1))
-		elif Input.is_action_just_pressed("ui_right"):
-			move_agent(agent_selected, Vector2(1, 0))
-		elif Input.is_action_just_pressed("ui_left"):
-			move_agent(agent_selected, Vector2(-1, 0))
-		elif Input.is_action_just_pressed("ui_focus_next"):
-			select_agent((agent_selected + 1) % NB_AGENTS + NB_AGENTS * team)
-	if moving_agent != -1 and not agents[moving_agent].moving:
-		moving_agent = -1
