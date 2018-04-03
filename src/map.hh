@@ -34,12 +34,12 @@ public:
 
     std::array<position, NB_AGENTS> get_start_position(int player_id) const;
 
-    bool is_alien_on_position(position pos) const;
     std::vector<alien_info> get_alien_info() const;
     alien_info get_alien_info(position pos) const;
+    bool is_alien_on_position(position pos) const;
     void check_presence_alien(int round);
     bool is_alien_captured(int alien_id) const;
-    std::vector<alien_info> get_captured_alien();
+    void increment_alien_capture_time(position pos);
     void reset_alien_capture_time(position pos);
 
     std::vector<int> get_storm_info() const;

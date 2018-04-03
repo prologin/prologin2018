@@ -161,7 +161,8 @@ function:
   -
     fct_name: alien_sur_case 
     fct_summary: Indique si un alien se trouve sur une case donnée.
-                 Renvoie faux si la position est invalide.
+                 Renvoie faux si l'alien est capturé ou si la position est
+                 invalide.
     fct_ret_type: bool
     fct_arg:
       - [pos, position, "Case choisie"]

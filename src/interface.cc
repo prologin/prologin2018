@@ -337,8 +337,8 @@ extern "C" bool api_agent_sur_case(position pos)
     return api->agent_sur_case(pos);
 }
 
-/// Indique si un alien se trouve sur une case donnée. Renvoie faux si la
-/// position est invalide.
+/// Indique si un alien se trouve sur une case donnée. Renvoie faux si l'alien
+/// est capturé ou si la position est invalide.
 extern "C" bool api_alien_sur_case(position pos)
 {
     return api->alien_sur_case(pos);

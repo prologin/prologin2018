@@ -86,8 +86,8 @@ bool Api::agent_sur_case(position pos)
     return game_state_->is_agent_on_position(pos);
 }
 
-/// Indique si un alien se trouve sur une case donnée. Renvoie faux si la
-/// position est invalide.
+/// Indique si un alien se trouve sur une case donnée. Renvoie faux si l'alien
+/// est capturé ou si la position est invalide.
 bool Api::alien_sur_case(position pos)
 {
     return game_state_->is_alien_on_position(pos);

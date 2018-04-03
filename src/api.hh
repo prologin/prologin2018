@@ -73,8 +73,8 @@ public:
     /// position est invalide.
     bool agent_sur_case(position pos);
 
-    /// Indique si un alien se trouve sur une case donnée. Renvoie faux si la
-    /// position est invalide.
+    /// Indique si un alien se trouve sur une case donnée. Renvoie faux si
+    /// l'alien est capturé ou si la position est invalide.
     bool alien_sur_case(position pos);
 
     /// Indique la position de l'agent sur l'iceberg désigné par le numéro

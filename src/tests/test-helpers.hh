@@ -71,9 +71,10 @@ static const std::string test_map = "...............................\n"
                                     "3\n" // Storms
                                     "5 10 20\n"
                                     "SUD\n";
+static const position TEST_EMPTY_CELL = {1, 1};
 static const position TEST_WALL = {2, 3};
 static const position TEST_AGENT = {0, 1};
-static const position TEST_EMPTY_CELL = {1, 1};
+static const position TEST_ALIEN = {5, 5};
 
 static rules::Players_sptr make_players(int id1, int id2)
 {

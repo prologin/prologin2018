@@ -160,12 +160,20 @@ void GameState::check_presence_alien()
 
 void GameState::update_scores()
 {
-    std::vector<alien_info> captured_alien = map_->get_captured_alien();
-    for (auto alien : captured_alien)
-        for (auto player : player_ids_)
-            for (int agent = 0; agent < NB_AGENTS; agent++)
-                if (get_agent_position(player, agent) == alien.pos)
+    for (auto player : player_ids_)
+    {
+        for (int agent = 0; agent < NB_AGENTS; agent++)
+        {
+            position agent_pos = get_agent_position(player, agent);
+            if (is_alien_on_position(agent_pos))
+            {
+                map_->increment_alien_capture_time(agent_pos);
+                alien_info alien = map_->get_alien_info(agent_pos);
+                if (alien.capture_en_cours == NB_TOURS_CAPTURE)
                     increase_score(player, alien.puissance);
+            }
+        }
+    }
 }
 
 std::vector<int> GameState::get_storm_info() const

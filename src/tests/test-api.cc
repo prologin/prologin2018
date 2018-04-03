@@ -42,9 +42,20 @@ TEST_F(ApiTest, Api_AgentSurCase)
 TEST_F(ApiTest, Api_AlienSurCase)
 {
     std::vector<alien_info> aliens = st->get_alien_info();
-    for (auto& player : players)
+    for (int round = 0; round < NB_TOURS; round++)
+    {
+        st->check_presence_alien();
         for (auto& alien : aliens)
-            EXPECT_TRUE(player.api->alien_sur_case(alien.pos));
+        {
+            if (round >= alien.tour_invasion &&
+                round < alien.tour_invasion + alien.duree_invasion)
+                EXPECT_TRUE(players[0].api->alien_sur_case(alien.pos));
+            else
+                EXPECT_FALSE(players[0].api->alien_sur_case(alien.pos));
+        }
+        st->update_scores();
+        st->increment_round();
+    }
     EXPECT_FALSE(players[0].api->alien_sur_case(TEST_EMPTY_CELL));
 }
 
@@ -113,16 +124,15 @@ TEST_F(ApiTest, Api_Historique)
 
 TEST_F(ApiTest, Api_Score)
 {
-    std::vector<alien_info> aliens = st->get_alien_info();
-    alien_info test_alien = aliens[0];
-    st->set_agent_position(players[0].id, 0, test_alien.pos);
+    alien_info alien = st->get_alien_info(TEST_ALIEN);
+    st->set_agent_position(players[0].id, 0, alien.pos);
     for (int round = 0; round < NB_TOURS; round++)
     {
         st->increment_round();
         st->check_presence_alien();
         st->update_scores();
     }
-    EXPECT_EQ(test_alien.puissance, players[0].api->score(players[0].id));
+    EXPECT_EQ(alien.puissance, players[0].api->score(players[0].id));
     EXPECT_EQ(0, players[1].api->score(players[1].id));
 }
 
