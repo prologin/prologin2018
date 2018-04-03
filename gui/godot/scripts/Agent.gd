@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright 2018 Sacha Delanoue
+
 extends KinematicBody2D
 
 var modulate_color = Color(1, 1, 1, 1)
