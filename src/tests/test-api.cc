@@ -94,10 +94,16 @@ TEST_F(ApiTest, Api_ListeAliens)
 
 TEST_F(ApiTest, Api_ListeTempetes)
 {
+    std::vector<int> storm_round = st->get_storm_info();
+    for (auto& player : players)
+        EXPECT_EQ(storm_round, player.api->liste_tempetes());
 }
 
 TEST_F(ApiTest, Api_DirectionTempete)
 {
+    direction storm_dir = st->get_storm_dir();
+    for (auto& player : players)
+        EXPECT_EQ(storm_dir, player.api->direction_tempete());
 }
 
 TEST_F(ApiTest, Api_Historique)
