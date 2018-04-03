@@ -17,7 +17,7 @@
 
 int ActionDeplacer::check(const GameState* st) const
 {
-    if (agent_id_ >= NB_AGENTS)
+    if (agent_id_ < 0 || agent_id_ >= NB_AGENTS)
         return ID_AGENT_INVALIDE;
     if (!inside_map(dest_))
         return POSITION_INVALIDE;

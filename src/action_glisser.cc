@@ -17,7 +17,7 @@
 
 int ActionGlisser::check(const GameState* st) const
 {
-    if (agent_id_ >= NB_AGENTS)
+    if (agent_id_ < 0 || agent_id_ >= NB_AGENTS)
         return ID_AGENT_INVALIDE;
     if (dir_ < 0 || dir_ > 3)
         return DIRECTION_INVALIDE;
