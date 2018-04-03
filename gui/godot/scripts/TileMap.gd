@@ -43,8 +43,8 @@ func is_cell_free(pos):
 		return false
 	return true
 
-func move_agent(i, dest, dash):
-	agents[i].move_to(world_position(dest.x, dest.y), dash)
+func move_agent(i, dest, dash, pushed):
+	agents[i].move_to(world_position(dest.x, dest.y), dash, pushed)
 	agents_pos[i] = dest
 	return true
 

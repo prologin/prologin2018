@@ -4,17 +4,17 @@
 [ext_resource path="res://assets/penguin/penguin_slide01.svg" type="Texture" id=2]
 [ext_resource path="res://assets/penguin/penguin_slide02.svg" type="Texture" id=3]
 [ext_resource path="res://assets/penguin/penguin_walk02.svg" type="Texture" id=4]
-[ext_resource path="res://assets/penguin/penguin_jump01.svg" type="Texture" id=5]
-[ext_resource path="res://assets/penguin/penguin_jump02.svg" type="Texture" id=6]
-[ext_resource path="res://assets/penguin/penguin_jump03.svg" type="Texture" id=7]
-[ext_resource path="res://assets/penguin/penguin_walk01.svg" type="Texture" id=8]
-[ext_resource path="res://assets/penguin/penguin_walk03.svg" type="Texture" id=9]
-[ext_resource path="res://assets/penguin/penguin_walk04.svg" type="Texture" id=10]
-[ext_resource path="res://assets/penguin/penguin_die01.svg" type="Texture" id=11]
-[ext_resource path="res://assets/penguin/penguin_die02.svg" type="Texture" id=12]
-[ext_resource path="res://assets/penguin/penguin_die03.svg" type="Texture" id=13]
-[ext_resource path="res://assets/penguin/penguin_die04.svg" type="Texture" id=14]
-[ext_resource path="res://assets/penguin/penguin_hurt.svg" type="Texture" id=15]
+[ext_resource path="res://assets/penguin/penguin_walk01.svg" type="Texture" id=5]
+[ext_resource path="res://assets/penguin/penguin_walk03.svg" type="Texture" id=6]
+[ext_resource path="res://assets/penguin/penguin_walk04.svg" type="Texture" id=7]
+[ext_resource path="res://assets/penguin/penguin_die01.svg" type="Texture" id=8]
+[ext_resource path="res://assets/penguin/penguin_die02.svg" type="Texture" id=9]
+[ext_resource path="res://assets/penguin/penguin_die03.svg" type="Texture" id=10]
+[ext_resource path="res://assets/penguin/penguin_die04.svg" type="Texture" id=11]
+[ext_resource path="res://assets/penguin/penguin_hurt.svg" type="Texture" id=12]
+[ext_resource path="res://assets/penguin/penguin_jump01.svg" type="Texture" id=13]
+[ext_resource path="res://assets/penguin/penguin_jump02.svg" type="Texture" id=14]
+[ext_resource path="res://assets/penguin/penguin_jump03.svg" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -34,29 +34,29 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 4 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": false,
 "name": "die",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 15 ) ],
+"frames": [ ExtResource( 12 ) ],
 "loop": true,
 "name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "jump",
 "speed": 5.0
 } ]
 _sections_unfolded = [ "Resource" ]
 
-[node name="Character" type="KinematicBody2D" index="0"]
+[node name="Character" type="KinematicBody2D"]
 
 position = Vector2( 24, 24 )
 input_pickable = false

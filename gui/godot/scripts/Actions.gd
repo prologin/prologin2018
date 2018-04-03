@@ -22,15 +22,15 @@ func move(agent_id, destination, player_id):
 	var internal = agent_id_to_internal(agent_id, player_id)
 	if $TileMap.agents_pos[internal].distance_squared_to(destination) != 1:
 		return false
-	$TileMap.move_agent(internal, destination, false)
+	$TileMap.move_agent(internal, destination, false, false)
 	return true
 
-func slide(agent_id, dir, player_id):
+func slide(agent_id, dir, player_id, pushed = false):
 	var internal = agent_id_to_internal(agent_id, player_id)
 	var dest = $TileMap.agents_pos[internal]
 	while $TileMap.is_cell_free(dest + DIR[dir]):
 		dest += DIR[dir]
-	$TileMap.move_agent(internal, dest, true)
+	$TileMap.move_agent(internal, dest, true, pushed)
 	return true
 
 func push(agent_id, dir, player_id):
@@ -39,7 +39,7 @@ func push(agent_id, dir, player_id):
 	var agent = $TileMap.agents_pos.find(destination)
 	if agent == -1:
 		return false
-	slide(internal_to_agent_id(agent), dir, agent / NB_AGENTS)
+	slide(internal_to_agent_id(agent), dir, agent / NB_AGENTS, true)
 	return true
 
 func _ready():

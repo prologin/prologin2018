@@ -25,12 +25,13 @@ func focus():
 func unfocus():
 	set_modulate(modulate_color)
 
-func move_to(to, dash):
+func move_to(to, dash, pushed):
 	assert not moving
+	assert not pushed or dash
 	_moving_to = to
 	_dash = dash
 	moving = true
-	var anim = "slide" if _dash else "walk"
+	var anim = "hurt" if pushed else ("slide" if dash else "walk")
 	$AnimatedSprite.play(anim)
 	var dx = to.x - position.x
 	if dx > 0:
