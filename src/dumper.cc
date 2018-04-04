@@ -253,7 +253,7 @@ static void dump_players(std::ostream& ss, const GameState& st)
 static void dump_map(std::ostream& ss, const GameState& st)
 {
     ss << "{"
-       << "\"cells:\": [";
+       << "\"cells\": [";
     for (int l = 0; l < TAILLE_ICEBERG; l++)
     {
         for (int c = 0; c < TAILLE_ICEBERG; c++)
@@ -267,7 +267,7 @@ static void dump_map(std::ostream& ss, const GameState& st)
     ss << "], ";
 
     const auto& aliens = st.get_alien_info();
-    ss << "\"aliens:\": [";
+    ss << "\"aliens\": [";
     auto sep = "";
     for (const auto& alien : aliens)
     {
