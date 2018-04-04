@@ -84,7 +84,6 @@ typedef enum erreur {
     OK,                /* <- L'action s'est effectuée avec succès. */
     PA_INSUFFISANTS,   /* <- Vous ne possédez pas assez de points d'action pour
                           réaliser cette action. */
-    POSITION_INVALIDE, /* <- La position spécifiée n'est pas sur l'iceberg. */
     OBSTACLE_MUR,      /* <- La position spécifiée est un mur. */
     OBSTACLE_AGENT,    /* <- La position spécifiée est un agent. */
     DIRECTION_INVALIDE, /* <- La direction spécifiée n'existe pas. */

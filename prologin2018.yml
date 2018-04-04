@@ -58,7 +58,6 @@ enum:
       - [ok, "L'action s'est effectuée avec succès."]
       - [pa_insuffisants, "Vous ne possédez pas assez de points d'action pour
                            réaliser cette action."]
-      - [position_invalide, "La position spécifiée n'est pas sur l'iceberg."]
       - [obstacle_mur, "La position spécifiée est un mur."]
       - [obstacle_agent, "La position spécifiée est un agent."]
       - [direction_invalide, "La direction spécifiée n'existe pas."]
