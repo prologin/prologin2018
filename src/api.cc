@@ -73,6 +73,14 @@ erreur Api::pousser(int id_agent, direction dir)
     return OK;
 }
 
+/// Renvoie le plus court chemin entre deux positions de l'iceberg sous la forme
+/// d'une suite de direction à emprunter. Si la position est invalide ou que le
+/// chemin n'existe pas, le chemin renvoyé est vide.
+std::vector<direction> Api::chemin(position pos1, position pos2)
+{
+    return game_state_->get_shortest_path(pos1, pos2);
+}
+
 /// Renvoie le type d'une case donnée.
 case_type Api::type_case(position pos)
 {

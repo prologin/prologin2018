@@ -20,19 +20,31 @@
 TEST_F(ActionTest, Map_ShortestPath)
 {
     // Invalid position
-    EXPECT_EQ(-1, st->shortest_path({0, 0}, {-42, TAILLE_ICEBERG}));
-    EXPECT_EQ(-1, st->shortest_path({0, 0}, TEST_WALL));
-    EXPECT_EQ(-1, st->shortest_path({0, 0}, TEST_AGENT));
+    std::vector<direction> path1 =
+        st->get_shortest_path({0, 0}, {-42, TAILLE_ICEBERG});
+    std::vector<direction> path2 = st->get_shortest_path({0, 0}, TEST_WALL);
+    std::vector<direction> path3 = st->get_shortest_path({0, 0}, TEST_AGENT);
+    EXPECT_TRUE(path1.empty());
+    EXPECT_TRUE(path2.empty());
+    EXPECT_TRUE(path3.empty());
 
     // Simple pathfinding
-    EXPECT_EQ(4, st->shortest_path({2, 0}, {3, 3}));
-    EXPECT_EQ(10, st->shortest_path({10, 10}, {15, 15}));
+    std::vector<direction> path4 = st->get_shortest_path({2, 0}, {3, 3});
+    std::vector<direction> expected_path4 = {EST, EST, SUD, EST};
+    std::vector<direction> path5 = st->get_shortest_path({10, 10}, {15, 15});
+    std::vector<direction> expected_path5 = {EST, EST, EST, EST, EST,
+                                             SUD, SUD, SUD, SUD, SUD};
+    EXPECT_EQ(expected_path4, path4);
+    EXPECT_EQ(expected_path5, path5);
 
     // Go around agents/walls
     st->set_agent_position(PLAYER_1, 0, {5, 2});
     st->set_agent_position(PLAYER_1, 2, {5, 3});
     st->set_agent_position(PLAYER_2, 0, {5, 4});
-    EXPECT_EQ(10, st->shortest_path({0, 3}, {6, 3}));
+    std::vector<direction> path6 = st->get_shortest_path({0, 3}, {6, 3});
+    std::vector<direction> expected_path6 = {EST, EST, SUD, SUD,   SUD,
+                                             SUD, SUD, SUD, OUEST, OUEST};
+    EXPECT_EQ(expected_path6, path6);
 }
 
 TEST_F(ActionTest, Map_AlienSpawning)

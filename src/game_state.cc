@@ -13,6 +13,7 @@
 ** along with Prologin2018.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <algorithm>
 #include <queue>
 
 #include "constant.hh"
@@ -46,31 +47,48 @@ rules::GameState* GameState::copy() const
     return new GameState(*this);
 }
 
-int GameState::shortest_path(position start, position dest) const
+std::vector<direction> GameState::get_shortest_path(position start,
+                                                    position dest) const
 {
-    std::queue<std::pair<position, int>> q;
+    std::queue<position> q;
     std::array<std::array<bool, TAILLE_ICEBERG>, TAILLE_ICEBERG> seen{};
-    q.push(std::make_pair(start, 0));
+    std::array<std::array<direction, TAILLE_ICEBERG>, TAILLE_ICEBERG>
+        backtrace{};
+
+    q.push(start);
     while (!q.empty())
     {
-        std::pair<position, int> cur = q.front();
+        position cur = q.front();
         q.pop();
-        if (cur.first == dest)
-            return cur.second;
+        if (cur == dest)
+        {
+            // Extract path from backtrace
+            std::vector<direction> path;
+            while (cur != start)
+            {
+                direction dir = backtrace[cur.ligne][cur.colonne];
+                path.push_back(dir);
+                cur = get_position_offset(cur, opposite_dir(dir));
+            }
+            std::reverse(path.begin(), path.end());
+            return path;
+        }
 
         for (int dir = 0; dir < 4; dir++)
         {
-            position next_pos = cur.first + offset[dir];
+            position next_pos = get_position_offset(cur, (direction)dir);
             if (inside_map(next_pos) &&
                 !seen[next_pos.ligne][next_pos.colonne] &&
                 !is_obstacle(next_pos))
             {
                 seen[next_pos.ligne][next_pos.colonne] = true;
-                q.push(std::make_pair(next_pos, cur.second + COUT_DEPLACEMENT));
+                backtrace[next_pos.ligne][next_pos.colonne] = (direction)dir;
+                q.push(next_pos);
             }
         }
     }
-    return -1;
+
+    return {};
 }
 
 position GameState::slide_end_pos(position start, direction dir) const
@@ -79,7 +97,7 @@ position GameState::slide_end_pos(position start, direction dir) const
     do
     {
         pos = next_pos;
-        next_pos += offset[dir];
+        next_pos = get_position_offset(next_pos, dir);
     } while (inside_map(next_pos) && !is_obstacle(next_pos));
     return pos;
 }

@@ -81,6 +81,18 @@ inline position get_position_offset(const position pos, const direction dir)
     return pos + offset[dir];
 }
 
+inline direction opposite_dir(direction dir)
+{
+    if (dir == NORD)
+        return SUD;
+    else if (dir == EST)
+        return OUEST;
+    else if (dir == SUD)
+        return NORD;
+    else
+        return EST;
+}
+
 // This is needed for old compilers
 namespace std
 {

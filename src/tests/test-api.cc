@@ -18,6 +18,26 @@
 
 #include "test-helpers.hh"
 
+TEST_F(ApiTest, Api_Chemin)
+{
+    for (auto& player : players)
+    {
+        std::vector<direction> path1 = player.api->chemin({0, 0}, TEST_WALL);
+        EXPECT_TRUE(path1.empty());
+
+        std::vector<direction> path2 = player.api->chemin({10, 10}, {13, 12});
+        std::vector<direction> expected_path2 = {EST, EST, SUD, SUD, SUD};
+        EXPECT_EQ(expected_path2, path2);
+
+        position agent_pos = player.api->position_agent(player.id, 0);
+        position dest = {5, 5};
+        std::vector<direction> path3 = player.api->chemin(agent_pos, dest);
+        for (auto& dir : path3)
+            player.api->deplacer(0, dir);
+        EXPECT_EQ(dest, player.api->position_agent(player.id, 0));
+    }
+}
+
 TEST_F(ApiTest, Api_TypeCase)
 {
     EXPECT_EQ(LIBRE, players[0].api->type_case({0, 0}));

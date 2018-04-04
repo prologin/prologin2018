@@ -66,6 +66,11 @@ public:
     /// agent.
     erreur pousser(int id_agent, direction dir);
 
+    /// Renvoie le plus court chemin entre deux positions de l'iceberg sous la
+    /// forme d'une suite de direction à emprunter. Si la position est invalide
+    /// ou que le chemin n'existe pas, le chemin renvoyé est vide.
+    std::vector<direction> chemin(position pos1, position pos2);
+
     /// Renvoie le type d'une case donnée.
     case_type type_case(position pos);
 

@@ -321,6 +321,14 @@ extern "C" erreur api_pousser(int id_agent, direction dir)
     return api->pousser(id_agent, dir);
 }
 
+/// Renvoie le plus court chemin entre deux positions de l'iceberg sous la forme
+/// d'une suite de direction à emprunter. Si la position est invalide ou que le
+/// chemin n'existe pas, le chemin renvoyé est vide.
+extern "C" std::vector<direction> api_chemin(position pos1, position pos2)
+{
+    return api->chemin(pos1, pos2);
+}
+
 /// Renvoie le type d'une case donnée.
 extern "C" case_type api_type_case(position pos)
 {
