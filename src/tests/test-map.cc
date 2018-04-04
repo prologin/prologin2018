@@ -190,3 +190,38 @@ TEST_F(ActionTest, Map_AlienValidCapture)
     EXPECT_EQ(alien.puissance, st->get_score(PLAYER_1));
     EXPECT_EQ(0, st->get_score(PLAYER_2));
 }
+
+TEST_F(ActionTest, Map_Storm)
+{
+    std::array<std::array<position, NB_AGENTS>, 2> init_pos = {
+        {{{{0, 0}, {0, 1}, {0, 2}, {0, 3}}},
+         {{{10, 0}, {10, 1}, {10, 2}, {10, 3}}}}};
+    std::array<std::array<position, NB_AGENTS>, 2> end_pos = {
+        {{{{29, 0}, {29, 1}, {29, 2}, {1, 3}}},
+         {{{30, 0}, {30, 1}, {30, 2}, {30, 3}}}}};
+
+    std::vector<int> storm_round = st->get_storm_info();
+
+    bool first_storm = false;
+    for (int round = 0; round < NB_TOURS; round++)
+    {
+        st->check_storm();
+
+        first_storm |= std::find(storm_round.begin(), storm_round.end(),
+                                 round) != storm_round.end();
+        for (auto player : {PLAYER_1, PLAYER_2})
+        {
+            for (int agent = 0; agent < NB_AGENTS; agent++)
+            {
+                int player_norm_id = (player == PLAYER_1) ? 0 : 1;
+                position agent_pos = st->get_agent_position(player, agent);
+                if (!first_storm)
+                    EXPECT_EQ(init_pos[player_norm_id][agent], agent_pos);
+                else
+                    EXPECT_EQ(end_pos[player_norm_id][agent], agent_pos);
+            }
+        }
+
+        st->increment_round();
+    }
+}
