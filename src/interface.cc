@@ -274,14 +274,11 @@ std::string convert_to_string(action_hist in)
 {
     std::string type = convert_to_string(in.type);
     std::string id_agent = convert_to_string(in.id_agent);
-    std::string dest = convert_to_string(in.dest);
     std::string dir = convert_to_string(in.dir);
     std::string out = "{";
     out += "type:" + type;
     out += ", ";
     out += "id_agent:" + id_agent;
-    out += ", ";
-    out += "dest:" + dest;
     out += ", ";
     out += "dir:" + dir;
     return out + "}";
@@ -303,10 +300,10 @@ std::string convert_to_string(std::vector<action_hist> in)
         return "[]";
     }
 }
-/// Déplace l'agent ``id_agent`` sur la case donnée en paramètre.
-extern "C" erreur api_deplacer(int id_agent, position dest)
+/// Déplace l'agent ``id_agent`` d'une case dans la direction choisie.
+extern "C" erreur api_deplacer(int id_agent, direction dir)
 {
-    return api->deplacer(id_agent, dest);
+    return api->deplacer(id_agent, dir);
 }
 
 /// Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il
@@ -581,9 +578,6 @@ std::ostream& operator<<(std::ostream& os, action_hist v)
     os << ", ";
     os << "id_agent"
        << "=" << v.id_agent;
-    os << ", ";
-    os << "dest"
-       << "=" << v.dest;
     os << ", ";
     os << "dir"
        << "=" << v.dir;

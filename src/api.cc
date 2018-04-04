@@ -28,10 +28,10 @@ Api::Api(GameState* game_state, rules::Player_sptr player)
     api = this;
 }
 
-/// Déplace l'agent ``id_agent`` sur la case donnée en paramètre.
-erreur Api::deplacer(int id_agent, position dest)
+/// Déplace l'agent ``id_agent`` d'une case dans la direction choisie.
+erreur Api::deplacer(int id_agent, direction dir)
 {
-    rules::IAction_sptr action(new ActionDeplacer(id_agent, dest, player_->id));
+    rules::IAction_sptr action(new ActionDeplacer(id_agent, dir, player_->id));
 
     erreur err;
     if ((err = static_cast<erreur>(action->check(game_state_))) != OK)

@@ -23,16 +23,19 @@ int ActionPousser::check(const GameState* st) const
         return DIRECTION_INVALIDE;
     if (COUT_POUSSER > st->get_action_points(player_id_))
         return PA_INSUFFISANTS;
+
     position pos = st->get_agent_position(player_id_, agent_id_);
-    if (!st->is_agent_on_position(pos + offset[dir_]))
+    position adjacent = get_position_offset(pos, dir_);
+    if (!st->is_agent_on_position(adjacent))
         return RIEN_A_POUSSER;
+
     return OK;
 }
 
 void ActionPousser::apply_on(GameState* st) const
 {
-    position start =
-        st->get_agent_position(player_id_, agent_id_) + offset[dir_];
+    position agent = st->get_agent_position(player_id_, agent_id_);
+    position start = get_position_offset(agent, dir_);
     position end = st->slide_end_pos(start, dir_);
 
     std::pair<int, int> agent_neigh = st->get_agent_id(start);
@@ -42,10 +45,6 @@ void ActionPousser::apply_on(GameState* st) const
     st->decrease_action_points(player_id_, COUT_POUSSER);
     st->set_agent_position(player_mv, agent_mv, end);
 
-    action_hist action;
-    action.type = ACTION_POUSSER;
-    action.id_agent = agent_id_;
-    action.dir = dir_;
-    action.dest = position{0, 0}; // Not used, so initialized to 0
+    action_hist action{ACTION_POUSSER, agent_id_, dir_};
     st->add_to_history(player_id_, action);
 }

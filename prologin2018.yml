@@ -98,16 +98,11 @@ struct:
   -
     str_name: action_hist
     str_summary: Action représentée dans l'historique.
-                 L'action ``deplacer`` utilise ``id_agent`` et ``dest``.
-                 L'action ``glisser`` utilise ``id_agent`` et ``dir``.
-                 L'action ``pousser`` utilise ``id_agent`` et ``dir``.
     str_tuple: no
     str_field:
       - [type, action_type, "Type de l'action"]
       - [id_agent, int, "Numéro de l'agent concerné par l'action"]
-      - [dest, position, "Case de destination lors d'un déplacement de l'agent"]
-      - [dir, direction, "Direction visée lorsqu'un agent pousse ou glisse sur
-                          l'iceberg"]
+      - [dir, direction, "Direction visée par l'agent durant l'action"]
 
 function:
 
@@ -115,12 +110,13 @@ function:
 
   -
     fct_name: deplacer
-    fct_summary: Déplace l'agent ``id_agent`` sur la case donnée en paramètre.
+    fct_summary: Déplace l'agent ``id_agent`` d'une case dans la direction
+                 choisie.
     fct_ret_type: erreur
     fct_action: yes
     fct_arg:
       - [id_agent, int, "Numéro de l'agent"]
-      - [dest, position, "Case de destination"]
+      - [dir, direction, "Direction visée"]
   -
     fct_name: glisser
     fct_summary: Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à

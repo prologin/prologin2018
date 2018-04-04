@@ -143,16 +143,12 @@ typedef struct alien_info
                                 atteint NB_TOURS_CAPTURE */
 } alien_info;
 
-/// Action représentée dans l'historique. L'action ``deplacer`` utilise
-/// ``id_agent`` et ``dest``. L'action ``glisser`` utilise ``id_agent`` et
-/// ``dir``. L'action ``pousser`` utiliser ``id_agent`` et ``dir``.
+/// Action représentée dans l'historique.
 typedef struct action_hist
 {
     action_type type; /* <- Type de l'action */
     int id_agent;     /* <- Numéro de l'agent concerné par l'action */
-    position dest; /* <- Case de destination lors d'un déplacement de l'agent */
-    direction dir; /* <- Direction visée lorsqu'un agent pousse ou glisse sur
-                      l'iceberg */
+    direction dir;    /* <- Direction visée par l'agent durant l'action */
 } action_hist;
 
 #endif // !CONSTANT_HH_

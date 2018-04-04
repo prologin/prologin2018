@@ -199,20 +199,8 @@ static void dump_history(std::ostream& ss, const GameState& st, int player_id)
         sep = COMMA;
 
         ss << "{\"type\": " << action.type << ", "
-           << "\"id_agent\": " << action.id_agent << ", ";
-        switch (action.type)
-        {
-        case ACTION_DEPLACER:
-            ss << "\"dest\": " << action.dest;
-            break;
-        case ACTION_GLISSER:
-            ss << "\"dir\": " << action.dir;
-            break;
-        case ACTION_POUSSER:
-            ss << "\"dir\": " << action.dir;
-            break;
-        }
-        ss << "}";
+           << "\"id_agent\": " << action.id_agent << ", "
+           << "\"dir\": " << action.dir << "}";
     }
     ss << "]";
 }

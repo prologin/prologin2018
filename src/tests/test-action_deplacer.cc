@@ -23,63 +23,54 @@ TEST_F(ActionTest, ActionDeplacer_NotEnoughActionPoints)
     st->reset_action_points(PLAYER_1);
     st->decrease_action_points(PLAYER_1, NB_POINTS_ACTION);
 
-    ActionDeplacer act(0, {TAILLE_ICEBERG - 1, TAILLE_ICEBERG - 1}, PLAYER_1);
+    ActionDeplacer act(0, NORD, PLAYER_1);
     EXPECT_EQ(PA_INSUFFISANTS, act.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_InvalidPosition)
 {
-    ActionDeplacer act(0, {-42, TAILLE_ICEBERG + 1337}, PLAYER_1);
-    EXPECT_EQ(POSITION_INVALIDE, act.check(st));
+    st->set_agent_position(PLAYER_1, 0, {0, 0});
+    ActionDeplacer act(0, NORD, PLAYER_1);
+    EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_ObstacleWall)
 {
-    ActionDeplacer act(0, TEST_WALL, PLAYER_1);
+    position next_to_wall = get_position_offset(TEST_WALL, SUD);
+    st->set_agent_position(PLAYER_1, 0, next_to_wall);
+    ActionDeplacer act(0, NORD, PLAYER_1);
     EXPECT_EQ(OBSTACLE_MUR, act.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_ObstacleAgent)
 {
-    ActionDeplacer act(0, TEST_AGENT, PLAYER_1);
+    position next_to_agent = get_position_offset(TEST_AGENT, SUD);
+    st->set_agent_position(PLAYER_1, 0, next_to_agent);
+    ActionDeplacer act(0, NORD, PLAYER_1);
     EXPECT_EQ(OBSTACLE_AGENT, act.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_InvalidAgentID)
 {
-    ActionDeplacer act(NB_AGENTS + 5, {0, 0}, PLAYER_1);
+    ActionDeplacer act(NB_AGENTS + 5, NORD, PLAYER_1);
     EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_Valid)
 {
-    position pos1 = {5, 0};
-    position pos2 = {5, 3};
-    position pos3 = {1, 1};
-    int dist = 0;
+    std::vector<direction> test_path = {SUD, EST, EST, SUD, OUEST, NORD};
+    position cur = st->get_agent_position(PLAYER_1, 0);
 
-    ActionDeplacer* act;
-    act = new ActionDeplacer(0, pos1, PLAYER_1);
-    EXPECT_EQ(OK, act->check(st));
-    dist += st->shortest_path(st->get_agent_position(PLAYER_1, 0), pos1);
-    act->apply_on(st);
-    EXPECT_EQ(pos1, st->get_agent_position(PLAYER_1, 0));
-    delete act;
+    for (auto& dir : test_path)
+    {
+        ActionDeplacer act(0, dir, PLAYER_1);
+        EXPECT_EQ(OK, act.check(st));
 
-    act = new ActionDeplacer(0, pos2, PLAYER_1);
-    EXPECT_EQ(OK, act->check(st));
-    dist += st->shortest_path(st->get_agent_position(PLAYER_1, 0), pos2);
-    act->apply_on(st);
-    EXPECT_EQ(pos2, st->get_agent_position(PLAYER_1, 0));
-    delete act;
+        act.apply_on(st);
+        cur = get_position_offset(cur, dir);
+        EXPECT_EQ(cur, st->get_agent_position(PLAYER_1, 0));
+    }
 
-    act = new ActionDeplacer(2, pos3, PLAYER_1);
-    EXPECT_EQ(OK, act->check(st));
-    dist += st->shortest_path(st->get_agent_position(PLAYER_1, 2), pos3);
-    act->apply_on(st);
-    EXPECT_EQ(pos3, st->get_agent_position(PLAYER_1, 2));
-    delete act;
-
-    EXPECT_EQ(NB_POINTS_ACTION - dist * COUT_DEPLACEMENT,
-              st->get_action_points(PLAYER_1));
+    int total_cost = (int)test_path.size() * COUT_DEPLACEMENT;
+    EXPECT_EQ(NB_POINTS_ACTION - total_cost, st->get_action_points(PLAYER_1));
 }

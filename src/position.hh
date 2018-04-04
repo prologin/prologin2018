@@ -76,6 +76,11 @@ inline bool inside_map(const position& pos)
 
 static const position offset[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
+inline position get_position_offset(const position pos, const direction dir)
+{
+    return pos + offset[dir];
+}
+
 // This is needed for old compilers
 namespace std
 {

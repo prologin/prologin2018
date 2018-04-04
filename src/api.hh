@@ -53,8 +53,8 @@ private:
     rules::Actions actions_;
 
 public:
-    /// Déplace l'agent ``id_agent`` sur la case donnée en paramètre.
-    erreur deplacer(int id_agent, position dest);
+    /// Déplace l'agent ``id_agent`` d'une case dans la direction choisie.
+    erreur deplacer(int id_agent, direction dir);
 
     /// Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il
     /// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent.

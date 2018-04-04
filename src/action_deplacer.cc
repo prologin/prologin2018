@@ -19,20 +19,19 @@ int ActionDeplacer::check(const GameState* st) const
 {
     if (agent_id_ < 0 || agent_id_ >= NB_AGENTS)
         return ID_AGENT_INVALIDE;
-    if (!inside_map(dest_))
-        return POSITION_INVALIDE;
-    if (st->get_cell_type(dest_) == case_type::MUR)
-        return OBSTACLE_MUR;
-    if (st->is_agent_on_position(dest_))
-        return OBSTACLE_AGENT;
-
-    int action_points = st->get_action_points(player_id_);
-    position start = st->get_agent_position(player_id_, agent_id_);
-    int cost = st->shortest_path(start, dest_);
-    if (cost > action_points)
+    if (dir_ < 0 || dir_ > 3)
+        return DIRECTION_INVALIDE;
+    if (COUT_DEPLACEMENT > st->get_action_points(player_id_))
         return PA_INSUFFISANTS;
-    if (cost == -1)
-        return POSITION_INVALIDE;
+
+    position start = st->get_agent_position(player_id_, agent_id_);
+    position dest = get_position_offset(start, dir_);
+    if (!inside_map(dest))
+        return DIRECTION_INVALIDE;
+    if (st->get_cell_type(dest) == case_type::MUR)
+        return OBSTACLE_MUR;
+    if (st->is_agent_on_position(dest))
+        return OBSTACLE_AGENT;
 
     return OK;
 }
@@ -40,15 +39,11 @@ int ActionDeplacer::check(const GameState* st) const
 void ActionDeplacer::apply_on(GameState* st) const
 {
     position start = st->get_agent_position(player_id_, agent_id_);
-    int cost = st->shortest_path(start, dest_);
+    position dest = get_position_offset(start, dir_);
 
-    st->decrease_action_points(player_id_, cost);
-    st->set_agent_position(player_id_, agent_id_, dest_);
+    st->decrease_action_points(player_id_, COUT_DEPLACEMENT);
+    st->set_agent_position(player_id_, agent_id_, dest);
 
-    action_hist action;
-    action.type = ACTION_DEPLACER;
-    action.id_agent = agent_id_;
-    action.dest = dest_;
-    action.dir = (direction)0; // Not used, so initialized to 0
+    action_hist action{ACTION_DEPLACER, agent_id_, dir_};
     st->add_to_history(player_id_, action);
 }

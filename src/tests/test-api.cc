@@ -14,6 +14,7 @@
 */
 
 #include "../api.hh"
+#include "../struct_helper.hh"
 
 #include "test-helpers.hh"
 
@@ -111,15 +112,15 @@ TEST_F(ApiTest, Api_Historique)
     for (auto& player : players)
     {
         position agent_pos = player.api->position_agent(player.id, 0);
-        agent_pos += offset[SUD];
-        EXPECT_EQ(OK, player.api->deplacer(0, agent_pos));
-        action_hist act1 = {ACTION_DEPLACER, 0, agent_pos, (direction)0};
+        agent_pos = get_position_offset(agent_pos, SUD);
+        EXPECT_EQ(OK, player.api->deplacer(0, SUD));
+        action_hist act1 = {ACTION_DEPLACER, 0, SUD};
 
         EXPECT_EQ(OK, player.api->glisser(1, SUD));
-        action_hist act2 = {ACTION_GLISSER, 1, {0, 0}, SUD};
+        action_hist act2 = {ACTION_GLISSER, 1, SUD};
 
         EXPECT_EQ(OK, player.api->pousser(2, EST));
-        action_hist act3 = {ACTION_POUSSER, 2, {0, 0}, EST};
+        action_hist act3 = {ACTION_POUSSER, 2, EST};
 
         std::vector<action_hist> hist = {act1, act2, act3};
         std::vector<action_hist> expected =
@@ -163,12 +164,14 @@ TEST_F(ApiTest, Api_Annuler)
     {
         EXPECT_FALSE(player.api->annuler());
 
-        position init = player.api->position_agent(player.id, 0);
-        position pos{5, 5};
-        EXPECT_EQ(OK, player.api->deplacer(0, pos));
-        EXPECT_EQ(pos, player.api->position_agent(player.id, 0));
+        position start = player.api->position_agent(player.id, 0);
+        position dest = get_position_offset(start, SUD);
+
+        EXPECT_EQ(OK, player.api->deplacer(0, SUD));
+        EXPECT_EQ(dest, player.api->position_agent(player.id, 0));
+
         EXPECT_TRUE(player.api->annuler());
-        EXPECT_EQ(init, player.api->position_agent(player.id, 0));
+        EXPECT_EQ(start, player.api->position_agent(player.id, 0));
     }
 }
 
