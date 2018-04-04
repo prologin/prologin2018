@@ -194,7 +194,7 @@ void GameState::update_scores()
     }
 }
 
-std::vector<int> GameState::get_storm_info() const
+const std::vector<int>& GameState::get_storm_info() const
 {
     return map_->get_storm_info();
 }
@@ -228,7 +228,7 @@ void GameState::check_storm()
     const direction storm_dir = map_->get_storm_dir();
     std::sort(agents.begin(), agents.end(), cmp[opposite_dir(storm_dir)]);
 
-    for (auto& agent : agents)
+    for (auto agent : agents)
     {
         std::pair<int, int> ids = get_agent_id(agent);
         position new_pos = slide_end_pos(agent, storm_dir);

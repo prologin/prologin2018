@@ -126,7 +126,8 @@ bool Map::is_wall(position pos) const
     return get_cell_type(pos) == MUR;
 }
 
-std::array<position, NB_AGENTS> Map::get_start_position(int player_id) const
+const std::array<position, NB_AGENTS>&
+Map::get_start_position(int player_id) const
 {
     assert(player_id < 2);
     return start_position_[player_id];
@@ -191,7 +192,7 @@ void Map::reset_alien_capture_time(position pos)
             alien_[id].capture_en_cours = 0;
 }
 
-std::vector<int> Map::get_storm_info() const
+const std::vector<int>& Map::get_storm_info() const
 {
     return storm_round_;
 }

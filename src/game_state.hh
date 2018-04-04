@@ -51,7 +51,7 @@ public:
     void check_presence_alien();
     void update_scores();
 
-    std::vector<int> get_storm_info() const;
+    const std::vector<int>& get_storm_info() const;
     direction get_storm_dir() const;
     void check_storm();
 

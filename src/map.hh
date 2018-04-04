@@ -32,7 +32,8 @@ public:
     bool is_empty(position pos) const;
     bool is_wall(position pos) const;
 
-    std::array<position, NB_AGENTS> get_start_position(int player_id) const;
+    const std::array<position, NB_AGENTS>&
+    get_start_position(int player_id) const;
 
     std::vector<alien_info> get_alien_info() const;
     alien_info get_alien_info(position pos) const;
@@ -42,7 +43,7 @@ public:
     void increment_alien_capture_time(position pos);
     void reset_alien_capture_time(position pos);
 
-    std::vector<int> get_storm_info() const;
+    const std::vector<int>& get_storm_info() const;
     direction get_storm_dir() const;
     bool is_storm_round(int round) const;
 
