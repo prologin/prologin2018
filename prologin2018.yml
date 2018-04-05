@@ -78,7 +78,7 @@ enum:
     enum_name: debug_drapeau
     enum_summary: "Types de drapeaux de débug"
     enum_field:
-      - [drapeau_vide, "Drapeau vide"]
+      - [aucun_drapeau, "Aucun drapeau, enlève le drapeau présent"]
       - [drapeau_bleu, "Drapeau bleu"]
       - [drapeau_vert, "Drapeau vert"]
       - [drapeau_rouge, "Drapeau rouge"]

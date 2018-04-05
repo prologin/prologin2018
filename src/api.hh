@@ -101,9 +101,9 @@ public:
     /// Renvoie la direction des tempêtes.
     direction direction_tempete();
 
-    /// Renvoie la liste des actions effectuées par l’adversaire durant son tour,
-    /// dans l'ordre chronologique. Les actions de débug n'apparaissent pas dans
-    /// cette liste.
+    /// Renvoie la liste des actions effectuées par l’adversaire durant son
+    /// tour, dans l'ordre chronologique. Les actions de débug n'apparaissent
+    /// pas dans cette liste.
     std::vector<action_hist> historique();
 
     /// Renvoie le score du joueur ``id_joueur``. Renvoie -1 si le joueur est

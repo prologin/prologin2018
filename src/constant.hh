@@ -126,7 +126,7 @@ template <> struct hash<action_type>
 
 /// Types de drapeaux de débug
 typedef enum debug_drapeau {
-    DRAPEAU_VIDE,  /* <- Drapeau vide */
+    AUCUN_DRAPEAU, /* <- Aucun drapeau, enlève le drapeau présent */
     DRAPEAU_BLEU,  /* <- Drapeau bleu */
     DRAPEAU_VERT,  /* <- Drapeau vert */
     DRAPEAU_ROUGE, /* <- Drapeau rouge */

@@ -215,8 +215,8 @@ std::string convert_to_string(debug_drapeau in)
 {
     switch (in)
     {
-    case DRAPEAU_VIDE:
-        return "\"drapeau_vide\"";
+    case AUCUN_DRAPEAU:
+        return "\"aucun_drapeau\"";
     case DRAPEAU_BLEU:
         return "\"drapeau_bleu\"";
     case DRAPEAU_VERT:
@@ -588,8 +588,8 @@ std::ostream& operator<<(std::ostream& os, debug_drapeau v)
 {
     switch (v)
     {
-    case DRAPEAU_VIDE:
-        os << "DRAPEAU_VIDE";
+    case AUCUN_DRAPEAU:
+        os << "AUCUN_DRAPEAU";
         break;
     case DRAPEAU_BLEU:
         os << "DRAPEAU_BLEU";

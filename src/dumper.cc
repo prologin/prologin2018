@@ -195,8 +195,8 @@ static std::ostream& operator<<(std::ostream& ss, const debug_drapeau& drapeau)
     ss << "\"";
     switch (drapeau)
     {
-    case DRAPEAU_VIDE:
-        ss << "DRAPEAU_VIDE";
+    case AUCUN_DRAPEAU:
+        ss << "AUCUN_DRAPEAU";
         break;
     case DRAPEAU_BLEU:
         ss << "DRAPEAU_BLEU";
