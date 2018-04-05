@@ -73,6 +73,21 @@ erreur Api::pousser(int id_agent, direction dir)
     return OK;
 }
 
+/// Affiche le drapeau spécifié sur la case indiquée.
+erreur Api::debug_afficher_drapeau(position pos, debug_drapeau drapeau)
+{
+    rules::IAction_sptr action(
+        new ActionDebugAfficherDrapeau(pos, drapeau, player_->id));
+
+    erreur err;
+    if ((err = static_cast<erreur>(action->check(game_state_))) != OK)
+        return err;
+
+    actions_.add(action);
+    game_state_set(action->apply(game_state_));
+    return OK;
+}
+
 /// Renvoie le plus court chemin entre deux positions de l'iceberg sous la forme
 /// d'une suite de direction à emprunter. Si la position est invalide ou que le
 /// chemin n'existe pas, le chemin renvoyé est vide.

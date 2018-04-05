@@ -13,20 +13,20 @@
 ** along with Prologin2018.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ACTIONS_HH
-#define ACTIONS_HH
+#include "actions.hh"
 
-enum action_id
+int ActionDebugAfficherDrapeau::check(const GameState* /*st*/) const
 {
-    ID_ACTION_DEPLACER,
-    ID_ACTION_GLISSER,
-    ID_ACTION_POUSSER,
-    ID_ACTION_DEBUG_AFFICHER_DRAPEAU
-};
+    if (!inside_map(pos_))
+        return POSITION_INVALIDE;
+    if (drapeau_ < 0 || drapeau_ > 3)
+        return DRAPEAU_INVALIDE;
 
-#include "action_debug_afficher_drapeau.hh"
-#include "action_deplacer.hh"
-#include "action_glisser.hh"
-#include "action_pousser.hh"
+    return OK;
+}
 
-#endif // !ACTIONS_HH
+void ActionDebugAfficherDrapeau::apply_on(GameState* st) const
+{
+    action_hist action{ACTION_DEBUG, 0, (direction)0, drapeau_};
+    st->add_to_history(player_id_, action);
+}

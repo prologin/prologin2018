@@ -54,6 +54,9 @@ void Rules::register_actions()
     api_->actions()->register_action(
         ID_ACTION_POUSSER,
         []() -> rules::IAction* { return new ActionPousser(); });
+    api_->actions()->register_action(
+        ID_ACTION_DEBUG_AFFICHER_DRAPEAU,
+        []() -> rules::IAction* { return new ActionDebugAfficherDrapeau(); });
 }
 
 rules::Actions* Rules::get_actions()

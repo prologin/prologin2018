@@ -145,6 +145,8 @@ std::string convert_to_string(erreur in)
         return "\"ok\"";
     case PA_INSUFFISANTS:
         return "\"pa_insuffisants\"";
+    case POSITION_INVALIDE:
+        return "\"position_invalide\"";
     case OBSTACLE_MUR:
         return "\"obstacle_mur\"";
     case OBSTACLE_AGENT:
@@ -157,6 +159,8 @@ std::string convert_to_string(erreur in)
         return "\"id_joueur_invalide\"";
     case RIEN_A_POUSSER:
         return "\"rien_a_pousser\"";
+    case DRAPEAU_INVALIDE:
+        return "\"drapeau_invalide\"";
     }
     return "bad value";
 }
@@ -186,10 +190,43 @@ std::string convert_to_string(action_type in)
         return "\"action_glisser\"";
     case ACTION_POUSSER:
         return "\"action_pousser\"";
+    case ACTION_DEBUG:
+        return "\"action_debug\"";
     }
     return "bad value";
 }
 std::string convert_to_string(std::vector<action_type> in)
+{
+    if (in.size())
+    {
+        std::string s = "[" + convert_to_string(in[0]);
+        for (int i = 1, l = in.size(); i < l; i++)
+        {
+            s = s + ", " + convert_to_string(in[i]);
+        }
+        return s + "]";
+    }
+    else
+    {
+        return "[]";
+    }
+}
+std::string convert_to_string(debug_drapeau in)
+{
+    switch (in)
+    {
+    case DRAPEAU_VIDE:
+        return "\"drapeau_vide\"";
+    case DRAPEAU_BLEU:
+        return "\"drapeau_bleu\"";
+    case DRAPEAU_VERT:
+        return "\"drapeau_vert\"";
+    case DRAPEAU_ROUGE:
+        return "\"drapeau_rouge\"";
+    }
+    return "bad value";
+}
+std::string convert_to_string(std::vector<debug_drapeau> in)
 {
     if (in.size())
     {
@@ -317,6 +354,13 @@ extern "C" erreur api_glisser(int id_agent, direction dir)
 extern "C" erreur api_pousser(int id_agent, direction dir)
 {
     return api->pousser(id_agent, dir);
+}
+
+/// Affiche le drapeau spécifié sur la case indiquée.
+extern "C" erreur api_debug_afficher_drapeau(position pos,
+                                             debug_drapeau drapeau)
+{
+    return api->debug_afficher_drapeau(pos, drapeau);
 }
 
 /// Renvoie le plus court chemin entre deux positions de l'iceberg sous la forme
@@ -481,6 +525,9 @@ std::ostream& operator<<(std::ostream& os, erreur v)
     case PA_INSUFFISANTS:
         os << "PA_INSUFFISANTS";
         break;
+    case POSITION_INVALIDE:
+        os << "POSITION_INVALIDE";
+        break;
     case OBSTACLE_MUR:
         os << "OBSTACLE_MUR";
         break;
@@ -498,6 +545,9 @@ std::ostream& operator<<(std::ostream& os, erreur v)
         break;
     case RIEN_A_POUSSER:
         os << "RIEN_A_POUSSER";
+        break;
+    case DRAPEAU_INVALIDE:
+        os << "DRAPEAU_INVALIDE";
         break;
     }
     return os;
@@ -521,10 +571,38 @@ std::ostream& operator<<(std::ostream& os, action_type v)
     case ACTION_POUSSER:
         os << "ACTION_POUSSER";
         break;
+    case ACTION_DEBUG:
+        os << "ACTION_DEBUG";
+        break;
     }
     return os;
 }
 extern "C" void api_afficher_action_type(action_type v)
+{
+    std::cerr << v << std::endl;
+}
+
+/// Affiche le contenu d'une valeur de type debug_drapeau
+std::ostream& operator<<(std::ostream& os, debug_drapeau v)
+{
+    switch (v)
+    {
+    case DRAPEAU_VIDE:
+        os << "DRAPEAU_VIDE";
+        break;
+    case DRAPEAU_BLEU:
+        os << "DRAPEAU_BLEU";
+        break;
+    case DRAPEAU_VERT:
+        os << "DRAPEAU_VERT";
+        break;
+    case DRAPEAU_ROUGE:
+        os << "DRAPEAU_ROUGE";
+        break;
+    }
+    return os;
+}
+extern "C" void api_afficher_debug_drapeau(debug_drapeau v)
 {
     std::cerr << v << std::endl;
 }

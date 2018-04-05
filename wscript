@@ -13,6 +13,7 @@ def configure(cfg):
 def build(bld):
     bld.shlib(
         source = '''
+            src/action_debug_afficher_drapeau.cc
             src/action_deplacer.cc
             src/action_glisser.cc
             src/action_pousser.cc

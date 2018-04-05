@@ -44,6 +44,6 @@ void ActionDeplacer::apply_on(GameState* st) const
     st->decrease_action_points(player_id_, COUT_DEPLACEMENT);
     st->set_agent_position(player_id_, agent_id_, dest);
 
-    action_hist action{ACTION_DEPLACER, agent_id_, dir_};
+    action_hist action{ACTION_DEPLACER, agent_id_, dir_, (debug_drapeau)0};
     st->add_to_history(player_id_, action);
 }

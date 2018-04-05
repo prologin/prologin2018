@@ -45,6 +45,6 @@ void ActionPousser::apply_on(GameState* st) const
     st->decrease_action_points(player_id_, COUT_POUSSER);
     st->set_agent_position(player_mv, agent_mv, end);
 
-    action_hist action{ACTION_POUSSER, agent_id_, dir_};
+    action_hist action{ACTION_POUSSER, agent_id_, dir_, (debug_drapeau)0};
     st->add_to_history(player_id_, action);
 }

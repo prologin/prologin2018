@@ -84,12 +84,14 @@ typedef enum erreur {
     OK,                /* <- L'action s'est effectuée avec succès. */
     PA_INSUFFISANTS,   /* <- Vous ne possédez pas assez de points d'action pour
                           réaliser cette action. */
+    POSITION_INVALIDE, /* <- La position spécifiée n'est pas sur l'iceberg. */
     OBSTACLE_MUR,      /* <- La position spécifiée est un mur. */
     OBSTACLE_AGENT,    /* <- La position spécifiée est un agent. */
     DIRECTION_INVALIDE, /* <- La direction spécifiée n'existe pas. */
     ID_AGENT_INVALIDE,  /* <- L'agent spécifié n'existe pas. */
     ID_JOUEUR_INVALIDE, /* <- Le joueur spécifié n'existe pas. */
     RIEN_A_POUSSER, /* <- Aucun agent à pousser dans la direction indiquée. */
+    DRAPEAU_INVALIDE, /* <- Le drapeau spécifié n'existe pas. */
 } erreur;
 // This is needed for old compilers
 namespace std
@@ -108,6 +110,7 @@ typedef enum action_type {
     ACTION_DEPLACER, /* <- Action ``deplacer`` */
     ACTION_GLISSER,  /* <- Action ``glisser`` */
     ACTION_POUSSER,  /* <- Action ``pousser`` */
+    ACTION_DEBUG,    /* <- Action ``debug_afficher_drapeau`` */
 } action_type;
 // This is needed for old compilers
 namespace std
@@ -115,6 +118,25 @@ namespace std
 template <> struct hash<action_type>
 {
     size_t operator()(const action_type& v) const
+    {
+        return hash<int>()(static_cast<int>(v));
+    }
+};
+}
+
+/// Types de drapeaux de débug
+typedef enum debug_drapeau {
+    DRAPEAU_VIDE,  /* <- Drapeau vide */
+    DRAPEAU_BLEU,  /* <- Drapeau bleu */
+    DRAPEAU_VERT,  /* <- Drapeau vert */
+    DRAPEAU_ROUGE, /* <- Drapeau rouge */
+} debug_drapeau;
+// This is needed for old compilers
+namespace std
+{
+template <> struct hash<debug_drapeau>
+{
+    size_t operator()(const debug_drapeau& v) const
     {
         return hash<int>()(static_cast<int>(v));
     }
@@ -142,12 +164,15 @@ typedef struct alien_info
                                 atteint NB_TOURS_CAPTURE */
 } alien_info;
 
-/// Action représentée dans l'historique.
+/// Action représentée dans l'historique. Les actions ``deplacer``, ``glisser``
+/// et ``pousser`` utilisent ``id_agent`` ainsi que ``dir``. L'action de débug
+/// utilise ``drapeau``.
 typedef struct action_hist
 {
-    action_type type; /* <- Type de l'action */
-    int id_agent;     /* <- Numéro de l'agent concerné par l'action */
-    direction dir;    /* <- Direction visée par l'agent durant l'action */
+    action_type type;      /* <- Type de l'action */
+    int id_agent;          /* <- Numéro de l'agent concerné par l'action */
+    direction dir;         /* <- Direction visée par l'agent durant l'action */
+    debug_drapeau drapeau; /* <- Drapeau de débug affiché par le joueur */
 } action_hist;
 
 #endif // !CONSTANT_HH_

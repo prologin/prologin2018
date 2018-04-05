@@ -13,20 +13,13 @@
 ** along with Prologin2018.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ACTIONS_HH
-#define ACTIONS_HH
+#include "../actions.hh"
+#include "../constant.hh"
 
-enum action_id
+#include "test-helpers.hh"
+
+TEST_F(ActionTest, ActionDebugAfficherDrapeau_InvalidPosition)
 {
-    ID_ACTION_DEPLACER,
-    ID_ACTION_GLISSER,
-    ID_ACTION_POUSSER,
-    ID_ACTION_DEBUG_AFFICHER_DRAPEAU
-};
-
-#include "action_debug_afficher_drapeau.hh"
-#include "action_deplacer.hh"
-#include "action_glisser.hh"
-#include "action_pousser.hh"
-
-#endif // !ACTIONS_HH
+    ActionDebugAfficherDrapeau act({-42, 27}, DRAPEAU_BLEU, PLAYER_1);
+    EXPECT_EQ(POSITION_INVALIDE, act.check(st));
+}

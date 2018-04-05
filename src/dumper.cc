@@ -141,6 +141,9 @@ static std::ostream& operator<<(std::ostream& ss, action_type atype)
     case ACTION_POUSSER:
         ss << "ACTION_POUSSER";
         break;
+    case ACTION_DEBUG:
+        ss << "ACTION_DEBUG";
+        break;
     }
     ss << "\"";
     return ss;
@@ -187,6 +190,28 @@ static std::ostream& operator<<(std::ostream& ss, const direction& dir)
     return ss;
 }
 
+static std::ostream& operator<<(std::ostream& ss, const debug_drapeau& drapeau)
+{
+    ss << "\"";
+    switch (drapeau)
+    {
+    case DRAPEAU_VIDE:
+        ss << "DRAPEAU_VIDE";
+        break;
+    case DRAPEAU_BLEU:
+        ss << "DRAPEAU_BLEU";
+        break;
+    case DRAPEAU_VERT:
+        ss << "DRAPEAU_VERT";
+        break;
+    case DRAPEAU_ROUGE:
+        ss << "DRAPEAU_ROUGE";
+        break;
+    }
+    ss << "\"";
+    return ss;
+}
+
 static void dump_history(std::ostream& ss, const GameState& st, int player_id)
 {
     const std::vector<action_hist>& history = st.get_history(player_id);
@@ -198,9 +223,13 @@ static void dump_history(std::ostream& ss, const GameState& st, int player_id)
         ss << sep;
         sep = COMMA;
 
-        ss << "{\"type\": " << action.type << ", "
-           << "\"id_agent\": " << action.id_agent << ", "
-           << "\"dir\": " << action.dir << "}";
+        ss << "{\"type\": " << action.type << ", ";
+        if (action.type == ACTION_DEBUG)
+            ss << "\"drapeau\": " << action.drapeau;
+        else
+            ss << "\"id_agent\": " << action.id_agent << ", "
+               << "\"dir\": " << action.dir;
+        ss << "}";
     }
     ss << "]";
 }
