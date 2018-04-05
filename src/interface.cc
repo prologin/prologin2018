@@ -423,7 +423,8 @@ extern "C" direction api_direction_tempete()
 }
 
 /// Renvoie la liste des actions effectuées par l’adversaire durant son tour,
-/// dans l'ordre chronologique.
+/// dans l'ordre chronologique. Les actions de débug n'apparaissent pas dans
+/// cette liste.
 extern "C" std::vector<action_hist> api_historique()
 {
     return api->historique();

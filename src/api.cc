@@ -148,10 +148,16 @@ direction Api::direction_tempete()
 }
 
 /// Renvoie la liste des actions effectuées par l’adversaire durant son tour,
-/// dans l'ordre chronologique.
+/// dans l'ordre chronologique. Les actions de débug n'apparaissent pas dans
+/// cette liste.
 std::vector<action_hist> Api::historique()
 {
-    return game_state_->get_history(adversaire());
+    std::vector<action_hist> hist = game_state_->get_history(adversaire());
+    std::vector<action_hist> hist_no_debug;
+    for (auto act : hist)
+        if (act.type != ACTION_DEBUG)
+            hist_no_debug.push_back(act);
+    return hist_no_debug;
 }
 
 /// Renvoie le score du joueur ``id_joueur``. Renvoie -1 si le joueur est
