@@ -110,7 +110,6 @@ typedef enum action_type {
     ACTION_DEPLACER, /* <- Action ``deplacer`` */
     ACTION_GLISSER,  /* <- Action ``glisser`` */
     ACTION_POUSSER,  /* <- Action ``pousser`` */
-    ACTION_DEBUG,    /* <- Action ``debug_afficher_drapeau`` */
 } action_type;
 // This is needed for old compilers
 namespace std
@@ -164,15 +163,12 @@ typedef struct alien_info
                                 atteint NB_TOURS_CAPTURE */
 } alien_info;
 
-/// Action représentée dans l'historique. Les actions ``deplacer``, ``glisser``
-/// et ``pousser`` utilisent ``id_agent`` ainsi que ``dir``. L'action de débug
-/// utilise ``drapeau``.
+/// Action représentée dans l'historique.
 typedef struct action_hist
 {
-    action_type type;      /* <- Type de l'action */
-    int id_agent;          /* <- Numéro de l'agent concerné par l'action */
-    direction dir;         /* <- Direction visée par l'agent durant l'action */
-    debug_drapeau drapeau; /* <- Drapeau de débug affiché par le joueur */
+    action_type type; /* <- Type de l'action */
+    int id_agent;     /* <- Numéro de l'agent concerné par l'action */
+    direction dir;    /* <- Direction visée par l'agent durant l'action */
 } action_hist;
 
 #endif // !CONSTANT_HH_

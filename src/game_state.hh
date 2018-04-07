@@ -22,6 +22,7 @@
 #include <array>
 #include <unordered_map>
 
+#include "history.hh"
 #include "map.hh"
 #include "player_info.hh"
 
@@ -69,9 +70,11 @@ public:
 
     bool is_finished() const;
 
-    const std::vector<action_hist>& get_history(int player_id) const;
-    void reset_history(int player_id);
-    void add_to_history(int player_id, action_hist action);
+    const std::vector<internal_action>&
+    get_internal_history(int player_id) const;
+    const std::vector<action_hist> get_history(int player_id) const;
+    void reset_internal_history(int player_id);
+    void add_to_internal_history(int player_id, internal_action action);
 
 private:
     std::unordered_map<int, PlayerInfo> player_info_;

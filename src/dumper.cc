@@ -17,9 +17,11 @@
 #include <iostream>
 #include <string>
 
+#include "actions.hh"
 #include "api.hh"
 #include "constant.hh"
 #include "game_state.hh"
+#include "history.hh"
 #include "rules.hh"
 
 constexpr auto COMMA = ", ";
@@ -127,22 +129,22 @@ static std::ostream& operator<<(std::ostream& ss, const position& pos)
     return ss;
 }
 
-static std::ostream& operator<<(std::ostream& ss, action_type atype)
+static std::ostream& operator<<(std::ostream& ss, action_id action_type)
 {
     ss << "\"";
-    switch (atype)
+    switch (action_type)
     {
-    case ACTION_DEPLACER:
-        ss << "ACTION_DEPLACER";
+    case ID_ACTION_DEPLACER:
+        ss << "ID_ACTION_DEPLACER";
         break;
-    case ACTION_GLISSER:
-        ss << "ACTION_GLISSER";
+    case ID_ACTION_GLISSER:
+        ss << "ID_ACTION_GLISSER";
         break;
-    case ACTION_POUSSER:
-        ss << "ACTION_POUSSER";
+    case ID_ACTION_POUSSER:
+        ss << "ID_ACTION_POUSSER";
         break;
-    case ACTION_DEBUG:
-        ss << "ACTION_DEBUG";
+    case ID_ACTION_DEBUG_AFFICHER_DRAPEAU:
+        ss << "ID_ACTION_DEBUG_AFFICHER_DRAPEAU";
         break;
     }
     ss << "\"";
@@ -214,7 +216,8 @@ static std::ostream& operator<<(std::ostream& ss, const debug_drapeau& drapeau)
 
 static void dump_history(std::ostream& ss, const GameState& st, int player_id)
 {
-    const std::vector<action_hist>& history = st.get_history(player_id);
+    const std::vector<internal_action>& history =
+        st.get_internal_history(player_id);
 
     auto sep = "";
     ss << "[";
@@ -223,12 +226,13 @@ static void dump_history(std::ostream& ss, const GameState& st, int player_id)
         ss << sep;
         sep = COMMA;
 
-        ss << "{\"type\": " << action.type << ", ";
-        if (action.type == ACTION_DEBUG)
-            ss << "\"drapeau\": " << action.drapeau;
+        ss << "{\"type\": " << (action_id)action.type << ", ";
+        if (action.type == ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
+            ss << "\"drapeau\": " << action.debug_flag.type << ", "
+               << "\"pos\": " << action.debug_flag.pos;
         else
-            ss << "\"id_agent\": " << action.id_agent << ", "
-               << "\"dir\": " << action.dir;
+            ss << "\"id_agent\": " << action.move_action.id_agent << ", "
+               << "\"dir\": " << action.move_action.dir;
         ss << "}";
     }
     ss << "]";

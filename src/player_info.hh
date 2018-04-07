@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "constant.hh"
+#include "history.hh"
 #include "position.hh"
 
 class PlayerInfo
@@ -41,13 +42,13 @@ public:
     const std::string& get_name() const;
     void set_name(const std::string& name);
 
-    const std::vector<action_hist>& get_actions() const;
-    void reset_actions();
-    void add_action(action_hist action);
+    const std::vector<internal_action>& get_internal_history() const;
+    void reset_internal_history();
+    void add_internal_action(internal_action action);
 
 private:
     rules::Player_sptr player_;
-    std::vector<action_hist> actions_;
+    std::vector<internal_action> internal_hist_;
     int action_points_;
     int internal_id_;
 };

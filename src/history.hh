@@ -13,23 +13,24 @@
 ** along with Prologin2018.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "actions.hh"
-#include "history.hh"
+#ifndef HISTORY_HH
+#define HISTORY_HH
 
-int ActionDebugAfficherDrapeau::check(const GameState* /*st*/) const
+#include "constant.hh"
+
+typedef struct flag_info
 {
-    if (!inside_map(pos_))
-        return POSITION_INVALIDE;
-    if (drapeau_ < 0 || drapeau_ > 3)
-        return DRAPEAU_INVALIDE;
+    debug_drapeau type;
+    position pos;
+} flag_info;
 
-    return OK;
-}
-
-void ActionDebugAfficherDrapeau::apply_on(GameState* st) const
+typedef struct internal_action
 {
-    internal_action action;
-    action.type = ID_ACTION_DEBUG_AFFICHER_DRAPEAU;
-    action.debug_flag = (flag_info){drapeau_, pos_};
-    st->add_to_internal_history(player_id_, action);
-}
+    int type;
+    union {
+        flag_info debug_flag;
+        action_hist move_action;
+    };
+} internal_action;
+
+#endif

@@ -134,13 +134,13 @@ TEST_F(ApiTest, Api_Historique)
         position agent_pos = player.api->position_agent(player.id, 0);
         agent_pos = get_position_offset(agent_pos, SUD);
         EXPECT_EQ(OK, player.api->deplacer(0, SUD));
-        action_hist act1 = {ACTION_DEPLACER, 0, SUD, (debug_drapeau)0};
+        action_hist act1 = {ACTION_DEPLACER, 0, SUD};
 
         EXPECT_EQ(OK, player.api->glisser(1, SUD));
-        action_hist act2 = {ACTION_GLISSER, 1, SUD, (debug_drapeau)0};
+        action_hist act2 = {ACTION_GLISSER, 1, SUD};
 
         EXPECT_EQ(OK, player.api->pousser(2, EST));
-        action_hist act3 = {ACTION_POUSSER, 2, EST, (debug_drapeau)0};
+        action_hist act3 = {ACTION_POUSSER, 2, EST};
 
         std::vector<action_hist> hist = {act1, act2, act3};
         std::vector<action_hist> expected =

@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <queue>
 
+#include "actions.hh"
 #include "constant.hh"
 #include "game_state.hh"
 
@@ -286,20 +287,32 @@ bool GameState::is_finished() const
     return round_ >= NB_TOURS;
 }
 
-const std::vector<action_hist>& GameState::get_history(int player_id) const
+const std::vector<internal_action>&
+GameState::get_internal_history(int player_id) const
 {
     assert(player_info_.count(player_id) != 0);
-    return player_info_.at(player_id).get_actions();
+    return player_info_.at(player_id).get_internal_history();
 }
 
-void GameState::reset_history(int player_id)
+const std::vector<action_hist> GameState::get_history(int player_id) const
 {
-    assert(player_info_.count(player_id) != 0);
-    player_info_.at(player_id).reset_actions();
+    std::vector<internal_action> internal_hist =
+        get_internal_history(player_id);
+    std::vector<action_hist> hist;
+    for (auto action : internal_hist)
+        if (action.type != ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
+            hist.push_back(action.move_action);
+    return hist;
 }
 
-void GameState::add_to_history(int player_id, action_hist action)
+void GameState::reset_internal_history(int player_id)
 {
     assert(player_info_.count(player_id) != 0);
-    player_info_.at(player_id).add_action(action);
+    player_info_.at(player_id).reset_internal_history();
+}
+
+void GameState::add_to_internal_history(int player_id, internal_action action)
+{
+    assert(player_info_.count(player_id) != 0);
+    player_info_.at(player_id).add_internal_action(action);
 }

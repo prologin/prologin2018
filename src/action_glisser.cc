@@ -14,6 +14,7 @@
 */
 
 #include "actions.hh"
+#include "history.hh"
 
 int ActionGlisser::check(const GameState* st) const
 {
@@ -34,6 +35,8 @@ void ActionGlisser::apply_on(GameState* st) const
     st->decrease_action_points(player_id_, COUT_GLISSADE);
     st->set_agent_position(player_id_, agent_id_, end);
 
-    action_hist action{ACTION_GLISSER, agent_id_, dir_, (debug_drapeau)0};
-    st->add_to_history(player_id_, action);
+    internal_action action;
+    action.type = ID_ACTION_GLISSER;
+    action.move_action = (action_hist){ACTION_GLISSER, agent_id_, dir_};
+    st->add_to_internal_history(player_id_, action);
 }

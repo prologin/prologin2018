@@ -65,17 +65,17 @@ void PlayerInfo::set_name(const std::string& name)
     player_->name = name;
 }
 
-const std::vector<action_hist>& PlayerInfo::get_actions() const
+const std::vector<internal_action>& PlayerInfo::get_internal_history() const
 {
-    return actions_;
+    return internal_hist_;
 }
 
-void PlayerInfo::reset_actions()
+void PlayerInfo::reset_internal_history()
 {
-    actions_.clear();
+    internal_hist_.clear();
 }
 
-void PlayerInfo::add_action(action_hist action)
+void PlayerInfo::add_internal_action(internal_action action)
 {
-    actions_.push_back(action);
+    internal_hist_.push_back(action);
 }

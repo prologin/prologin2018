@@ -190,8 +190,6 @@ std::string convert_to_string(action_type in)
         return "\"action_glisser\"";
     case ACTION_POUSSER:
         return "\"action_pousser\"";
-    case ACTION_DEBUG:
-        return "\"action_debug\"";
     }
     return "bad value";
 }
@@ -571,9 +569,6 @@ std::ostream& operator<<(std::ostream& os, action_type v)
         break;
     case ACTION_POUSSER:
         os << "ACTION_POUSSER";
-        break;
-    case ACTION_DEBUG:
-        os << "ACTION_DEBUG";
         break;
     }
     return os;

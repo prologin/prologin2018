@@ -14,6 +14,7 @@
 */
 
 #include "actions.hh"
+#include "history.hh"
 
 int ActionDeplacer::check(const GameState* st) const
 {
@@ -44,6 +45,8 @@ void ActionDeplacer::apply_on(GameState* st) const
     st->decrease_action_points(player_id_, COUT_DEPLACEMENT);
     st->set_agent_position(player_id_, agent_id_, dest);
 
-    action_hist action{ACTION_DEPLACER, agent_id_, dir_, (debug_drapeau)0};
-    st->add_to_history(player_id_, action);
+    internal_action action;
+    action.type = ID_ACTION_DEPLACER;
+    action.move_action = (action_hist){ACTION_DEPLACER, agent_id_, dir_};
+    st->add_to_internal_history(player_id_, action);
 }
