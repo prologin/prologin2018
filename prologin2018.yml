@@ -73,7 +73,6 @@ enum:
       - [action_deplacer, "Action ``deplacer``"]
       - [action_glisser, "Action ``glisser``"]
       - [action_pousser, "Action ``pousser``"]
-      - [action_debug, "Action ``debug_afficher_drapeau``"]
   -
     enum_name: debug_drapeau
     enum_summary: "Types de drapeaux de débug"
@@ -108,15 +107,11 @@ struct:
   -
     str_name: action_hist
     str_summary: Action représentée dans l'historique.
-                 Les actions ``deplacer``, ``glisser`` et ``pousser`` utilisent
-                 ``id_agent`` ainsi que ``dir``.
-                 L'action de débug utilise ``drapeau``.
     str_tuple: no
     str_field:
       - [type, action_type, "Type de l'action"]
       - [id_agent, int, "Numéro de l'agent concerné par l'action"]
       - [dir, direction, "Direction visée par l'agent durant l'action"]
-      - [drapeau, debug_drapeau, "Drapeau de débug affiché par le joueur"]
 
 function:
 
