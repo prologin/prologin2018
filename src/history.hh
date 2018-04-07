@@ -18,17 +18,19 @@
 
 #include "constant.hh"
 
-typedef struct flag_info
+typedef struct debug_flag_info
 {
     debug_drapeau type;
     position pos;
-} flag_info;
+} debug_flag_info;
 
+// We do not want unused debug flag info to appear in the public API, so using
+// only action_hist is not enough to store the complete internal history.
 typedef struct internal_action
 {
     int type;
     union {
-        flag_info debug_flag;
+        debug_flag_info debug_flag;
         action_hist move_action;
     };
 } internal_action;
