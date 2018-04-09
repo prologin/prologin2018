@@ -13,6 +13,7 @@
 ** along with Prologin2018.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "../actions.hh"
 #include "../api.hh"
 #include "../struct_helper.hh"
 
@@ -141,6 +142,9 @@ TEST_F(ApiTest, Api_Historique)
 
         EXPECT_EQ(OK, player.api->pousser(2, EST));
         action_hist act3 = {ACTION_POUSSER, 2, EST};
+
+        // Debug actions should not appear in the API history
+        EXPECT_EQ(OK, player.api->debug_afficher_drapeau({0, 0}, DRAPEAU_BLEU));
 
         std::vector<action_hist> hist = {act1, act2, act3};
         std::vector<action_hist> expected =

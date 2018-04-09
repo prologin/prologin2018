@@ -16,6 +16,7 @@
 #ifndef STRUCT_HELPER_HH
 #define STRUCT_HELPER_HH
 
+#include "actions.hh"
 #include "constant.hh"
 #include "position.hh"
 
@@ -30,6 +31,22 @@ inline bool operator==(const alien_info& a, const alien_info& b)
 inline bool operator==(const action_hist& a, const action_hist& b)
 {
     return a.type == b.type && a.id_agent == b.id_agent && a.dir == b.dir;
+}
+
+inline bool operator==(const debug_flag_info& a, const debug_flag_info& b)
+{
+    return a.type == b.type && a.pos == b.pos;
+}
+
+inline bool operator==(const internal_action& a, const internal_action& b)
+{
+    if (a.type != b.type)
+        return false;
+
+    if (a.type == ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
+        return a.debug_flag == b.debug_flag;
+    else
+        return a.move_action == b.move_action;
 }
 
 #endif
