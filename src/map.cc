@@ -97,13 +97,13 @@ Map::Map(std::istream& stream)
     std::string dir;
     stream >> dir;
     if (dir == "NORD")
-        storm_dir_ = direction::NORD;
+        storm_dir_ = NORD;
     else if (dir == "EST")
-        storm_dir_ = direction::EST;
+        storm_dir_ = EST;
     else if (dir == "SUD")
-        storm_dir_ = direction::SUD;
+        storm_dir_ = SUD;
     else if (dir == "OUEST")
-        storm_dir_ = direction::OUEST;
+        storm_dir_ = OUEST;
     else
         FATAL("unknown direction %s", dir);
 }
@@ -113,7 +113,7 @@ case_type Map::get_cell_type(position pos) const
     if (inside_map(pos))
         return map_[pos.ligne][pos.colonne];
     else
-        return case_type::ERREUR;
+        return ERREUR;
 }
 
 bool Map::is_empty(position pos) const

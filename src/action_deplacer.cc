@@ -29,7 +29,7 @@ int ActionDeplacer::check(const GameState* st) const
     position dest = get_position_offset(start, dir_);
     if (!inside_map(dest))
         return DIRECTION_INVALIDE;
-    if (st->get_cell_type(dest) == case_type::MUR)
+    if (st->get_cell_type(dest) == MUR)
         return OBSTACLE_MUR;
     if (st->is_agent_on_position(dest))
         return OBSTACLE_AGENT;
