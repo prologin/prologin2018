@@ -143,13 +143,18 @@ void GameState::set_agent_position(int player_id, int agent_id, position pos)
         reset_alien_capture_time(old_pos);
 }
 
-bool GameState::is_agent_on_position(position pos) const
+int GameState::agent_on_position(position pos) const
 {
     for (auto player : player_ids_)
         for (int agent = 0; agent < NB_AGENTS; agent++)
             if (get_agent_position(player, agent) == pos)
-                return true;
-    return false;
+                return player;
+    return -1;
+}
+
+bool GameState::is_agent_on_position(position pos) const
+{
+    return agent_on_position(pos) != -1;
 }
 
 bool GameState::is_alien_on_position(position pos) const

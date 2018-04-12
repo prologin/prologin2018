@@ -178,9 +178,11 @@ function:
       - [pos, position, "Case choisie"]
   -
     fct_name: agent_sur_case
-    fct_summary: Indique si un agent se trouve sur une case donnée.
-                 Renvoie faux si la position est invalide.
-    fct_ret_type: bool
+    fct_summary: Renvoie le numéro du joueur à qui appartient l'agent sur la
+                 case indiquée.
+                 Renvoie -1 s'il n'y a pas d'agent ou si la position est
+                 invalide.
+    fct_ret_type: int
     fct_arg:
       - [pos, position, "Case choisie"]
   -

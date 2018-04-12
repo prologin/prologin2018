@@ -375,9 +375,9 @@ extern "C" case_type api_type_case(position pos)
     return api->type_case(pos);
 }
 
-/// Indique si un agent se trouve sur une case donnée. Renvoie faux si la
-/// position est invalide.
-extern "C" bool api_agent_sur_case(position pos)
+/// Renvoie le numéro du joueur à qui appartient l'agent sur la case indiquée.
+/// Renvoie -1 s'il n'y a pas d'agent ou si la position est invalide.
+extern "C" int api_agent_sur_case(position pos)
 {
     return api->agent_sur_case(pos);
 }

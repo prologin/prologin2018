@@ -43,6 +43,7 @@ public:
     position get_agent_position(int player_id, int agent_id) const;
     std::pair<int, int> get_agent_id(position pos) const;
     void set_agent_position(int player_id, int agent_id, position pos);
+    int agent_on_position(position pos) const;
     bool is_agent_on_position(position pos) const;
 
     bool is_alien_on_position(position pos) const;

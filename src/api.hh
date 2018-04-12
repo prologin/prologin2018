@@ -77,9 +77,10 @@ public:
     /// Renvoie le type d'une case donnée.
     case_type type_case(position pos);
 
-    /// Indique si un agent se trouve sur une case donnée. Renvoie faux si la
-    /// position est invalide.
-    bool agent_sur_case(position pos);
+    /// Renvoie le numéro du joueur à qui appartient l'agent sur la case
+    /// indiquée. Renvoie -1 s'il n'y a pas d'agent ou si la position est
+    /// invalide.
+    int agent_sur_case(position pos);
 
     /// Indique si un alien se trouve sur une case donnée. Renvoie faux si
     /// l'alien est capturé ou si la position est invalide.

@@ -54,11 +54,11 @@ TEST_F(ApiTest, Api_AgentSurCase)
             position agent_pos =
                 player.api->position_agent(player.id, agent_id);
             EXPECT_EQ(agent_pos, st->get_agent_position(player.id, agent_id));
-            EXPECT_TRUE(player.api->agent_sur_case(agent_pos));
+            EXPECT_EQ(player.id, player.api->agent_sur_case(agent_pos));
         }
     }
 
-    EXPECT_FALSE(players[0].api->agent_sur_case(TEST_EMPTY_CELL));
+    EXPECT_EQ(-1, players[0].api->agent_sur_case(TEST_EMPTY_CELL));
 }
 
 TEST_F(ApiTest, Api_AlienSurCase)
