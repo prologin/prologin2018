@@ -187,7 +187,7 @@ TEST_F(ActionTest, Map_AlienValidCapture)
         st->increment_round();
     }
 
-    EXPECT_EQ(alien.puissance, st->get_score(PLAYER_1));
+    EXPECT_EQ(alien.points_capture, st->get_score(PLAYER_1));
     EXPECT_EQ(0, st->get_score(PLAYER_2));
 }
 

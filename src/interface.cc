@@ -272,14 +272,14 @@ std::string convert_to_string(std::vector<position> in)
 std::string convert_to_string(alien_info in)
 {
     std::string pos = convert_to_string(in.pos);
-    std::string puissance = convert_to_string(in.puissance);
+    std::string points_capture = convert_to_string(in.points_capture);
     std::string tour_invasion = convert_to_string(in.tour_invasion);
     std::string duree_invasion = convert_to_string(in.duree_invasion);
     std::string capture_en_cours = convert_to_string(in.capture_en_cours);
     std::string out = "{";
     out += "pos:" + pos;
     out += ", ";
-    out += "puissance:" + puissance;
+    out += "points_capture:" + points_capture;
     out += ", ";
     out += "tour_invasion:" + tour_invasion;
     out += ", ";
@@ -384,8 +384,9 @@ extern "C" int api_agent_sur_case(position pos)
     return api->agent_sur_case(pos);
 }
 
-/// Indique si un alien se trouve sur une case donnée. Renvoie faux si l'alien
-/// est capturé ou si la position est invalide.
+/// Indique si un alien se trouve sur une case donnée. Renvoie vrai si
+/// l'alien est en train d'envahir l'iceberg et qu'il n'a pas encore été
+/// capturé. Renvoie faux autremement, ou si la position est invalide.
 extern "C" bool api_alien_sur_case(position pos)
 {
     return api->alien_sur_case(pos);
@@ -449,7 +450,7 @@ extern "C" int api_adversaire()
     return api->adversaire();
 }
 
-/// Annule la dernière action. Renvoie ``false`` quand il n'y a pas d'action à
+/// Annule la dernière action. Renvoie faux quand il n'y a pas d'action à
 /// annuler ce tour-ci.
 extern "C" bool api_annuler()
 {
@@ -632,8 +633,8 @@ std::ostream& operator<<(std::ostream& os, alien_info v)
     os << "pos"
        << "=" << v.pos;
     os << ", ";
-    os << "puissance"
-       << "=" << v.puissance;
+    os << "points_capture"
+       << "=" << v.points_capture;
     os << ", ";
     os << "tour_invasion"
        << "=" << v.tour_invasion;

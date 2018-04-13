@@ -163,7 +163,7 @@ TEST_F(ApiTest, Api_Score)
         st->check_presence_alien();
         st->update_scores();
     }
-    EXPECT_EQ(alien.puissance, players[0].api->score(players[0].id));
+    EXPECT_EQ(alien.points_capture, players[0].api->score(players[0].id));
     EXPECT_EQ(0, players[1].api->score(players[1].id));
 }
 

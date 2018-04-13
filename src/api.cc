@@ -109,8 +109,9 @@ int Api::agent_sur_case(position pos)
     return game_state_->agent_on_position(pos);
 }
 
-/// Indique si un alien se trouve sur une case donnée. Renvoie faux si l'alien
-/// est capturé ou si la position est invalide.
+/// Indique si un alien se trouve sur une case donnée. Renvoie vrai si
+/// l'alien est en train d'envahir l'iceberg et qu'il n'a pas encore été
+/// capturé. Renvoie faux autremement, ou si la position est invalide.
 bool Api::alien_sur_case(position pos)
 {
     return game_state_->is_alien_on_position(pos);
@@ -177,7 +178,7 @@ int Api::adversaire()
     return game_state_->opponent(moi());
 }
 
-/// Annule la dernière action. Renvoie ``false`` quand il n'y a pas d'action à
+/// Annule la dernière action. Renvoie faux quand il n'y a pas d'action à
 /// annuler ce tour-ci.
 bool Api::annuler()
 {

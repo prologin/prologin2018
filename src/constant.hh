@@ -154,8 +154,9 @@ typedef struct position
 /// Alien à capturer durant la mission.
 typedef struct alien_info
 {
-    position pos;  /* <- Position de l'alien */
-    int puissance; /* <- Nombre de points obtenus pour la capture de cet alien
+    position pos;       /* <- Position de l'alien */
+    int points_capture; /* <- Nombre de points obtenus pour la capture de cet
+                         * alien
                       */
     int tour_invasion;  /* <- Tour où l'alien débarque sur la banquise */
     int duree_invasion; /* <- Nombre de tours où l'alien reste sur la banquise
@@ -165,12 +166,12 @@ typedef struct alien_info
                                 atteint NB_TOURS_CAPTURE */
 } alien_info;
 
-/// Action représentée dans l'historique.
+/// Action de déplacement représentée dans l'historique.
 typedef struct action_hist
 {
     action_type type; /* <- Type de l'action */
     int id_agent;     /* <- Numéro de l'agent concerné par l'action */
-    direction dir;    /* <- Direction visée par l'agent durant l'action */
+    direction dir; /* <- Direction visée par l'agent durant le déplacement */
 } action_hist;
 
 #endif // !CONSTANT_HH_

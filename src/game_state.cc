@@ -194,7 +194,7 @@ void GameState::update_scores()
                 map_->increment_alien_capture_time(agent_pos);
                 alien_info alien = map_->get_alien_info(agent_pos);
                 if (alien.capture_en_cours == NB_TOURS_CAPTURE)
-                    increase_score(player, alien.puissance);
+                    increase_score(player, alien.points_capture);
             }
         }
     }

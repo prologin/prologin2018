@@ -22,7 +22,7 @@
 
 inline bool operator==(const alien_info& a, const alien_info& b)
 {
-    return a.pos == b.pos && a.puissance == b.puissance &&
+    return a.pos == b.pos && a.points_capture == b.points_capture &&
            a.tour_invasion == b.tour_invasion &&
            a.duree_invasion == b.duree_invasion &&
            a.capture_en_cours == b.capture_en_cours;
