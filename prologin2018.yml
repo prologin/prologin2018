@@ -61,6 +61,8 @@ enum:
       - [position_invalide, "La position spécifiée n'est pas sur l'iceberg."]
       - [obstacle_mur, "La position spécifiée est un mur."]
       - [obstacle_agent, "La position spécifiée est un agent."]
+      - [deplacement_hors_limites, "Ce déplacement fait sortir un agent des
+                                    limites de l'iceberg."]
       - [direction_invalide, "La direction spécifiée n'existe pas."]
       - [id_agent_invalide, "L'agent spécifié n'existe pas."]
       - [id_joueur_invalide, "Le joueur spécifié n'existe pas."]

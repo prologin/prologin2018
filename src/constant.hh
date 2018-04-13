@@ -87,9 +87,11 @@ typedef enum erreur {
     POSITION_INVALIDE, /* <- La position spécifiée n'est pas sur l'iceberg. */
     OBSTACLE_MUR,      /* <- La position spécifiée est un mur. */
     OBSTACLE_AGENT,    /* <- La position spécifiée est un agent. */
-    DIRECTION_INVALIDE, /* <- La direction spécifiée n'existe pas. */
-    ID_AGENT_INVALIDE,  /* <- L'agent spécifié n'existe pas. */
-    ID_JOUEUR_INVALIDE, /* <- Le joueur spécifié n'existe pas. */
+    DEPLACEMENT_HORS_LIMITES, /* <- Ce déplacement fait sortir un agent des
+                                 limites de l'iceberg. */
+    DIRECTION_INVALIDE,       /* <- La direction spécifiée n'existe pas. */
+    ID_AGENT_INVALIDE,        /* <- L'agent spécifié n'existe pas. */
+    ID_JOUEUR_INVALIDE,       /* <- Le joueur spécifié n'existe pas. */
     RIEN_A_POUSSER, /* <- Aucun agent à pousser dans la direction indiquée. */
     DRAPEAU_INVALIDE, /* <- Le drapeau spécifié n'existe pas. */
 } erreur;

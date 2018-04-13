@@ -28,7 +28,7 @@ int ActionDeplacer::check(const GameState* st) const
     position start = st->get_agent_position(player_id_, agent_id_);
     position dest = get_position_offset(start, dir_);
     if (!inside_map(dest))
-        return DIRECTION_INVALIDE;
+        return DEPLACEMENT_HORS_LIMITES;
     if (st->get_cell_type(dest) == MUR)
         return OBSTACLE_MUR;
     if (st->is_agent_on_position(dest))

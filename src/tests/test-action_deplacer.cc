@@ -27,13 +27,6 @@ TEST_F(ActionTest, ActionDeplacer_NotEnoughActionPoints)
     EXPECT_EQ(PA_INSUFFISANTS, act.check(st));
 }
 
-TEST_F(ActionTest, ActionDeplacer_InvalidPosition)
-{
-    st->set_agent_position(PLAYER_1, 0, {0, 0});
-    ActionDeplacer act(0, NORD, PLAYER_1);
-    EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
-}
-
 TEST_F(ActionTest, ActionDeplacer_ObstacleWall)
 {
     position next_to_wall = get_position_offset(TEST_WALL, SUD);
@@ -48,6 +41,13 @@ TEST_F(ActionTest, ActionDeplacer_ObstacleAgent)
     st->set_agent_position(PLAYER_1, 0, next_to_agent);
     ActionDeplacer act(0, NORD, PLAYER_1);
     EXPECT_EQ(OBSTACLE_AGENT, act.check(st));
+}
+
+TEST_F(ActionTest, ActionDeplacer_MoveOutsideMap)
+{
+    st->set_agent_position(PLAYER_1, 0, {0, 0});
+    ActionDeplacer act(0, NORD, PLAYER_1);
+    EXPECT_EQ(DEPLACEMENT_HORS_LIMITES, act.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_InvalidAgentID)
