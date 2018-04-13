@@ -48,6 +48,11 @@ public:
     bool is_storm_round(int round) const;
 
 private:
+    void load_map_cells(std::istream& stream);
+    void load_agents_info(std::istream& stream);
+    void load_aliens_info(std::istream& stream);
+    void load_storms_info(std::istream& stream);
+
     std::array<std::array<case_type, TAILLE_ICEBERG>, TAILLE_ICEBERG> map_;
 
     std::array<std::array<position, NB_AGENTS>, 2> start_position_;

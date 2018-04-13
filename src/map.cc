@@ -19,11 +19,8 @@
 
 #include "map.hh"
 
-Map::Map(std::istream& stream)
+void Map::load_map_cells(std::istream& stream)
 {
-    INFO("Loading map");
-
-    // Map
     for (int l = 0; l < TAILLE_ICEBERG; l++)
     {
         std::string line;
@@ -44,13 +41,15 @@ Map::Map(std::istream& stream)
                 map_[l][c] = MUR;
                 break;
             default:
-                FATAL("Invalid cell at (%d;%d)", l, c);
+                FATAL("Invalid cell type '%c' at (%d;%d)", line[c], l, c);
                 break;
             }
         }
     }
+}
 
-    // Agents
+void Map::load_agents_info(std::istream& stream)
+{
     for (int player = 0; player < 2; player++)
     {
         for (int agent = 0; agent < NB_AGENTS; agent++)
@@ -58,14 +57,25 @@ Map::Map(std::istream& stream)
             int l, c;
             stream >> l >> c;
             position pos = {l, c};
-            if (!inside_map(pos) || is_wall(pos))
-                FATAL("starting position (%d;%d) for player %d is invalid", l,
-                      c, player + 1);
+
+            bool is_agent_already_here = false;
+            for (int p = 0; p < player; p++)
+                for (int a = 0; a < agent; a++)
+                    if (start_position_[p][a] == pos)
+                        is_agent_already_here = true;
+
+            if (is_agent_already_here || !inside_map(pos) || is_wall(pos))
+                FATAL("starting position (%d;%d) for player %d agent %d is "
+                      "invalid",
+                      l, c, player + 1, agent + 1);
+
             start_position_[player][agent] = pos;
         }
     }
+}
 
-    // Aliens
+void Map::load_aliens_info(std::istream& stream)
+{
     int nb_alien;
     stream >> nb_alien;
     alien_.resize(nb_alien);
@@ -77,14 +87,26 @@ Map::Map(std::istream& stream)
         int round_spawn, round_span;
         stream >> l >> c >> nb_point >> round_spawn >> round_span;
         position pos = {l, c};
-        if (!inside_map(pos) || is_wall(pos))
+
+        bool is_alien_already_here = false;
+        for (int id = 0; id < alien; id++)
+            if (alien_[id].pos == pos)
+                is_alien_already_here = true;
+
+        if (is_alien_already_here || !inside_map(pos) || is_wall(pos))
             FATAL("starting position (%d;%d) for alien %d is invalid", l, c,
                   alien + 1);
+        if (round_spawn < 0 || round_spawn >= NB_TOURS)
+            FATAL("invalid spawn round %d for alien %d", round_spawn,
+                  alien + 1);
+
         alien_[alien] = alien_info{pos, nb_point, round_spawn, round_span, 0};
         is_alien_on_map_[alien] = false;
     }
+}
 
-    // Storms
+void Map::load_storms_info(std::istream& stream)
+{
     int nb_storm;
     stream >> nb_storm;
     storm_round_.resize(nb_storm);
@@ -92,7 +114,8 @@ Map::Map(std::istream& stream)
     {
         stream >> storm_round_[storm];
         if (storm_round_[storm] < 0 || storm_round_[storm] >= NB_TOURS)
-            FATAL("invalid storm round %d", storm_round_[storm]);
+            FATAL("invalid storm round %d for storm %d", storm_round_[storm],
+                  storm + 1);
     }
     std::string dir;
     stream >> dir;
@@ -105,7 +128,17 @@ Map::Map(std::istream& stream)
     else if (dir == "OUEST")
         storm_dir_ = OUEST;
     else
-        FATAL("unknown direction %s", dir);
+        FATAL("unknown storm direction '%s'", dir);
+}
+
+Map::Map(std::istream& stream)
+{
+    INFO("Loading map");
+
+    load_map_cells(stream);
+    load_agents_info(stream);
+    load_aliens_info(stream);
+    load_storms_info(stream);
 }
 
 case_type Map::get_cell_type(position pos) const
