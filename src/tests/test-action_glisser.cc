@@ -30,12 +30,18 @@ TEST_F(ActionTest, ActionGlisser_InvalidDirection)
 {
     ActionGlisser act(0, (direction)10, PLAYER_1);
     EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
+
+    ActionGlisser act2(0, (direction)-1, PLAYER_1);
+    EXPECT_EQ(DIRECTION_INVALIDE, act2.check(st));
 }
 
 TEST_F(ActionTest, ActionGlisser_InvalidAgentID)
 {
     ActionGlisser act(NB_AGENTS + 5, NORD, PLAYER_1);
     EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
+
+    ActionGlisser act2(-42, NORD, PLAYER_1);
+    EXPECT_EQ(ID_AGENT_INVALIDE, act2.check(st));
 }
 
 TEST_F(ActionTest, ActionGlisser_Valid)

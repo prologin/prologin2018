@@ -29,6 +29,9 @@ TEST_F(ActionTest, ActionDebugAfficherDrapeau_InvalidFlag)
 {
     ActionDebugAfficherDrapeau act({0, 0}, (debug_drapeau)42, PLAYER_1);
     EXPECT_EQ(DRAPEAU_INVALIDE, act.check(st));
+
+    ActionDebugAfficherDrapeau act2({0, 0}, (debug_drapeau)-42, PLAYER_2);
+    EXPECT_EQ(DRAPEAU_INVALIDE, act2.check(st));
 }
 
 // This action should only appear in the internal history

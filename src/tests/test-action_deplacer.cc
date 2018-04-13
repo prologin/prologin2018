@@ -23,8 +23,17 @@ TEST_F(ActionTest, ActionDeplacer_NotEnoughActionPoints)
     st->reset_action_points(PLAYER_1);
     st->decrease_action_points(PLAYER_1, NB_POINTS_ACTION);
 
-    ActionDeplacer act(0, NORD, PLAYER_1);
+    ActionDeplacer act(0, SUD, PLAYER_1);
     EXPECT_EQ(PA_INSUFFISANTS, act.check(st));
+}
+
+TEST_F(ActionTest, ActionDeplacer_InvalidDirection)
+{
+    ActionDeplacer act(0, (direction)-2, PLAYER_1);
+    EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
+
+    ActionDeplacer act2(0, (direction)12, PLAYER_1);
+    EXPECT_EQ(DIRECTION_INVALIDE, act2.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_ObstacleWall)
@@ -54,6 +63,9 @@ TEST_F(ActionTest, ActionDeplacer_InvalidAgentID)
 {
     ActionDeplacer act(NB_AGENTS + 5, NORD, PLAYER_1);
     EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
+
+    ActionDeplacer act2(-3, NORD, PLAYER_2);
+    EXPECT_EQ(ID_AGENT_INVALIDE, act2.check(st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_Valid)

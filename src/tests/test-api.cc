@@ -41,8 +41,12 @@ TEST_F(ApiTest, Api_Chemin)
 
 TEST_F(ApiTest, Api_TypeCase)
 {
-    EXPECT_EQ(LIBRE, players[0].api->type_case({0, 0}));
-    EXPECT_EQ(MUR, players[0].api->type_case(TEST_WALL));
+    for (auto& player : players)
+    {
+        EXPECT_EQ(LIBRE, player.api->type_case({0, 0}));
+        EXPECT_EQ(MUR, player.api->type_case(TEST_WALL));
+        EXPECT_EQ(ERREUR, player.api->type_case({-1, 2}));
+    }
 }
 
 TEST_F(ApiTest, Api_AgentSurCase)

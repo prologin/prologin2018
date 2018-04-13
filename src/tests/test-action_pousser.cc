@@ -30,18 +30,28 @@ TEST_F(ActionTest, ActionPousser_InvalidDirection)
 {
     ActionPousser act(0, (direction)10, PLAYER_1);
     EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
+
+    ActionPousser act2(0, (direction)-10, PLAYER_1);
+    EXPECT_EQ(DIRECTION_INVALIDE, act2.check(st));
 }
 
 TEST_F(ActionTest, ActionPousser_InvalidAgentID)
 {
     ActionPousser act(NB_AGENTS + 5, NORD, PLAYER_1);
     EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
+
+    ActionPousser act2(-1337, NORD, PLAYER_1);
+    EXPECT_EQ(ID_AGENT_INVALIDE, act2.check(st));
 }
 
 TEST_F(ActionTest, ActionPousser_NothingToPush)
 {
     ActionPousser act(0, NORD, PLAYER_1);
     EXPECT_EQ(RIEN_A_POUSSER, act.check(st));
+
+    st->set_agent_position(PLAYER_1, 0, TEST_EMPTY_CELL);
+    ActionPousser act2(0, EST, PLAYER_1);
+    EXPECT_EQ(RIEN_A_POUSSER, act2.check(st));
 }
 
 TEST_F(ActionTest, ActionPousser_Valid)
