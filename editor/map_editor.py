@@ -1,17 +1,17 @@
 # Based on https://stackoverflow.com/a/30045893
-from tkinter import Canvas, Button, Tk
+from tkinter import Tk, Canvas, Frame, Button
+from tkinter.filedialog import asksaveasfilename, askopenfilename
 
 
 MAP_NB_ROW = 25
 MAP_NB_COL = 25
 MAP_CELL_SIZE = 30
 
-OUTPUT_FILENAME = "map_output"
-
 BORDER_COLOR = "black"
 EMPTY_COLOR = "white"
 FILLED_COLOR = "black"
 GRID_OFFSET = 50
+TEXT_OFFSET = 30
 
 
 class Cell():
@@ -48,35 +48,40 @@ class Grid(Canvas):
                         width=MAP_CELL_SIZE * MAP_NB_COL + 2 * GRID_OFFSET,
                         height=MAP_CELL_SIZE * MAP_NB_ROW + 2 * GRID_OFFSET)
 
+        self.menu = Frame(master)
+        self.menu.pack(side="top")
+
+        self.clean_button = Button(master, text="Clean", command=self.clean_grid)
+        self.clean_button.pack(in_=self.menu, side="left")
+
         self.save_button = Button(master, text="Save", command=self.save_grid)
-        self.save_button.pack()
+        self.save_button.pack(in_=self.menu, side="left")
 
-        self.grid = []
-        for row in range(MAP_NB_ROW):
-            line = []
-            for col in range(MAP_NB_COL):
-                line.append(Cell(self, col, row))
-            self.grid.append(line)
+        self.load_button = Button(master, text="Load", command=self.load_grid)
+        self.load_button.pack(in_=self.menu, side="left")
 
+        self.clean_grid()
         self.switched = []
 
         self.bind("<Button-1>", self.handle_mouse_click)
         self.bind("<B1-Motion>", self.handle_mouse_motion)
         self.bind("<ButtonRelease-1>", lambda event: self.switched.clear())
 
-        self.draw()
+        self.draw_cells()
+        self.draw_coords()
 
-    def draw(self):
+    def draw_cells(self):
         for row in self.grid:
             for cell in row:
                 cell.draw()
 
-        for row in range(MAP_NB_ROW):
-            y_pos = MAP_CELL_SIZE * (row + 1) - (MAP_CELL_SIZE // 2)
-            self.create_text(30, y_pos + GRID_OFFSET, text=str(row + 1))
-        for col in range(MAP_NB_COL):
-            x_pos = MAP_CELL_SIZE * (col + 1) - (MAP_CELL_SIZE // 2)
-            self.create_text(x_pos + GRID_OFFSET, 30, text=str(col + 1))
+    def draw_coords(self):
+        for row in range(1, MAP_NB_ROW + 1):
+            y_pos = MAP_CELL_SIZE * row - (MAP_CELL_SIZE // 2)
+            self.create_text(TEXT_OFFSET, y_pos + GRID_OFFSET, text=str(row))
+        for col in range(1, MAP_NB_COL + 1):
+            x_pos = MAP_CELL_SIZE * col - (MAP_CELL_SIZE // 2)
+            self.create_text(x_pos + GRID_OFFSET, TEXT_OFFSET, text=str(col))
 
     def get_coords(self, event):
         row = int((event.y - GRID_OFFSET) / MAP_CELL_SIZE)
@@ -108,17 +113,39 @@ class Grid(Canvas):
             cell.draw()
             self.switched.append(cell)
 
+    def clean_grid(self):
+        self.grid = []
+        for row in range(MAP_NB_ROW):
+            line = []
+            for col in range(MAP_NB_COL):
+                line.append(Cell(self, col, row))
+            self.grid.append(line)
+        self.draw_cells()
+
     def save_grid(self):
-        output = ""
-        for row in self.grid:
-            for cell in row:
-                if cell.fill:
-                    output += 'X'
-                else:
-                    output += '.'
-            output += '\n'
-        with open(OUTPUT_FILENAME, 'w+') as f:
-            f.write(output)
+        filename = asksaveasfilename()
+        if not filename:
+            return
+        with open(filename, 'w+') as f:
+            for row in self.grid:
+                for cell in row:
+                    if cell.fill:
+                        f.write('X')
+                    else:
+                        f.write('.')
+                f.write('\n')
+
+    def load_grid(self):
+        filename = askopenfilename()
+        if not filename:
+            return
+        with open(filename, 'r') as f:
+            for row in range(MAP_NB_ROW):
+                for col in range(MAP_NB_COL):
+                    c = f.read(1)
+                    self.grid[row][col].fill = (c == 'X')
+                f.read(1)
+        self.draw_cells()
 
 
 if __name__ == "__main__":
