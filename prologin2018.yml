@@ -4,7 +4,7 @@ rules_type: turnbased
 constant:
   -
     cst_name: TAILLE_ICEBERG
-    cst_val: 31
+    cst_val: 25
     cst_comment: Taille de l'iceberg (longueur et largeur).
   -
     cst_name: NB_TOURS

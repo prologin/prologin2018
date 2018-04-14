@@ -2,8 +2,8 @@
 from tkinter import Canvas, Button, Tk
 
 
-MAP_NB_ROW = 31
-MAP_NB_COL = 31
+MAP_NB_ROW = 25
+MAP_NB_COL = 25
 MAP_CELL_SIZE = 30
 
 OUTPUT_FILENAME = "map_output"

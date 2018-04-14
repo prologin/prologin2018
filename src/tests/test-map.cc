@@ -197,8 +197,14 @@ TEST_F(ActionTest, Map_Storm)
         {{{{0, 0}, {0, 1}, {0, 2}, {0, 3}}},
          {{{10, 0}, {10, 1}, {10, 2}, {10, 3}}}}};
     std::array<std::array<position, NB_AGENTS>, 2> end_pos = {
-        {{{{29, 0}, {29, 1}, {29, 2}, {1, 3}}},
-         {{{30, 0}, {30, 1}, {30, 2}, {30, 3}}}}};
+        {{{{TAILLE_ICEBERG - 2, 0},
+           {TAILLE_ICEBERG - 2, 1},
+           {TAILLE_ICEBERG - 2, 2},
+           {1, 3}}},
+         {{{TAILLE_ICEBERG - 1, 0},
+           {TAILLE_ICEBERG - 1, 1},
+           {TAILLE_ICEBERG - 1, 2},
+           {TAILLE_ICEBERG - 1, 3}}}}};
 
     std::vector<int> storm_round = st->get_storm_info();
 
