@@ -79,7 +79,7 @@ Pousser
 -------
 
 Il est possible de pousser un autre agent si ce dernier est sur une case
-adjacent à l'un de vos propres agents. Le pousser dans une direction le fait
+adjacente à l'un de vos propres agents. Le pousser dans une direction le fait
 glisser jusqu'à ce qu'il rencontre un obstacle. Pousser un agent coûte
 ``COUT_POUSSER`` points d'action.
 
@@ -104,6 +104,7 @@ La carte de l'iceberg est représentée dans un fichier texte qui suit le format
 suivant :
 
 ::
+
   iceberg ASCII
   positions depart agents joueur 1
   positions depart agents joueur 2
