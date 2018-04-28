@@ -162,7 +162,7 @@ bool Map::is_wall(position pos) const
 const std::array<position, NB_AGENTS>&
 Map::get_start_position(int player_id) const
 {
-    assert(player_id < 2);
+    assert(player_id >= 0 && player_id < 2);
     return start_position_[player_id];
 }
 
@@ -200,7 +200,7 @@ void Map::check_presence_alien(int round)
 
 bool Map::is_alien_captured(int alien_id) const
 {
-    assert(alien_id < (int)alien_.size());
+    assert(alien_id >= 0 && alien_id < (int)alien_.size());
     return alien_[alien_id].capture_en_cours == NB_TOURS_CAPTURE;
 }
 

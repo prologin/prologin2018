@@ -124,15 +124,16 @@ std::pair<int, int> GameState::get_agent_id(position pos) const
 
 position GameState::get_agent_position(int player_id, int agent_id) const
 {
-    assert(agent_id < NB_AGENTS);
+    assert(agent_id >= 0 && agent_id < NB_AGENTS);
     assert(player_info_.count(player_id) != 0);
+
     int internal_player_id = player_info_.at(player_id).get_internal_id();
     return agent_info_[internal_player_id][agent_id];
 }
 
 void GameState::set_agent_position(int player_id, int agent_id, position pos)
 {
-    assert(agent_id < NB_AGENTS);
+    assert(agent_id >= 0 && agent_id < NB_AGENTS);
     assert(player_info_.count(player_id) != 0);
 
     int internal_player_id = player_info_.at(player_id).get_internal_id();
