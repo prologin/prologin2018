@@ -39,3 +39,4 @@ func push(agent_id, dir, player_id):
 
 func init(walls, agents):
 	$TileMap.init(walls, agents)
+	$Info.position.y = $TileMap.walls.size() * $TileMap.cell_size.y * $TileMap.scale.y
