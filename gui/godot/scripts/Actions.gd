@@ -7,6 +7,8 @@ var team = 0
 var agent_selected = 0
 var animating = false
 
+const MapReader = preload("res://scripts/MapReader.gd")
+
 const DIR = [Vector2(-1, 0), Vector2(0, 1), Vector2(1, 0), Vector2(0, -1)]
 const NB_AGENTS = 4
 
@@ -43,6 +45,8 @@ func push(agent_id, dir, player_id):
 	return true
 
 func _ready():
+	var map = MapReader.parse_map("res://../../maps/test_map")
+	$TileMap.init(map.walls, map.agents)
 	for agent in $TileMap.agents:
 		 agent.connect("finished_moving", self, "_finish_animating")
 	_select_agent(team * NB_AGENTS)

@@ -7,8 +7,6 @@ var walls = []
 var agents = []
 var agents_pos = []
 
-const Util = preload("res://scripts/MapReader.gd")
-
 onready var character_scene = preload("res://scenes/Agent.tscn")
 
 func world_position(x, y):
@@ -52,7 +50,3 @@ func init(walls_grids, agents_positions):
 	agents_pos = agents_positions
 	set_map()
 	spawn_agents()
-
-func _ready():
-	var map = Util.parse_map("res://../../maps/test_map")
-	init(map.walls, map.agents)
