@@ -3,9 +3,6 @@
 
 extends TileMap
 
-const SIZE = 31
-const NB_AGENTS = 4
-
 var walls = []
 var agents = []
 var agents_pos = []
@@ -23,21 +20,23 @@ func get_tile(x, y):
 
 func spawn_agents():
 	agents = []
-	for i in range(2 * NB_AGENTS):
+	var nb_agents = agents_pos.size() / 2
+	for i in range(2 * nb_agents):
 		var character = character_scene.instance()
 		character.position = world_position(agents_pos[i].x, agents_pos[i].y)
-		character.set_team(i < NB_AGENTS)
+		character.set_team(i < nb_agents)
 		add_child(character)
 		agents.append(character)
 
 func set_map():
 	clear()
-	for x in range(SIZE):
-		for y in range(SIZE):
+	var size = walls.size()
+	for x in range(size):
+		for y in range(size):
 			set_cell(x, y, get_tile(x, y))
 
 func is_cell_free(pos):
-	if pos.x < 0 or pos.y < 0 or pos.x >= SIZE or pos.y >= SIZE:
+	if pos.x < 0 or pos.y < 0 or pos.x >= walls.size() or pos.y >= walls.size():
 		return false
 	if walls[pos.x][pos.y] or agents_pos.has(pos):
 		return false
@@ -48,9 +47,12 @@ func move_agent(i, dest, dash, pushed):
 	agents_pos[i] = dest
 	return true
 
-func _ready():
-	var map = Util.parse_map("res://../../maps/test_map")
-	walls = map.walls
-	agents_pos = map.agents
+func init(walls_grids, agents_positions):
+	walls = walls_grids
+	agents_pos = agents_positions
 	set_map()
 	spawn_agents()
+
+func _ready():
+	var map = Util.parse_map("res://../../maps/test_map")
+	init(map.walls, map.agents)
