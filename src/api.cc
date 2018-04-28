@@ -130,7 +130,7 @@ alien_info Api::info_alien(position pos)
     return game_state_->get_alien_info(pos);
 }
 
-/// Renvoie la liste de tous les aliens présents sur l'iceberg.
+/// Renvoie la liste de tous les aliens présents durant la partie.
 std::vector<alien_info> Api::liste_aliens()
 {
     return game_state_->get_alien_info();

@@ -403,7 +403,7 @@ extern "C" alien_info api_info_alien(position pos)
     return api->info_alien(pos);
 }
 
-/// Renvoie la liste de tous les aliens présents sur l'iceberg.
+/// Renvoie la liste de tous les aliens présents durant la partie.
 extern "C" std::vector<alien_info> api_liste_aliens()
 {
     return api->liste_aliens();

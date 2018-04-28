@@ -213,7 +213,7 @@ function:
       - [pos, position, "Case choisie"]
   -
     fct_name: liste_aliens
-    fct_summary: Renvoie la liste de tous les aliens présents sur l'iceberg.
+    fct_summary: Renvoie la liste de tous les aliens présents durant la partie.
     fct_ret_type: alien_info array
     fct_arg: []
   -

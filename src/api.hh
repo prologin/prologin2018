@@ -94,7 +94,7 @@ public:
     /// Renvoie la description d'un alien en fonction d'une position donnée.
     alien_info info_alien(position pos);
 
-    /// Renvoie la liste de tous les aliens présents sur l'iceberg.
+    /// Renvoie la liste de tous les aliens présents durant la partie.
     std::vector<alien_info> liste_aliens();
 
     /// Renvoie la liste des tours où se produisent une tempête.
