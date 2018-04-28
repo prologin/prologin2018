@@ -10,7 +10,7 @@ var moving = false
 var _moving_to = Vector2()
 var _dash = false
 
-const SPEED = 100
+const SPEED = 50
 
 func set_team(blue):
 	if blue:
@@ -49,6 +49,9 @@ func _process(delta):
 		else:
 			var speed = SPEED * 2.5 if _dash else SPEED
 			if diff.length() > speed * delta:
-				move_and_slide(diff.normalized() * speed)
+				position += (diff.normalized() * speed * delta)
 			else:
-				move_and_slide(diff / delta)
+				position = _moving_to
+				$AnimatedSprite.play("idle")
+				moving = false
+				emit_signal("finished_moving")
