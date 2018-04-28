@@ -11,7 +11,7 @@ onready var NB_AGENTS = $GameState.NB_AGENTS
 
 func _ready():
 	var map = MapReader.parse_map("res://../../maps/test_map")
-	$GameState/TileMap.init(map.walls, map.agents)
+	$GameState.init(map.walls, map.agents)
 	for agent in $GameState/TileMap.agents:
 		 agent.connect("finished_moving", self, "_finish_animating")
 	_select_agent(team * NB_AGENTS)

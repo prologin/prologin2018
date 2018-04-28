@@ -36,3 +36,6 @@ func push(agent_id, dir, player_id):
 		return false
 	slide(internal_to_agent_id(agent), dir, agent / NB_AGENTS, true)
 	return true
+
+func init(walls, agents):
+	$TileMap.init(walls, agents)

@@ -16,7 +16,7 @@ func _ready():
 	print("args: ", OS.get_cmdline_args())
 	dump = DumpReader.parse_dump("res://../../test_dumper.json")
 	var init = DumpReader.parse_turn(dump[dump_index])
-	$GameState/TileMap.init(init.walls, init.players[0].agents + init.players[1].agents)
+	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
 	for agent in $GameState/TileMap.agents:
 		 agent.connect("finished_moving", self, "_finish_animating")
 
