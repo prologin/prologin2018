@@ -36,14 +36,14 @@ static func parse_turn(json):
 		for i in range(node["agents"].size()):
 			player.agents.append(Vector2(-1, -1))
 		for agent in node["agents"]:
-			player.agents[agent["id_agent"]] = Vector2(agent["pos"]["r"], agent["pos"]["c"])
+			player.agents[agent["id_agent"]] = Vector2(agent["pos"]["c"], agent["pos"]["r"])
 		player.history = node["history"]
 		result.players.append(player)
 	var cells = json["map"]["cells"]
 	var size = sqrt(cells.size())
 	result.map_size = size
-	for r in range(size):
+	for c in range(size):
 		result.walls.append([])
-		for c in range(size):
-			result.walls[r].append(cells[r * size + c] == "MUR")
+		for r in range(size):
+			result.walls[c].append(cells[r * size + c] == "MUR")
 	return result
