@@ -65,7 +65,6 @@ enum:
                                     limites de l'iceberg."]
       - [direction_invalide, "La direction spécifiée n'existe pas."]
       - [id_agent_invalide, "L'agent spécifié n'existe pas."]
-      - [id_joueur_invalide, "Le joueur spécifié n'existe pas."]
       - [rien_a_pousser, "Aucun agent à pousser dans la direction indiquée."]
       - [drapeau_invalide, "Le drapeau spécifié n'existe pas."]
   -

@@ -157,8 +157,6 @@ std::string convert_to_string(erreur in)
         return "\"direction_invalide\"";
     case ID_AGENT_INVALIDE:
         return "\"id_agent_invalide\"";
-    case ID_JOUEUR_INVALIDE:
-        return "\"id_joueur_invalide\"";
     case RIEN_A_POUSSER:
         return "\"rien_a_pousser\"";
     case DRAPEAU_INVALIDE:
@@ -544,9 +542,6 @@ std::ostream& operator<<(std::ostream& os, erreur v)
         break;
     case ID_AGENT_INVALIDE:
         os << "ID_AGENT_INVALIDE";
-        break;
-    case ID_JOUEUR_INVALIDE:
-        os << "ID_JOUEUR_INVALIDE";
         break;
     case RIEN_A_POUSSER:
         os << "RIEN_A_POUSSER";

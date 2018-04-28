@@ -91,7 +91,6 @@ typedef enum erreur {
                                  limites de l'iceberg. */
     DIRECTION_INVALIDE,       /* <- La direction spécifiée n'existe pas. */
     ID_AGENT_INVALIDE,        /* <- L'agent spécifié n'existe pas. */
-    ID_JOUEUR_INVALIDE,       /* <- Le joueur spécifié n'existe pas. */
     RIEN_A_POUSSER, /* <- Aucun agent à pousser dans la direction indiquée. */
     DRAPEAU_INVALIDE, /* <- Le drapeau spécifié n'existe pas. */
 } erreur;
