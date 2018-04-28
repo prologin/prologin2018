@@ -215,8 +215,8 @@ void GameState::check_storm()
     if (!map_->is_storm_round(round_))
         return;
 
-    // We need to start off by agents which are opposed to the storm direction
-    // otherwise agents can bump into each others will getting pushed by the
+    // We need to start by agents who are opposed to the storm direction,
+    // otherwise agents can bump into each others while getting pushed by the
     // storm.
 
     static const std::function<bool(position, position)> cmp[4] = {
