@@ -6,7 +6,6 @@ var animating = false
 
 const MapReader = preload("res://scripts/MapReader.gd")
 
-onready var DIR = $GameState.DIR
 onready var NB_AGENTS = $GameState.NB_AGENTS
 
 
@@ -31,7 +30,7 @@ func _input_move(dir):
 		$GameState.slide(agent_id, dir, player)
 		animating = true
 	else:
-		animating = $GameState.move(agent_id, $GameState/TileMap.agents_pos[agent_selected] + DIR[dir], player)
+		animating = $GameState.move(agent_id, dir, player)
 
 func _select_agent(i):
 	assert i >= 0 and i < 2 * NB_AGENTS

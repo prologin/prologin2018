@@ -12,11 +12,10 @@ func agent_id_to_internal(agent_id, player_id):
 func internal_to_agent_id(internal):
 	return internal % NB_AGENTS
 
-func move(agent_id, destination, player_id):
-	if not $TileMap.is_cell_free(destination):
-		return false
+func move(agent_id, direction, player_id):
 	var internal = agent_id_to_internal(agent_id, player_id)
-	if $TileMap.agents_pos[internal].distance_squared_to(destination) != 1:
+	var destination = $TileMap.agents_pos[internal] + DIR[direction]
+	if not $TileMap.is_cell_free(destination):
 		return false
 	$TileMap.move_agent(internal, destination, false, false)
 	return true
