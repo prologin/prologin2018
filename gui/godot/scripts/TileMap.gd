@@ -45,6 +45,13 @@ func move_agent(i, dest, dash, pushed):
 	agents_pos[i] = dest
 	return true
 
+func teleport_agent(i, dest):
+	if dest == agents_pos[i]:
+		return false
+	agents[i].position = world_position(dest.x, dest.y)
+	agents_pos[i] = dest
+	return true
+
 func init(walls_grids, agents_positions):
 	walls = walls_grids
 	agents_pos = agents_positions
