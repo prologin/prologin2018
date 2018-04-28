@@ -19,6 +19,8 @@ func _ready():
 	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
 	for agent in $GameState/TileMap.agents:
 		 agent.connect("finished_moving", self, "_finish_animating")
+	$GameState/Info/Players.text = init.players[0].name
+	$GameState/Info/Players.set("custom_colors/font_color", Color(0, 0.5, 1, 1))
 
 func _finish_animating():
 	animating = false
