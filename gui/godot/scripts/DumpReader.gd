@@ -37,8 +37,7 @@ static func parse_turn(json):
 			player.agents.append(Vector2(-1, -1))
 		for agent in node["agents"]:
 			player.agents[agent["id_agent"]] = Vector2(agent["pos"]["r"], agent["pos"]["c"])
-		for history in node["history"]:
-			pass # TODO
+		player.history = node["history"]
 		result.players.append(player)
 	var cells = json["map"]["cells"]
 	var size = sqrt(cells.size())
