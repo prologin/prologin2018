@@ -19,7 +19,9 @@ func _ready():
 	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
 	for agent in $GameState/TileMap.agents:
 		 agent.connect("finished_moving", self, "_finish_animating")
-	$GameState/Info.set_player(init.players[0].name, 0)
+	$GameState/Info.players[0].name = init.players[0].name
+	$GameState/Info.players[1].name = init.players[1].name
+	$GameState/Info.redraw()
 
 func _finish_animating():
 	animating = false
@@ -30,13 +32,23 @@ func _jump(index):
 	for i in range(size):
 		$GameState/TileMap.teleport_agent(i, state.players[0].agents[i])
 		$GameState/TileMap.teleport_agent(i + size, state.players[1].agents[i])
+	$GameState/Info.players[0].score = state.players[0].score
+	$GameState/Info.players[1].score = state.players[1].score
 	dump_index = index
+	$GameState/Info.players[0].action_points = 0
+	$GameState/Info.players[1].action_points = 0
+	$GameState/Info.redraw()
 
 func _continue():
 	dump_index += 1
 	var state = DumpReader.parse_turn(dump[dump_index])
 	var player_id = (dump_index + 1) % 2 
 	actions_playing = state.players[player_id].history
+	$GameState/Info.players[0].score = state.players[0].score
+	$GameState/Info.players[1].score = state.players[1].score
+	$GameState/Info.players[dump_index % 2].action_points = 0
+	$GameState/Info.players[(dump_index + 1) % 2].action_points = 10
+	$GameState/Info.redraw()
 
 func _process(delta):
 	if not animating:

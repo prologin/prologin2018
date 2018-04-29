@@ -41,7 +41,7 @@ _sections_unfolded = [ "Transform" ]
 
 script = ExtResource( 5 )
 
-[node name="Players" type="Label" parent="GameState/Info" index="0"]
+[node name="Player1" type="Label" parent="GameState/Info" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -58,5 +58,25 @@ size_flags_vertical = 4
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Player2" type="Label" parent="GameState/Info" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 100.0
+margin_right = 40.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Margin" ]
 
 
