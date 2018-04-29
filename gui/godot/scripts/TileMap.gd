@@ -7,6 +7,14 @@ var walls = []
 var agents = []
 var agents_pos = []
 
+class Alien:
+	var pos = Vector2()
+	var points = 0
+	var first_turn = 0
+	var duration = 0
+	var capture = 0
+var aliens = []
+
 onready var character_scene = preload("res://scenes/Agent.tscn")
 
 func world_position(x, y):
@@ -32,6 +40,13 @@ func set_map():
 	for x in range(size):
 		for y in range(size):
 			set_cell(x, y, get_tile(x, y))
+
+func update_aliens(turn):
+	for alien in aliens:
+		if turn >= alien.first_turn and turn < alien.first_turn + alien.duration:
+			set_cellv(alien.pos, get_tileset().find_tile_by_name("Alien"))
+		else:
+			set_cellv(alien.pos, get_tileset().find_tile_by_name("BG"))
 
 func is_cell_free(pos):
 	if pos.x < 0 or pos.y < 0 or pos.x >= walls.size() or pos.y >= walls.size():

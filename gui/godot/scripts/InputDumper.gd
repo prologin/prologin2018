@@ -21,6 +21,15 @@ func _ready():
 		 agent.connect("finished_moving", self, "_finish_animating")
 	$GameState/Info.players[0].name = init.players[0].name
 	$GameState/Info.players[1].name = init.players[1].name
+	for alien_input in init.aliens:
+		var alien = $GameState/TileMap.Alien.new()
+		alien.pos = alien_input.pos
+		alien.points = alien_input.points
+		alien.first_turn = alien_input.first_turn
+		alien.duration = alien_input.duration
+		alien.capture = alien_input.capture
+		$GameState/TileMap.aliens.append(alien)
+	$GameState/TileMap.update_aliens(0)
 	$GameState/Info.redraw()
 
 func _finish_animating():
@@ -38,6 +47,7 @@ func _jump(index):
 	$GameState/Info.players[0].action_points = 0
 	$GameState/Info.players[1].action_points = 0
 	$GameState/Info.redraw()
+	$GameState/TileMap.update_aliens(max(0, (dump_index - 1) / 2))
 
 func _continue():
 	dump_index += 1
@@ -49,6 +59,7 @@ func _continue():
 	$GameState/Info.players[dump_index % 2].action_points = 0
 	$GameState/Info.players[(dump_index + 1) % 2].action_points = 10
 	$GameState/Info.redraw()
+	$GameState/TileMap.update_aliens(max(0, (dump_index - 1) / 2))
 
 func _process(delta):
 	if not animating:
