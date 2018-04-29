@@ -10,7 +10,7 @@ var moving = false
 var _moving_to = Vector2()
 var _dash = false
 
-const SPEED = 50
+const SPEED = 100
 
 func set_team(blue):
 	if blue:
