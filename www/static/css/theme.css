@@ -1,0 +1,173 @@
+/********/
+/* Font */
+/********/
+
+@font-face {
+	font-family: TypeWriter;
+	src: url("../fonts/ATypewriterForMe.ttf");
+}
+
+h1, h2, h3, h4, h5, h6, .nav a, .nav span, th
+{
+	font-family: TypeWriter;
+}
+
+/*************/
+/* Variables */
+/*************/
+
+body {
+	--accent-color: #222;
+	--background-color: #FFF;
+	--background-color-2: #eee;
+	--background-darker: rgba(0,0,0,0.04);
+	--border-color: #111;
+	--text-color: #000;
+}
+
+/* global stuff */
+
+body {
+	background: #000 url("../img/woodgrain.png");
+	color: var(--text-color);
+}
+
+/*******/
+/* nav */
+/*******/
+
+.navbar-default {
+	background: transparent;
+	border: transparent;
+	border-radius: 0;
+}
+
+.navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
+	color: #ffffff;
+	text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+}
+
+/********/
+/* main */
+/********/
+
+h1.hidden-xs {
+	background: no-repeat center url("../img/logo-stamp-pib.png");
+	background-size: contain;
+	height: 1.9em;
+}
+
+body>div.container {
+	background: url("../img/coffee-stain.png"), url("../img/paper.png");
+	background-position: top right, top left;
+	background-repeat: no-repeat, repeat;
+	box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+	padding-bottom: 20px;
+}
+
+/**********/
+/* panels */
+/**********/
+
+.panel-primary, .panel-default {
+	background: var(--background-darker);
+	border-color: var(--border-color);
+}
+
+.panel-primary > .panel-heading {
+	background-color: var(--accent-color);
+	border-color: var(--border-color);
+	color: var(--background-color);
+	text-decoration: underline;
+}
+
+.panel-default > .panel-heading {
+	background: transparent;
+	border-color: var(--border-color);
+	border-bottom: 2px dotted;
+	color: var(--text-color);
+}
+
+/********************/
+/* left nav / links */
+/********************/
+
+a, a:hover, a:active {
+	color: var(--text-color);
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+	background: transparent;
+	border: 1px solid var(--border-color);
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+	background: transparent;
+	text-decoration: underline;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+	color: var(--text-color);
+}
+
+/**********/
+/* tables */
+/**********/
+
+table {
+	border: 1px solid var(--border-color);
+}
+
+.table > thead > tr > th {
+	border-bottom: 2px dotted var(--border-color);
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+	border-top-color: var(--border-color);
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+	background: rgba(0,0,0,0.04);
+}
+
+/**************/
+/* pre/inputs */
+/**************/
+
+pre, input[type=text], textarea.form-control {
+	background: var(--background-darker);
+	border-color: var(--border-color);
+}
+
+/***********/
+/* buttons */
+/***********/
+
+/* primary */
+
+.btn-primary {
+	background: var(--accent-color);
+	color: var(--background-color);
+	border: 1px solid var(--border-color);
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+
+	background: var(--accent-color);
+	color: var(--background-color);
+	border: 1px solid var(--border-color);
+	text-decoration: underline;
+}
+
+/* default */
+
+.btn-default {
+	background: transparent;
+	border: 1px solid var(--border-color);
+}
+
+.btn-default:hover, .btn-default:active, .btn-default:focus {
+	background: transparent;
+	text-decoration: underline;
+	border-color: var(--border-color);
+}
