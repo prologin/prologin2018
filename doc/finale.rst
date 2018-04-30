@@ -62,7 +62,9 @@ affectés par la météo.
 Déroulement d'un tour
 ---------------------
 
-Il y a ``NB_TOURS`` tours par partie. Les recrues jouent alternativement.
+Il y a ``NB_TOURS`` tours par partie, numérotés de 0 à ``NB_TOURS`` - 1. Pendant
+un tour les recrues jouent alternativement. Les invasions aliens et les tempêtes
+de neige ont toujours lieu en début de tour avant les actions des joueurs.
 
 Les deux joueurs se voient attribuer ``NB_POINTS_ACTION`` au début de chaque
 tour. Le joueur peut dépenser et répartir ses points d'action comme il le
