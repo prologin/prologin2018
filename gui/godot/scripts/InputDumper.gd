@@ -54,7 +54,9 @@ func _jump(index):
 	$GameState/Info.players[0].action_points = 0
 	$GameState/Info.players[1].action_points = 0
 	$GameState/Info.redraw()
-	$GameState/TileMap.update_aliens(max(0, (dump_index - 1) / 2))
+	var turn = max(0, (dump_index - 1) / 2)
+	$GameState/TileMap.update_aliens(turn)
+	$GameState/Info.turn = turn
 
 func _continue():
 	dump_index += 1
@@ -66,7 +68,9 @@ func _continue():
 	$GameState/Info.players[dump_index % 2].action_points = 0
 	$GameState/Info.players[(dump_index + 1) % 2].action_points = 10
 	$GameState/Info.redraw()
-	$GameState/TileMap.update_aliens(max(0, (dump_index - 1) / 2))
+	var turn = max(0, (dump_index - 1) / 2)
+	$GameState/TileMap.update_aliens(turn)
+	$GameState/Info.turn = turn
 
 func _process(delta):
 	if not animating:
