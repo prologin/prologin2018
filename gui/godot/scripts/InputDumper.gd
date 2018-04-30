@@ -12,9 +12,16 @@ var dump_index = 0
 var actions_playing = []
 var animating = false
 
+func get_json_path():
+	for arg in OS.get_cmdline_args():
+		if arg.begins_with("-json="):
+			return arg.right(6)
+	return "res://../../test_dumper.json"
+
 func _ready():
-	print("args: ", OS.get_cmdline_args())
-	dump = DumpReader.parse_dump("res://../../test_dumper.json")
+	var json = get_json_path()
+	print("Read dump ", json)
+	dump = DumpReader.parse_dump(json)
 	var init = DumpReader.parse_turn(dump[dump_index])
 	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
 	for agent in $GameState/TileMap.agents:
