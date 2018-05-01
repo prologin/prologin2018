@@ -12,6 +12,7 @@ var turn_index = 0
 var actions_playing = []
 var animating = false
 var storms = 0
+var playing = false
 
 func get_json_path():
 	for arg in OS.get_cmdline_args():
@@ -76,6 +77,8 @@ func _continue():
 	$GameState.set_turn(turn_index)
 
 func _process(delta):
+	if Input.is_action_just_pressed("ui_select"):
+		playing = !playing
 	if not animating:
 		if actions_playing:
 			var action = actions_playing.pop_front()
@@ -89,9 +92,9 @@ func _process(delta):
 			else:
 				print("Unknown action ", action['type'])
 		else:
-			if Input.is_action_just_pressed("ui_right"):
+			if playing:
+				_continue()
+			elif Input.is_action_just_pressed("ui_right"):
 				_jump(turn_index + 1)
 			elif Input.is_action_just_pressed("ui_left") and turn_index > 0:
 				_jump(turn_index - 1)
-			if Input.is_action_just_pressed("ui_select"):
-				_continue()
