@@ -57,3 +57,21 @@ func set_turn(turn_index):
 	var real_turn = (turn_index - type) / 3
 	$TileMap.update_aliens(real_turn)
 	$Info.set_turn(real_turn, type)
+
+func storm(dir):
+	var positions = $TileMap.agents_pos
+	var map_size = $TileMap.walls.size()
+	var vector_dir = DIR[dir]
+	var moving = 0
+	for i in range(NB_AGENTS * 2):
+		var pos = positions[i]
+		var cross_agents = 0
+		var candidate = pos + vector_dir
+		while candidate.x < map_size and candidate.x >= 0 and candidate.y < map_size and candidate.y >= 0 and not $TileMap.walls[candidate.x][candidate.y]:
+			if not $TileMap.agents_pos.has(candidate):
+				pos += vector_dir
+			candidate += vector_dir
+		if positions[i] != pos:
+			$TileMap.move_agent(i, pos, true, true)
+			moving += 1
+	return moving
