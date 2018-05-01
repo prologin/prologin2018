@@ -14,9 +14,9 @@ const SPEED = 100
 
 func set_team(blue):
 	if blue:
-		modulate_color = Color(0, 0.5, 1, 1)
+		modulate_color = Color(0.5, 0.75, 1, 1)
 	else:
-		modulate_color = Color(1, 0.5, 0, 1)
+		modulate_color = Color(1, 0.75, 0.5, 1)
 	set_modulate(modulate_color)
 
 func focus():
