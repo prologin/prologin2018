@@ -9,7 +9,8 @@ class Player:
 	var action_points = 0
 
 var players = [Player.new(), Player.new()]
-var turn = 0
+var _turn = 0
+var _type = 0
 
 func _ready():
 	$Player1.set("custom_colors/font_color", Color(0, 0.5, 1, 1))
@@ -17,9 +18,18 @@ func _ready():
 	redraw()
 
 func _redraw_player(id, label):
-	label.text = players[id].name + "\nScore: " + str(players[id].score) + "\nPoints: " + str(players[id].action_points)
+	label.text = players[id].name + "\nScore : " + str(players[id].score) + "\nPoints : " + str(players[id].action_points)
 
 func redraw():
 	_redraw_player(0, $Player1)
 	_redraw_player(1, $Player2)
-	$Turn.text = "Tour: " + str(turn)
+	$Turn.text = "Tour : " + str(_turn) + "\n" + ["Env", "P1", "P2"][_type]
+
+func set_turn(turn, type):
+	_turn = turn
+	_type = type
+	players[0].action_points = 0
+	players[1].action_points = 0
+	if type != 0:
+		players[type - 1].action_points = 10
+	redraw()

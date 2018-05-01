@@ -51,3 +51,9 @@ func push(agent_id, dir, player_id):
 func init(walls, agents):
 	$TileMap.init(walls, agents)
 	$Info.position.y = $TileMap.walls.size() * $TileMap.cell_size.y * $TileMap.scale.y
+
+func set_turn(turn_index):
+	var type = turn_index % 3
+	var real_turn = (turn_index - type) / 3
+	$TileMap.update_aliens(real_turn)
+	$Info.set_turn(real_turn, type)
