@@ -82,7 +82,10 @@ func storm(dir):
 func _update_tile_info():
 	if not selected_tile:
 		$Info/Tile.text = ""
+		$TileMap/Select.visible = false
 		return
+	$TileMap/Select.visible = true
+	$TileMap/Select.rect_position = $TileMap.map_to_world(selected_tile)
 	var alien = null
 	if $TileMap.get_cellv(selected_tile) == $TileMap.get_tileset().find_tile_by_name("Alien"):
 		for a in $TileMap.aliens:
