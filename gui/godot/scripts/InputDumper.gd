@@ -42,7 +42,9 @@ func _ready():
 	$GameState/Info.add_turn_slider().connect("value_changed", self, "_turn_slider")
 
 func _turn_slider(value):
-	_jump(int(value) * 3)
+	var index = int(value) * 3
+	if turn_index != index:
+		_jump(index)
 
 func _finish_animating():
 	if storms:

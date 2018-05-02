@@ -11,6 +11,7 @@ class Player:
 var players = [Player.new(), Player.new()]
 var _turn = 0
 var _type = 0
+var _turn_slider = null
 
 func _ready():
 	$Player1.set("custom_colors/font_color", Color(0, 0.5, 1, 1))
@@ -34,6 +35,8 @@ func set_turn(turn, type):
 	players[1].action_points = 0
 	if type != 0:
 		players[type - 1].action_points = 10
+	if _turn_slider:
+		_turn_slider.value = turn
 	redraw()
 
 func _speed_slider(value):
@@ -42,12 +45,12 @@ func _speed_slider(value):
 	$Speed.text = "Vitesse : " + str(v)
 
 func add_turn_slider():
-	var slider = HSlider.new()
-	slider.margin_left = 200
-	slider.margin_right = 280
-	slider.margin_top = 32
-	slider.step = 1
-	slider.min_value = 1
-	slider.max_value = 100
-	add_child(slider)
-	return slider
+	_turn_slider = HSlider.new()
+	_turn_slider.margin_left = 200
+	_turn_slider.margin_right = 280
+	_turn_slider.margin_top = 32
+	_turn_slider.step = 1
+	_turn_slider.min_value = 1
+	_turn_slider.max_value = 100
+	add_child(_turn_slider)
+	return _turn_slider
