@@ -84,6 +84,7 @@ func _continue():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_select"):
 		playing = !playing
+		get_tree().paused = not playing
 	if not animating:
 		if actions_playing:
 			var action = actions_playing.pop_front()

@@ -8,11 +8,15 @@
 
 [node name="World" type="Node" index="0"]
 
+pause_mode = 2
 script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
 
 [node name="GameState" type="Node" parent="." index="0"]
 
+pause_mode = 1
 script = ExtResource( 2 )
+_sections_unfolded = [ "Pause" ]
 
 [node name="TileMap" type="TileMap" parent="GameState" index="0"]
 
@@ -34,11 +38,12 @@ occluder_light_mask = 1
 format = 1
 tile_data = PoolIntArray(  )
 script = ExtResource( 4 )
-_sections_unfolded = [ "Cell" ]
+_sections_unfolded = [ "Cell", "Pause" ]
 
 [node name="Info" type="Node2D" parent="GameState" index="1"]
 
 script = ExtResource( 5 )
+_sections_unfolded = [ "Pause" ]
 
 [node name="Player1" type="Label" parent="GameState/Info" index="0"]
 
@@ -121,6 +126,7 @@ _sections_unfolded = [ "Margin" ]
 
 [node name="SpeedSlider" type="HSlider" parent="GameState/Info" index="4"]
 
+pause_mode = 2
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -147,6 +153,6 @@ editable = true
 tick_count = 0
 ticks_on_borders = true
 focus_mode = 2
-_sections_unfolded = [ "Margin" ]
+_sections_unfolded = [ "Margin", "Pause" ]
 
 
