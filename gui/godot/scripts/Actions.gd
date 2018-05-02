@@ -80,7 +80,7 @@ func storm(dir):
 	return moving
 
 func _update_tile_info():
-	if not selected_tile:
+	if selected_tile == null:
 		$Info/Tile.text = ""
 		$TileMap/Select.visible = false
 		return
