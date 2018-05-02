@@ -15,6 +15,8 @@ var _type = 0
 func _ready():
 	$Player1.set("custom_colors/font_color", Color(0, 0.5, 1, 1))
 	$Player2.set("custom_colors/font_color", Color(1, 0.5, 0, 1))
+	$Speed.text = "Vitesse : " + str(global.speed_factor)
+	$SpeedSlider.connect("value_changed", self, "_speed_slider")
 	redraw()
 
 func _redraw_player(id, label):
@@ -33,6 +35,11 @@ func set_turn(turn, type):
 	if type != 0:
 		players[type - 1].action_points = 10
 	redraw()
+
+func _speed_slider(value):
+	var v = 1 << int(value)
+	global.speed_factor = v
+	$Speed.text = "Vitesse : " + str(v)
 
 func add_turn_slider():
 	var slider = HSlider.new()
