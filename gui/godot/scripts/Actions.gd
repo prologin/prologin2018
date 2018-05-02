@@ -10,6 +10,8 @@ const COST_MOVE = 1
 const COST_SLIDE = 3
 const COST_PUSH = 4
 
+var selected_tile = null
+
 func agent_id_to_internal(agent_id, player_id):
 	return agent_id + NB_AGENTS * player_id
 
@@ -57,6 +59,7 @@ func set_turn(turn_index):
 	var real_turn = (turn_index - type) / 3
 	$TileMap.update_aliens(real_turn)
 	$Info.set_turn(real_turn, type)
+	_update_tile_info()
 
 func storm(dir):
 	var positions = $TileMap.agents_pos
@@ -75,3 +78,25 @@ func storm(dir):
 			$TileMap.move_agent(i, pos, true, true)
 			moving += 1
 	return moving
+
+func _update_tile_info():
+	if not selected_tile:
+		$Info/Tile.text = ""
+		return
+	var alien = null
+	if $TileMap.get_cellv(selected_tile) == $TileMap.get_tileset().find_tile_by_name("Alien"):
+		for a in $TileMap.aliens:
+			if a.pos == selected_tile:
+				alien = a
+				break
+	$Info.set_tile(selected_tile, $TileMap.walls[selected_tile.x][selected_tile.y], alien)
+
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		var pos = $TileMap.world_to_map(event.position)
+		if pos.x >= 0 and pos.y >= 0 and pos.x < $TileMap.walls.size() and pos.y < $TileMap.walls.size():
+			if selected_tile == pos:
+				selected_tile = null
+			else:
+				selected_tile = pos
+			_update_tile_info()

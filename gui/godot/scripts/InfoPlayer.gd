@@ -39,6 +39,14 @@ func set_turn(turn, type):
 		_turn_slider.value = turn
 	redraw()
 
+func set_tile(pos, wall, alien):
+	$Tile.text = "Position : " + str(pos)
+	if wall:
+		$Tile.text += "\nMur"
+	elif alien:
+		$Tile.text += "\nAlien du tour " + str(alien.first_turn) + " pendant " + str(alien.duration)
+		$Tile.text += "\nAlien de " + str(alien.points) + " points, capture à " + str(alien.capture)
+
 func _speed_slider(value):
 	var v = 1 << int(value)
 	global.speed_factor = v

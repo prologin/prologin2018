@@ -14,12 +14,12 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="GameState" type="Node" parent="." index="0"]
 
-pause_mode = 1
 script = ExtResource( 2 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="TileMap" type="TileMap" parent="GameState" index="0"]
 
+pause_mode = 1
 mode = 0
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 32, 32 )
@@ -42,7 +42,6 @@ _sections_unfolded = [ "Cell", "Pause" ]
 
 [node name="Info" type="Node2D" parent="GameState" index="1"]
 
-pause_mode = 2
 script = ExtResource( 5 )
 _sections_unfolded = [ "Pause" ]
 
@@ -92,7 +91,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 200.0
-margin_right = 40.0
+margin_right = 200.0
 margin_bottom = 14.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -105,7 +104,27 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Margin" ]
 
-[node name="Speed" type="Label" parent="GameState/Info" index="3"]
+[node name="Tile" type="Label" parent="GameState/Info" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 300.0
+margin_right = 100.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="Speed" type="Label" parent="GameState/Info" index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -125,7 +144,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Margin" ]
 
-[node name="SpeedSlider" type="HSlider" parent="GameState/Info" index="4"]
+[node name="SpeedSlider" type="HSlider" parent="GameState/Info" index="5"]
 
 anchor_left = 0.0
 anchor_top = 0.0
