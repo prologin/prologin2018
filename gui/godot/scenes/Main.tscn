@@ -42,6 +42,7 @@ _sections_unfolded = [ "Cell", "Pause" ]
 
 [node name="Info" type="Node2D" parent="GameState" index="1"]
 
+pause_mode = 2
 script = ExtResource( 5 )
 _sections_unfolded = [ "Pause" ]
 
@@ -126,7 +127,6 @@ _sections_unfolded = [ "Margin" ]
 
 [node name="SpeedSlider" type="HSlider" parent="GameState/Info" index="4"]
 
-pause_mode = 2
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

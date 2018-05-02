@@ -65,6 +65,8 @@ func _jump(index):
 	$GameState/Info.players[0].score = state.players[0].score
 	$GameState/Info.players[1].score = state.players[1].score
 	$GameState.set_turn(turn_index)
+	playing = false
+	get_tree().paused = false
 
 func _continue():
 	turn_index += 1

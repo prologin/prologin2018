@@ -61,6 +61,7 @@ func move_agent(i, dest, dash, pushed):
 	return true
 
 func teleport_agent(i, dest):
+	agents[i].stop()
 	if dest == agents_pos[i]:
 		return false
 	agents[i].position = world_position(dest.x, dest.y)

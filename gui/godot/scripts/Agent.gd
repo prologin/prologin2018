@@ -39,19 +39,21 @@ func move_to(to, dash, pushed):
 	elif dx < 0:
 		$AnimatedSprite.flip_h = true
 
+func stop():
+	$AnimatedSprite.play("idle")
+	if moving:
+		emit_signal("finished_moving")
+	moving = false
+
 func _process(delta):
 	if moving:
 		var diff = _moving_to - position
 		if diff == Vector2():
-			$AnimatedSprite.play("idle")
-			moving = false
-			emit_signal("finished_moving")
+			stop()
 		else:
 			var speed = (SPEED * 2.5 if _dash else SPEED) * global.speed_factor
 			if diff.length() > speed * delta:
 				position += (diff.normalized() * speed * delta)
 			else:
 				position = _moving_to
-				$AnimatedSprite.play("idle")
-				moving = false
-				emit_signal("finished_moving")
+				stop()
