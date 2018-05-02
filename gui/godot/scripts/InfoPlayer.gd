@@ -33,3 +33,14 @@ func set_turn(turn, type):
 	if type != 0:
 		players[type - 1].action_points = 10
 	redraw()
+
+func add_turn_slider():
+	var slider = HSlider.new()
+	slider.margin_left = 200
+	slider.margin_right = 280
+	slider.margin_top = 32
+	slider.step = 1
+	slider.min_value = 1
+	slider.max_value = 100
+	add_child(slider)
+	return slider

@@ -39,7 +39,10 @@ func _ready():
 		alien.capture = alien_input.capture
 		$GameState/TileMap.aliens.append(alien)
 	$GameState.set_turn(0)
-	$GameState/Info.redraw()
+	$GameState/Info.add_turn_slider().connect("value_changed", self, "_turn_slider")
+
+func _turn_slider(value):
+	_jump(int(value) * 3)
 
 func _finish_animating():
 	if storms:
