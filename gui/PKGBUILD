@@ -1,0 +1,27 @@
+# Maintainer: Sacha Delanoue <sacha.delanoue@prologin.org>
+pkgname=prologin2018-gui
+pkgver=0.1
+pkgrel=1
+pkgdesc="GUI for prologin 2018"
+arch=('any')
+url="https://github.com/prologin/prologin2018"
+license=('GPL')
+depends=('godot>=3')
+
+build() {
+    cd ../godot
+    godot --export "pck" "$srcdir/$pkgname-$pkgver.pck"
+
+    replay="$srcdir/prologin2018-replay"
+    echo -e "#!/usr/bin/sh\n" > $replay
+    echo "test \$# -eq 0 && echo "Usage: \$0 dump.json" && exit 1" >> $replay
+    echo "godot --main-pack /opt/$pkgname-$pkgver.pck -json=\$1" >> $replay
+    chmod +x $replay
+}
+
+package() {
+    mkdir "$pkgdir/opt/"
+    cp "$srcdir/$pkgname-$pkgver.pck" "$pkgdir/opt/"
+    mkdir -p "$pkgdir/usr/bin"
+    cp "$srcdir/prologin2018-replay" "$pkgdir/usr/bin/"
+}
