@@ -47,7 +47,7 @@ func _process(delta):
 			moving = false
 			emit_signal("finished_moving")
 		else:
-			var speed = SPEED * 2.5 if _dash else SPEED
+			var speed = (SPEED * 2.5 if _dash else SPEED) * global.speed_factor
 			if diff.length() > speed * delta:
 				position += (diff.normalized() * speed * delta)
 			else:
