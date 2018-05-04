@@ -24,7 +24,7 @@ func move(agent_id, direction, player_id):
 	if not $TileMap.is_cell_free(destination):
 		return false
 	$TileMap.move_agent(internal, destination, false, false)
-	$Info.players[player_id].action_points -= COST_MOVE
+	$Info.players[player_id].action_points[agent_id] -= COST_MOVE
 	$Info.redraw()
 	return true
 
@@ -35,7 +35,7 @@ func slide(agent_id, dir, player_id, pushed = false):
 		dest += DIR[dir]
 	$TileMap.move_agent(internal, dest, true, pushed)
 	if not pushed:
-		$Info.players[player_id].action_points -= COST_SLIDE
+		$Info.players[player_id].action_points[agent_id] -= COST_SLIDE
 		$Info.redraw()
 	return true
 
@@ -46,7 +46,7 @@ func push(agent_id, dir, player_id):
 	if agent == -1:
 		return false
 	slide(internal_to_agent_id(agent), dir, agent / NB_AGENTS, true)
-	$Info.players[player_id].action_points -= COST_PUSH
+	$Info.players[player_id].action_points[agent_id] -= COST_PUSH
 	$Info.redraw()
 	return true
 
