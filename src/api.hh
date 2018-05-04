@@ -119,8 +119,9 @@ public:
     /// Retourne le numéro du tour actuel.
     int tour_actuel();
 
-    /// Renvoie votre nombre de points d'action restants pour le tour.
-    int points_action();
+    /// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants
+    /// pour le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.
+    int points_action_agent(int id_agent);
 };
 
 #endif /* !API_HH_ */

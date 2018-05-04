@@ -22,7 +22,7 @@ int ActionGlisser::check(const GameState* st) const
         return ID_AGENT_INVALIDE;
     if (dir_ < 0 || dir_ > 3)
         return DIRECTION_INVALIDE;
-    if (COUT_GLISSADE > st->get_action_points(player_id_))
+    if (COUT_GLISSADE > st->get_agent_action_points(player_id_, agent_id_))
         return PA_INSUFFISANTS;
     return OK;
 }
@@ -32,7 +32,7 @@ void ActionGlisser::apply_on(GameState* st) const
     position start = st->get_agent_position(player_id_, agent_id_);
     position end = st->slide_end_pos(start, dir_);
 
-    st->decrease_action_points(player_id_, COUT_GLISSADE);
+    st->decrease_agent_action_points(player_id_, agent_id_, COUT_GLISSADE);
     st->set_agent_position(player_id_, agent_id_, end);
 
     internal_action action;

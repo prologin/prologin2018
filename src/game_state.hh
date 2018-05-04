@@ -53,8 +53,8 @@ public:
     void check_presence_alien();
     void update_scores();
 
-    int get_action_points(int player_id) const;
-    void decrease_action_points(int player_id, int delta);
+    int get_agent_action_points(int player_id, int agent_id) const;
+    void decrease_agent_action_points(int player_id, int agent_id, int delta);
     void reset_action_points(int player_id);
 
     int opponent(int player) const;

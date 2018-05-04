@@ -21,7 +21,7 @@
 TEST_F(ActionTest, ActionDeplacer_NotEnoughActionPoints)
 {
     st->reset_action_points(PLAYER_1);
-    st->decrease_action_points(PLAYER_1, NB_POINTS_ACTION);
+    st->decrease_agent_action_points(PLAYER_1, 0, NB_POINTS_ACTION);
 
     ActionDeplacer act(0, SUD, PLAYER_1);
     EXPECT_EQ(PA_INSUFFISANTS, act.check(st));
@@ -84,5 +84,6 @@ TEST_F(ActionTest, ActionDeplacer_Valid)
     }
 
     int total_cost = (int)test_path.size() * COUT_DEPLACEMENT;
-    EXPECT_EQ(NB_POINTS_ACTION - total_cost, st->get_action_points(PLAYER_1));
+    EXPECT_EQ(NB_POINTS_ACTION - total_cost,
+              st->get_agent_action_points(PLAYER_1, 0));
 }

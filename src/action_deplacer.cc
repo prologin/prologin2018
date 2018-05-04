@@ -22,7 +22,7 @@ int ActionDeplacer::check(const GameState* st) const
         return ID_AGENT_INVALIDE;
     if (dir_ < 0 || dir_ > 3)
         return DIRECTION_INVALIDE;
-    if (COUT_DEPLACEMENT > st->get_action_points(player_id_))
+    if (COUT_DEPLACEMENT > st->get_agent_action_points(player_id_, agent_id_))
         return PA_INSUFFISANTS;
 
     position start = st->get_agent_position(player_id_, agent_id_);
@@ -42,7 +42,7 @@ void ActionDeplacer::apply_on(GameState* st) const
     position start = st->get_agent_position(player_id_, agent_id_);
     position dest = get_position_offset(start, dir_);
 
-    st->decrease_action_points(player_id_, COUT_DEPLACEMENT);
+    st->decrease_agent_action_points(player_id_, agent_id_, COUT_DEPLACEMENT);
     st->set_agent_position(player_id_, agent_id_, dest);
 
     internal_action action;

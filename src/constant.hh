@@ -24,7 +24,7 @@
 /// Nombre de tours à jouer avant la fin de la partie.
 #define NB_TOURS 100
 
-/// Nombre de points d'action par tour.
+/// Nombre de points d'action par tour par agent.
 #define NB_POINTS_ACTION 10
 
 /// Nombre de point d'action que coûte un déplacement.
@@ -81,9 +81,9 @@ template <> struct hash<direction>
 
 /// Erreurs possibles
 typedef enum erreur {
-    OK,                /* <- L'action s'est effectuée avec succès. */
-    PA_INSUFFISANTS,   /* <- Vous ne possédez pas assez de points d'action pour
-                          réaliser cette action. */
+    OK,              /* <- L'action s'est effectuée avec succès. */
+    PA_INSUFFISANTS, /* <- Votre agent ne possède pas assez de points d'action
+                          pour réaliser cette action.*/
     POSITION_INVALIDE, /* <- La position spécifiée n'est pas sur l'iceberg. */
     OBSTACLE_MUR,      /* <- La position spécifiée est un mur. */
     OBSTACLE_AGENT,    /* <- La position spécifiée est un agent. */

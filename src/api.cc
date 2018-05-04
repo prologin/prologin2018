@@ -183,8 +183,9 @@ int Api::tour_actuel()
     return game_state_->get_round();
 }
 
-/// Renvoie votre nombre de points d'action restants pour le tour.
-int Api::points_action()
+/// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants pour
+/// le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.
+int Api::points_action_agent(int id_agent)
 {
-    return game_state_->get_action_points(moi());
+    return game_state_->get_agent_action_points(moi(), id_agent);
 }

@@ -13,7 +13,7 @@ constant:
   -
     cst_name: NB_POINTS_ACTION
     cst_val: 10
-    cst_comment: Nombre de points d'action par tour.
+    cst_comment: Nombre de points d'action par tour par agent.
   -
     cst_name: COUT_DEPLACEMENT
     cst_val: 1
@@ -56,8 +56,8 @@ enum:
     enum_summary: "Erreurs possibles"
     enum_field:
       - [ok, "L'action s'est effectuée avec succès."]
-      - [pa_insuffisants, "Vous ne possédez pas assez de points d'action pour
-                           réaliser cette action."]
+      - [pa_insuffisants, "Votre agent ne possède pas assez de points d'action
+                           pour réaliser cette action."]
       - [position_invalide, "La position spécifiée n'est pas sur l'iceberg."]
       - [obstacle_mur, "La position spécifiée est un mur."]
       - [obstacle_agent, "La position spécifiée est un agent."]
@@ -258,10 +258,13 @@ function:
     fct_ret_type: int
     fct_arg: []
   -
-    fct_name: points_action
-    fct_summary: Renvoie votre nombre de points d'action restants pour le tour.
+    fct_name: points_action_agent
+    fct_summary: Renvoie le nombre de points d'action de l'agent ``id_agent``
+                 restants pour le tour.
+                 Si le numéro d'agent est invalide, la fonction renvoie -1.
     fct_ret_type: int
-    fct_arg: []
+    fct_arg:
+      - [id_agent, int, "Numéro de l'agent"]
 
 user_function:
   -

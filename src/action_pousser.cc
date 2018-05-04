@@ -22,7 +22,7 @@ int ActionPousser::check(const GameState* st) const
         return ID_AGENT_INVALIDE;
     if (dir_ < 0 || dir_ > 3)
         return DIRECTION_INVALIDE;
-    if (COUT_POUSSER > st->get_action_points(player_id_))
+    if (COUT_POUSSER > st->get_agent_action_points(player_id_, agent_id_))
         return PA_INSUFFISANTS;
 
     position pos = st->get_agent_position(player_id_, agent_id_);
@@ -43,7 +43,7 @@ void ActionPousser::apply_on(GameState* st) const
     int player_mv = agent_neigh.first;
     int agent_mv = agent_neigh.second;
 
-    st->decrease_action_points(player_id_, COUT_POUSSER);
+    st->decrease_agent_action_points(player_id_, agent_id_, COUT_POUSSER);
     st->set_agent_position(player_mv, agent_mv, end);
 
     internal_action action;

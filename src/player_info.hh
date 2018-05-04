@@ -32,8 +32,8 @@ public:
 
     int get_internal_id() const;
 
-    int get_action_points() const;
-    void decrease_action_points(int delta);
+    int get_agent_action_points(int agent_id) const;
+    void decrease_agent_action_points(int agent_id, int delta);
     void reset_action_points();
 
     int get_score() const;
@@ -49,7 +49,7 @@ public:
 private:
     rules::Player_sptr player_;
     std::vector<internal_action> internal_hist_;
-    int action_points_;
+    std::array<int, NB_AGENTS> action_points_;
     int internal_id_;
 };
 

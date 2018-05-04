@@ -20,7 +20,7 @@
 TEST_F(ActionTest, ActionGlisser_NotEnoughActionPoints)
 {
     st->reset_action_points(PLAYER_1);
-    st->decrease_action_points(PLAYER_1, NB_POINTS_ACTION);
+    st->decrease_agent_action_points(PLAYER_1, 0, NB_POINTS_ACTION);
 
     ActionGlisser act(0, NORD, PLAYER_1);
     EXPECT_EQ(PA_INSUFFISANTS, act.check(st));
@@ -76,8 +76,12 @@ TEST_F(ActionTest, ActionGlisser_Valid)
     EXPECT_EQ(dest4, st->get_agent_position(PLAYER_2, 3));
     delete act;
 
-    EXPECT_EQ(NB_POINTS_ACTION - 2 * COUT_GLISSADE,
-              st->get_action_points(PLAYER_1));
-    EXPECT_EQ(NB_POINTS_ACTION - 2 * COUT_GLISSADE,
-              st->get_action_points(PLAYER_2));
+    EXPECT_EQ(NB_POINTS_ACTION - COUT_GLISSADE,
+              st->get_agent_action_points(PLAYER_1, 0));
+    EXPECT_EQ(NB_POINTS_ACTION - COUT_GLISSADE,
+              st->get_agent_action_points(PLAYER_1, 3));
+    EXPECT_EQ(NB_POINTS_ACTION - COUT_GLISSADE,
+              st->get_agent_action_points(PLAYER_2, 0));
+    EXPECT_EQ(NB_POINTS_ACTION - COUT_GLISSADE,
+              st->get_agent_action_points(PLAYER_2, 3));
 }

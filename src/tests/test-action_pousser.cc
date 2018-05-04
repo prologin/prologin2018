@@ -20,7 +20,7 @@
 TEST_F(ActionTest, ActionPousser_NotEnoughActionPoints)
 {
     st->reset_action_points(PLAYER_1);
-    st->decrease_action_points(PLAYER_1, NB_POINTS_ACTION);
+    st->decrease_agent_action_points(PLAYER_1, 0, NB_POINTS_ACTION);
 
     ActionPousser act(0, EST, PLAYER_1);
     EXPECT_EQ(PA_INSUFFISANTS, act.check(st));
@@ -81,5 +81,5 @@ TEST_F(ActionTest, ActionPousser_Valid)
     delete act;
 
     EXPECT_EQ(NB_POINTS_ACTION - 2 * COUT_POUSSER,
-              st->get_action_points(PLAYER_1));
+              st->get_agent_action_points(PLAYER_1, 0));
 }

@@ -201,16 +201,17 @@ void GameState::update_scores()
     }
 }
 
-int GameState::get_action_points(int player_id) const
+int GameState::get_agent_action_points(int player_id, int agent_id) const
 {
     assert(player_info_.count(player_id) != 0);
-    return player_info_.at(player_id).get_action_points();
+    return player_info_.at(player_id).get_agent_action_points(agent_id);
 }
 
-void GameState::decrease_action_points(int player_id, int delta)
+void GameState::decrease_agent_action_points(int player_id, int agent_id,
+                                             int delta)
 {
     assert(player_info_.count(player_id) != 0);
-    player_info_.at(player_id).decrease_action_points(delta);
+    player_info_.at(player_id).decrease_agent_action_points(agent_id, delta);
 }
 
 void GameState::reset_action_points(int player_id)

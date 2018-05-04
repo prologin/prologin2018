@@ -449,10 +449,11 @@ extern "C" int api_tour_actuel()
     return api->tour_actuel();
 }
 
-/// Renvoie votre nombre de points d'action restants pour le tour.
-extern "C" int api_points_action()
+/// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants pour
+/// le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.
+extern "C" int api_points_action_agent(int id_agent)
 {
-    return api->points_action();
+    return api->points_action_agent(id_agent);
 }
 
 /// Affiche le contenu d'une valeur de type case_type

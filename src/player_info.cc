@@ -17,11 +17,11 @@
 
 PlayerInfo::PlayerInfo(rules::Player_sptr player, int internal_id)
     : player_(std::move(player))
-    , action_points_(NB_POINTS_ACTION)
     , internal_id_(internal_id)
 {
     assert(player_);
     player_->score = 0;
+    reset_action_points();
 }
 
 int PlayerInfo::get_internal_id() const
@@ -29,20 +29,23 @@ int PlayerInfo::get_internal_id() const
     return internal_id_;
 }
 
-int PlayerInfo::get_action_points() const
+int PlayerInfo::get_agent_action_points(int agent_id) const
 {
-    return action_points_;
+    assert(agent_id >= 0 && agent_id < NB_AGENTS);
+    return action_points_[agent_id];
 }
 
-void PlayerInfo::decrease_action_points(int delta)
+void PlayerInfo::decrease_agent_action_points(int agent_id, int delta)
 {
-    assert(action_points_ >= delta);
-    action_points_ -= delta;
+    assert(agent_id >= 0 && agent_id < NB_AGENTS);
+    assert(action_points_[agent_id] >= delta);
+    action_points_[agent_id] -= delta;
 }
 
 void PlayerInfo::reset_action_points()
 {
-    action_points_ = NB_POINTS_ACTION;
+    for (int agent = 0; agent < NB_AGENTS; agent++)
+        action_points_[agent] = NB_POINTS_ACTION;
 }
 
 int PlayerInfo::get_score() const
