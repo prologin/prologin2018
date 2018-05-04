@@ -3,7 +3,7 @@ Instructions de mission
 =======================
 
 FIXME: ajouter des images de l'interface de jeu (case libre, mur, agents,
-aliens, actions, tempêtes, drapeau débug, etc.)
+aliens, actions, drapeau débug, etc.)
 
 -------
 Iceberg
@@ -38,35 +38,22 @@ Aliens
 Des aliens débarqueront sur l'iceberg à des positions précises de la carte,
 pendant un certain nombre de tour. Pour capturer un alien, un agent doit être
 sur la case pendant au moins ``NB_TOURS_CAPTURE`` tours. Si l'agent quitte la
-case (en se déplaçant ou alors en étant poussé par un agent ou par une tempête),
-la capture devra reprendre de zéro.
+case (en se déplaçant ou alors en étant poussé par un agent), la capture devra
+reprendre de zéro.
 
 Les aliens faisant des efforts admirables pour éviter les agents - contrairement
 aux murs, qui sont davantage récalcitrants - ils esquiveront de leur mieux : ce
 ne sont donc pas des obstacles, et ne bloquent pas le déplacement des agents.
-
-Tempête de neige
-================
-
-Les éléments étant cruels dans cet environnement hostile, le vent et la mer
-seront contre vous. Durant la partie, des tempêtes de neige viendront perturber
-les agents en les propulsant tous (amis et ennemis) dans la même direction,
-jusqu'à ce qu'ils heurtent un obstacle. Sur une même carte, la tempête soufflera
-toujours dans la même direction.
-
-Contrairement aux manchots, les aliens ont traditionnellement des griffes, des
-coussinets anti-dérapants ou du matériel d'escalade et ne seront donc pas
-affectés par la météo.
 
 ---------------------
 Déroulement d'un tour
 ---------------------
 
 Il y a ``NB_TOURS`` tours par partie, numérotés de 0 à ``NB_TOURS`` - 1. Pendant
-un tour les recrues jouent alternativement. Les invasions aliens et les tempêtes
-de neige ont toujours lieu en début de tour avant les actions des joueurs. En
-revanche, la capture des aliens se fait toujours à la fin du tour, lorsque les
-deux recrues ont fini de jouer.
+un tour les recrues jouent alternativement. Les invasions aliens ont toujours
+lieu en début de tour avant les actions des joueurs. En revanche, la capture des
+aliens se fait toujours à la fin du tour, lorsque les deux recrues ont fini de
+jouer.
 
 Les deux joueurs se voient attribuer ``NB_POINTS_ACTION`` au début de chaque
 tour. Le joueur peut dépenser et répartir ses points d'action comme il le
@@ -125,7 +112,6 @@ suivant :
   positions depart agents joueur 1
   positions depart agents joueur 2
   description aliens
-  description tempetes
 
 La représentation ASCII de l'iceberg est constituée de ``.`` pour une case libre
 et ``X`` pour un mur.
@@ -137,8 +123,3 @@ La description des aliens commencent par un nombre sur une seule ligne indiquant
 le nombre d'aliens qui envahiront l'iceberg durant la partie. Chaque ligne
 précise ensuite les caractéristiques d'un alien :
 ``position_ligne position_colonne points_capture tour_invasion duree_invasion``
-
-Enfin, la description des tempêtes indique sur la première ligne le nombre de
-tempêtes durant la partie, puis sur une même ligne les tours où chaque tempête a
-lieu. La dernière ligne précise la direction des tempêtes (toutes les tempêtes
-sont dans une même direction).

@@ -216,16 +216,6 @@ function:
     fct_summary: Renvoie la liste de tous les aliens présents durant la partie.
     fct_ret_type: alien_info array
     fct_arg: []
-  -
-    fct_name: liste_tempetes
-    fct_summary: Renvoie la liste des tours où se produisent une tempête.
-    fct_ret_type: int array
-    fct_arg: []
-  -
-    fct_name: direction_tempete
-    fct_summary: Renvoie la direction des tempêtes.
-    fct_ret_type: direction
-    fct_arg: []
 
 # Historique (actions de l'adversaire durant le tour précédent)
 

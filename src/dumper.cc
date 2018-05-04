@@ -315,20 +315,7 @@ static void dump_map(std::ostream& ss, const GameState& st)
            << "\"capture_en_cours\": " << alien.capture_en_cours << "}";
     }
 
-    ss << "], ";
-
-    const std::vector<int>& storms = st.get_storm_info();
-    ss << "\"storms\": [";
-    for (size_t id = 0; id < storms.size(); id++)
-    {
-        ss << storms[id];
-        if (id + 1 < storms.size())
-            ss << ", ";
-    }
-
-    ss << "], ";
-    ss << "\"storms_dir\": " << st.get_storm_dir();
-
+    ss << "]";
     ss << "}";
 }
 

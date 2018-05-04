@@ -118,20 +118,6 @@ TEST_F(ApiTest, Api_ListeAliens)
         EXPECT_EQ(aliens, player.api->liste_aliens());
 }
 
-TEST_F(ApiTest, Api_ListeTempetes)
-{
-    std::vector<int> storm_round = st->get_storm_info();
-    for (auto& player : players)
-        EXPECT_EQ(storm_round, player.api->liste_tempetes());
-}
-
-TEST_F(ApiTest, Api_DirectionTempete)
-{
-    direction storm_dir = st->get_storm_dir();
-    for (auto& player : players)
-        EXPECT_EQ(storm_dir, player.api->direction_tempete());
-}
-
 TEST_F(ApiTest, Api_Historique)
 {
     for (auto& player : players)

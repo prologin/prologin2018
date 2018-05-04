@@ -105,32 +105,6 @@ void Map::load_aliens_info(std::istream& stream)
     }
 }
 
-void Map::load_storms_info(std::istream& stream)
-{
-    int nb_storm;
-    stream >> nb_storm;
-    storm_round_.resize(nb_storm);
-    for (int storm = 0; storm < nb_storm; storm++)
-    {
-        stream >> storm_round_[storm];
-        if (storm_round_[storm] < 0 || storm_round_[storm] >= NB_TOURS)
-            FATAL("invalid storm round %d for storm %d", storm_round_[storm],
-                  storm + 1);
-    }
-    std::string dir;
-    stream >> dir;
-    if (dir == "NORD")
-        storm_dir_ = NORD;
-    else if (dir == "EST")
-        storm_dir_ = EST;
-    else if (dir == "SUD")
-        storm_dir_ = SUD;
-    else if (dir == "OUEST")
-        storm_dir_ = OUEST;
-    else
-        FATAL("unknown storm direction '%s'", dir);
-}
-
 Map::Map(std::istream& stream)
 {
     INFO("Loading map");
@@ -138,7 +112,6 @@ Map::Map(std::istream& stream)
     load_map_cells(stream);
     load_agents_info(stream);
     load_aliens_info(stream);
-    load_storms_info(stream);
 }
 
 case_type Map::get_cell_type(position pos) const
@@ -223,22 +196,4 @@ void Map::reset_alien_capture_time(position pos)
     for (size_t id = 0; id < alien_.size(); id++)
         if (alien_[id].pos == pos && !is_alien_captured(id))
             alien_[id].capture_en_cours = 0;
-}
-
-const std::vector<int>& Map::get_storm_info() const
-{
-    return storm_round_;
-}
-
-direction Map::get_storm_dir() const
-{
-    return storm_dir_;
-}
-
-bool Map::is_storm_round(int round) const
-{
-    for (size_t id = 0; id < storm_round_.size(); id++)
-        if (storm_round_[id] == round)
-            return true;
-    return false;
 }

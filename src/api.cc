@@ -136,18 +136,6 @@ std::vector<alien_info> Api::liste_aliens()
     return game_state_->get_alien_info();
 }
 
-/// Renvoie la liste des tours où se produisent une tempête.
-std::vector<int> Api::liste_tempetes()
-{
-    return game_state_->get_storm_info();
-}
-
-/// Renvoie la direction des tempêtes.
-direction Api::direction_tempete()
-{
-    return game_state_->get_storm_dir();
-}
-
 /// Renvoie la liste des actions effectuées par l’adversaire durant son tour,
 /// dans l'ordre chronologique. Les actions de débug n'apparaissent pas dans
 /// cette liste.

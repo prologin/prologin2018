@@ -97,12 +97,6 @@ public:
     /// Renvoie la liste de tous les aliens présents durant la partie.
     std::vector<alien_info> liste_aliens();
 
-    /// Renvoie la liste des tours où se produisent une tempête.
-    std::vector<int> liste_tempetes();
-
-    /// Renvoie la direction des tempêtes.
-    direction direction_tempete();
-
     /// Renvoie la liste des actions effectuées par l’adversaire durant son
     /// tour, dans l'ordre chronologique. Les actions de débug n'apparaissent
     /// pas dans cette liste.

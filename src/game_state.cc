@@ -201,48 +201,6 @@ void GameState::update_scores()
     }
 }
 
-const std::vector<int>& GameState::get_storm_info() const
-{
-    return map_->get_storm_info();
-}
-
-direction GameState::get_storm_dir() const
-{
-    return map_->get_storm_dir();
-}
-
-void GameState::check_storm()
-{
-    if (!map_->is_storm_round(round_))
-        return;
-
-    // We need to start by agents who are opposed to the storm direction,
-    // otherwise agents can bump into each others while getting pushed by the
-    // storm.
-
-    static const std::function<bool(position, position)> cmp[4] = {
-        {[](position a, position b) { return a.ligne > b.ligne; }},     // NORD
-        {[](position a, position b) { return a.colonne < b.colonne; }}, // EST
-        {[](position a, position b) { return a.ligne < b.ligne; }},     // SUD
-        {[](position a, position b) { return a.colonne > b.colonne; }}  // OUEST
-    };
-
-    std::vector<position> agents;
-    for (int player = 0; player < 2; player++)
-        for (int agent = 0; agent < NB_AGENTS; agent++)
-            agents.push_back(agent_info_[player][agent]);
-
-    const direction storm_dir = map_->get_storm_dir();
-    std::sort(agents.begin(), agents.end(), cmp[opposite_dir(storm_dir)]);
-
-    for (auto agent : agents)
-    {
-        std::pair<int, int> ids = get_agent_id(agent);
-        position new_pos = slide_end_pos(agent, storm_dir);
-        set_agent_position(ids.first, ids.second, new_pos);
-    }
-}
-
 int GameState::get_action_points(int player_id) const
 {
     assert(player_info_.count(player_id) != 0);
