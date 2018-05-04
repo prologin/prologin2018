@@ -11,7 +11,6 @@ var dump = null
 var turn_index = 0
 var actions_playing = []
 var animating = false
-var storms = 0
 var playing = false
 
 func get_json_path():
@@ -46,10 +45,7 @@ func _turn_slider(value):
 		_jump(int(value) * 3)
 
 func _finish_animating():
-	if storms:
-		storms -= 1
-	if storms == 0:
-		animating = false
+	animating = false
 
 func _dump_index():
 	return (turn_index - turn_index % 3) / 3 * 2 + turn_index % 3
@@ -76,10 +72,6 @@ func _continue():
 	if turn_index % 3:
 		var player_id = turn_index % 3 - 1
 		actions_playing = state.players[player_id].history
-	if turn_index % 3 == 0 and turn_index / 3 in state.storms:
-		storms = $GameState.storm(DIR[state.storms_dir])
-		if storms:
-			animating = true
 	$GameState.set_turn(turn_index)
 
 func _process(delta):

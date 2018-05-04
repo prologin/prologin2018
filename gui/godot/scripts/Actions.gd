@@ -61,24 +61,6 @@ func set_turn(turn_index):
 	$Info.set_turn(real_turn, type)
 	_update_tile_info()
 
-func storm(dir):
-	var positions = $TileMap.agents_pos
-	var map_size = $TileMap.walls.size()
-	var vector_dir = DIR[dir]
-	var moving = 0
-	for i in range(NB_AGENTS * 2):
-		var pos = positions[i]
-		var cross_agents = 0
-		var candidate = pos + vector_dir
-		while candidate.x < map_size and candidate.x >= 0 and candidate.y < map_size and candidate.y >= 0 and not $TileMap.walls[candidate.x][candidate.y]:
-			if not $TileMap.agents_pos.has(candidate):
-				pos += vector_dir
-			candidate += vector_dir
-		if positions[i] != pos:
-			$TileMap.move_agent(i, pos, true, true)
-			moving += 1
-	return moving
-
 func _update_tile_info():
 	if selected_tile == null:
 		$Info/Tile.text = ""

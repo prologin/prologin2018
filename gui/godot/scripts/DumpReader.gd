@@ -31,8 +31,6 @@ class Turn:
 	var map_size = 0
 	var walls = []
 	var aliens = []
-	var storms = []
-	var storms_dir = ""
 
 static func parse_turn(json):
 	var result = Turn.new()
@@ -64,6 +62,4 @@ static func parse_turn(json):
 		alien.duration = alien_data["duree_invasion"]
 		alien.capture = alien_data["capture_en_cours"]
 		result.aliens.append(alien)
-	result.storms = json["map"]["storms"]
-	result.storms_dir = json["map"]["storms_dir"]
 	return result
