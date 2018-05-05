@@ -23,14 +23,14 @@ Chaque case de l'iceberg est soit libre, soit un mur de glace. Les murs sont des
 obstacles et bloquent tout déplacement sur la case.
 
 Une case libre peut contenir un alien ainsi qu'un agent. À noter qu'il est
-impossible d'avoir plusieurs agents sur une même case.
+impossible d'avoir plusieurs agents ou aliens sur une même case.
 
 Agents
 ======
 
-Les deux recrues PiB ont à leur disposition ``NB_AGENTS`` agents. Ces derniers
-sont considérés comme des obstacles, et bloquent donc tout déplacement sur la
-case.
+Les deux recrues PiB ont à leur disposition ``NB_AGENTS`` agents, numérotés de 0
+à ``NB_AGENTS`` - 1. Ces derniers sont considérés comme des obstacles, et
+bloquent donc tout déplacement sur la case.
 
 Aliens
 ======
