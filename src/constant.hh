@@ -25,7 +25,7 @@
 #define NB_TOURS 100
 
 /// Nombre de points d'action par tour par agent.
-#define NB_POINTS_ACTION 10
+#define NB_POINTS_ACTION 8
 
 /// Nombre de point d'action que coûte un déplacement.
 #define COUT_DEPLACEMENT 1
@@ -34,7 +34,7 @@
 #define COUT_GLISSADE 3
 
 /// Nombre de points d'action nécessaires pour pousser un agent.
-#define COUT_POUSSER 4
+#define COUT_POUSSER 5
 
 /// Nombre d'agents par joueur.
 #define NB_AGENTS 4

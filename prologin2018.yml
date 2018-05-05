@@ -12,7 +12,7 @@ constant:
     cst_comment: Nombre de tours à jouer avant la fin de la partie.
   -
     cst_name: NB_POINTS_ACTION
-    cst_val: 10
+    cst_val: 8
     cst_comment: Nombre de points d'action par tour par agent.
   -
     cst_name: COUT_DEPLACEMENT
@@ -24,7 +24,7 @@ constant:
     cst_comment: Nombre de points d'action que coûte une glissade.
   -
     cst_name: COUT_POUSSER
-    cst_val: 4
+    cst_val: 5
     cst_comment: Nombre de points d'action nécessaires pour pousser un agent.
   -
     cst_name: NB_AGENTS
