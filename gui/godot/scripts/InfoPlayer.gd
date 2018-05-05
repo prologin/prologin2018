@@ -65,7 +65,7 @@ func add_turn_slider():
 	_turn_slider.margin_right = 280
 	_turn_slider.margin_top = 32
 	_turn_slider.step = 1
-	_turn_slider.min_value = 1
-	_turn_slider.max_value = 100
+	_turn_slider.min_value = 0
+	_turn_slider.max_value = 99
 	add_child(_turn_slider)
 	return _turn_slider

@@ -4,6 +4,7 @@
 extends Node
 
 const DIR = {'OUEST': 0, 'SUD': 1, 'EST': 2, 'NORD': 3}
+const MAX_ROUNDS = 100
 
 const DumpReader = preload("res://scripts/DumpReader.gd")
 
@@ -74,6 +75,8 @@ func _jump(index):
 
 func _continue():
 	_finish_last_turn()
+	if turn_index + 1 == MAX_ROUNDS * 3:
+		return
 	turn_index += 1
 	if turn_index % 3:
 		var state = DumpReader.parse_turn(dump[_dump_index()])
@@ -100,7 +103,7 @@ func _process(delta):
 		else:
 			if playing:
 				_continue()
-			elif Input.is_action_just_pressed("ui_right"):
+			elif Input.is_action_just_pressed("ui_right") and turn_index < MAX_ROUNDS * 3:
 				_jump(turn_index + 1)
 			elif Input.is_action_just_pressed("ui_left") and turn_index > 0:
 				_jump(turn_index - 1)
