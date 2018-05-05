@@ -50,28 +50,35 @@ func _finish_animating():
 func _dump_index():
 	return (turn_index - turn_index % 3) / 3 * 2 + turn_index % 3
 
-func _jump(index):
-	turn_index = index
+func _finish_last_turn(warn_teleport = true):
+	"""The actions for a turn have been processed; now prepare next"""
+	actions_playing = []
 	var state = DumpReader.parse_turn(dump[_dump_index()])
-	var size = state.players[0].agents.size()
-	for i in range(size):
-		$GameState/TileMap.teleport_agent(i, state.players[0].agents[i])
-		$GameState/TileMap.teleport_agent(i + size, state.players[1].agents[i])
 	$GameState/Info.players[0].score = state.players[0].score
 	$GameState/Info.players[1].score = state.players[1].score
+	var size = state.players[0].agents.size()
+	for agent_id in range(size):
+		for player_id in range(2):
+			var pos = state.players[player_id].agents[agent_id]
+			if $GameState/TileMap.teleport_agent(agent_id + player_id * size, pos):
+				if warn_teleport:
+					print("Had to fix inconsistency in dump agent position")
+
+func _jump(index):
+	turn_index = max(index - 1, 0)
+	_finish_last_turn(false)
+	turn_index = index
 	$GameState.set_turn(turn_index)
 	playing = false
 	get_tree().paused = false
 
 func _continue():
+	_finish_last_turn()
 	turn_index += 1
-	var state = DumpReader.parse_turn(dump[_dump_index()])
-	$GameState/Info.players[0].score = state.players[0].score
-	$GameState/Info.players[1].score = state.players[1].score
-	actions_playing = []
 	if turn_index % 3:
-		var player_id = turn_index % 3 - 1
-		actions_playing = state.players[player_id].history
+		var state = DumpReader.parse_turn(dump[_dump_index()])
+		# We duplicate the array here in case we read it again
+		actions_playing = state.players[turn_index % 3 - 1].history.duplicate()
 	$GameState.set_turn(turn_index)
 
 func _process(delta):
