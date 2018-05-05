@@ -187,5 +187,8 @@ int Api::tour_actuel()
 /// le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.
 int Api::points_action_agent(int id_agent)
 {
-    return game_state_->get_agent_action_points(moi(), id_agent);
+    if (id_agent >= 0 && id_agent < NB_AGENTS)
+        return game_state_->get_agent_action_points(moi(), id_agent);
+    else
+        return -1;
 }
