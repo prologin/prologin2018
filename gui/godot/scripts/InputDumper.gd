@@ -103,7 +103,7 @@ func _process(delta):
 		else:
 			if playing:
 				_continue()
-			elif Input.is_action_just_pressed("ui_right") and turn_index < MAX_ROUNDS * 3:
-				_jump(turn_index + 1)
-			elif Input.is_action_just_pressed("ui_left") and turn_index > 0:
-				_jump(turn_index - 1)
+	if Input.is_action_just_pressed("ui_right") and turn_index < MAX_ROUNDS * 3:
+		_jump(turn_index + 1)
+	elif Input.is_action_just_pressed("ui_left") and turn_index > 0:
+		_jump(turn_index - 1)
