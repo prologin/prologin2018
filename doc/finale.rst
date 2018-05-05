@@ -55,10 +55,10 @@ lieu en début de tour avant les actions des joueurs. En revanche, la capture de
 aliens se fait toujours à la fin du tour, lorsque les deux recrues ont fini de
 jouer.
 
-Les deux joueurs se voient attribuer ``NB_POINTS_ACTION`` au début de chaque
-tour. Le joueur peut dépenser et répartir ses points d'action comme il le
-souhaite sur ses différents agents. Ces points ne sont utilisables que durant ce
-tour et vous permettent d'effectuer les actions ci-dessous.
+Tous les agents se voient attribuer ``NB_POINTS_ACTION`` au début de chaque
+tour. Ces points ne sont utilisables que durant ce tour et sont spécifiques à un
+agent (il est donc impossible de transférer des points d'un agent à un autre).
+Les points vous permettent d'effectuer les actions ci-dessous.
 
 Actions
 =======
@@ -67,7 +67,7 @@ Déplacer
 --------
 
 Vous pouvez déplacer un agent vers une case adjacente dans la direction de votre
-choix. Cette action vous coûte ``COUT_DEPLACEMENT`` points d'action.
+choix. Cette action coûte ``COUT_DEPLACEMENT`` points d'action à l'agent.
 
 Glisser
 -------
