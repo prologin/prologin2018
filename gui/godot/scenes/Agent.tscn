@@ -42,7 +42,7 @@ animations = [ {
 "frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": false,
 "name": "die",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
@@ -54,7 +54,6 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 } ]
-_sections_unfolded = [ "Resource" ]
 
 [node name="Character" type="KinematicBody2D" index="0"]
 

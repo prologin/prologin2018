@@ -31,7 +31,7 @@ func move_to(to, dash, pushed):
 	_moving_to = to
 	_dash = dash
 	moving = true
-	var anim = "hurt" if pushed else ("slide" if dash else "walk")
+	var anim = "die" if pushed else ("slide" if dash else "walk")
 	$AnimatedSprite.play(anim)
 	var dx = to.x - position.x
 	if dx > 0:
