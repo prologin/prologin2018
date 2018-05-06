@@ -63,6 +63,9 @@ func _finish_last_turn(warn_teleport = true):
 			if $GameState/TileMap.teleport_agent(agent_id + player_id * size, pos):
 				if warn_teleport:
 					print("Had to fix inconsistency in dump agent position")
+
+func _update_aliens():
+	var state = DumpReader.parse_turn(dump[(turn_index - turn_index % 3) / 3 * 2 + 1])
 	for i in range(state.aliens.size()):
 		$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
 
@@ -70,6 +73,7 @@ func _jump(index):
 	turn_index = max(index - 1, 0)
 	_finish_last_turn(false)
 	turn_index = index
+	_update_aliens()
 	$GameState.set_turn(turn_index)
 	playing = false
 	get_tree().paused = false
@@ -79,10 +83,12 @@ func _continue():
 	if turn_index + 1 == constants.NB_TOURS * 3:
 		return
 	turn_index += 1
+	var state = DumpReader.parse_turn(dump[_dump_index()])
 	if turn_index % 3:
-		var state = DumpReader.parse_turn(dump[_dump_index()])
 		# We duplicate the array here in case we read it again
 		actions_playing = state.players[turn_index % 3 - 1].history.duplicate()
+	else:
+		_update_aliens()
 	$GameState.set_turn(turn_index)
 
 func _process(delta):
