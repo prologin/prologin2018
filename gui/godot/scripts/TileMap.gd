@@ -7,6 +7,7 @@ var walls = []
 var agents = []
 var agents_pos = []
 var flags = [[], []]
+var flagNodes = [null, null]
 
 class Alien:
 	var pos = Vector2()
@@ -17,6 +18,12 @@ class Alien:
 var aliens = []
 
 onready var character_scene = preload("res://scenes/Agent.tscn")
+
+func _ready():
+	for i in range(2):
+		flagNodes[i] = Node2D.new()
+		add_child(flagNodes[i])
+		flagNodes[i].set_visible(false)
 
 func world_position(x, y):
 	return map_to_world(Vector2(x, y)) + get_cell_size() / 2
@@ -48,13 +55,13 @@ func set_flag(player, pos, type):
 			color.g = 1
 		flag.set_modulate(color)
 
-func _new_flag(pos):
+func _new_flag(player_id, pos):
 	var sprite = Sprite.new()
 	sprite.set_texture(load("res://assets/flag.png"))
 	sprite.set_centered(false)
 	sprite.set_offset(map_to_world(pos))
 	sprite.set_visible(false)
-	add_child(sprite)
+	flagNodes[player_id].add_child(sprite)
 	return sprite
 
 func set_map():
@@ -66,8 +73,8 @@ func set_map():
 		flags[1].append([])
 		for y in range(size):
 			set_cell(x, y, get_tile(x, y))
-			flags[0][x].append(_new_flag(Vector2(x, y)))
-			flags[1][x].append(_new_flag(Vector2(x, y)))
+			flags[0][x].append(_new_flag(0, Vector2(x, y)))
+			flags[1][x].append(_new_flag(1, Vector2(x, y)))
 
 func update_aliens(turn):
 	for alien in aliens:
