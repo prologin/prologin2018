@@ -180,7 +180,6 @@ margin_right = 790.0
 margin_bottom = 16.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
@@ -195,7 +194,7 @@ rounded = true
 editable = true
 tick_count = 0
 ticks_on_borders = true
-focus_mode = 2
+focus_mode = 0
 _sections_unfolded = [ "Margin", "Pause" ]
 
 [node name="FlagsNo" type="CheckBox" parent="GameState/Info" index="6"]
