@@ -141,7 +141,7 @@ std::vector<alien_info> Api::liste_aliens()
 /// cette liste.
 std::vector<action_hist> Api::historique()
 {
-    return game_state_->get_history(player_->id);
+    return game_state_->get_history(adversaire());
 }
 
 /// Renvoie le score du joueur ``id_joueur``. Renvoie -1 si le joueur est
