@@ -63,6 +63,8 @@ func _finish_last_turn(warn_teleport = true):
 			if $GameState/TileMap.teleport_agent(agent_id + player_id * size, pos):
 				if warn_teleport:
 					print("Had to fix inconsistency in dump agent position")
+	for i in range(state.aliens.size()):
+		$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
 
 func _jump(index):
 	turn_index = max(index - 1, 0)
