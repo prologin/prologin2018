@@ -10,9 +10,9 @@ Iceberg
 -------
 
 Dans le cadre de votre mission, vous serez envoyé au Pôle Sud, plus exactement
-sur cet icerberg - oui, celui-ci - où nos services de renseignements ont indiqué
-que l'invasion alien débutera. L'iceberg est représenté par une grille carrée de
-``TAILLE_ICEBERG`` cases de côté.
+sur cet iceberg - oui, celui-ci - où nos services de renseignements ont
+indiqué que l'invasion alien débutera. L'iceberg est représenté par une grille
+carrée de ``TAILLE_ICEBERG`` cases de côté.
 
 .. image:: ../subject/img/map.png
 
@@ -41,9 +41,12 @@ sur la case pendant au moins ``NB_TOURS_CAPTURE`` tours. Si l'agent quitte la
 case (en se déplaçant ou alors en étant poussé par un agent), la capture devra
 reprendre de zéro.
 
-Les aliens faisant des efforts admirables pour éviter les agents - contrairement
+Les aliens faisant des efforts admirables pour esquiver les agents - contrairement
 aux murs, qui sont davantage récalcitrants - ils esquiveront de leur mieux : ce
 ne sont donc pas des obstacles, et ne bloquent pas le déplacement des agents.
+
+De plus, les aliens apparaissent puis disparaissent, mais ne se déplacent pas
+sur l'iceberg.
 
 ---------------------
 Déroulement d'un tour
