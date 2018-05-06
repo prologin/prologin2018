@@ -43,7 +43,8 @@ func set_map():
 
 func update_aliens(turn):
 	for alien in aliens:
-		if turn >= alien.first_turn and turn < alien.first_turn + alien.duration:
+		if turn >= alien.first_turn and turn < alien.first_turn + alien.duration \
+				and alien.capture < constants.NB_TOURS_CAPTURE:
 			set_cellv(alien.pos, get_tileset().find_tile_by_name("Alien"))
 		else:
 			set_cellv(alien.pos, get_tileset().find_tile_by_name("BG"))
