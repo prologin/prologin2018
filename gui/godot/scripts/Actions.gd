@@ -6,6 +6,7 @@ extends Node
 const DIR = [Vector2(-1, 0), Vector2(0, 1), Vector2(1, 0), Vector2(0, -1)]
 
 var selected_tile = null
+var _turn = 0
 
 func agent_id_to_internal(agent_id, player_id):
 	return agent_id + constants.NB_AGENTS * player_id
@@ -51,9 +52,9 @@ func init(walls, agents):
 
 func set_turn(turn_index):
 	var type = turn_index % 3
-	var real_turn = (turn_index - type) / 3
-	$TileMap.update_aliens(real_turn)
-	$Info.set_turn(real_turn, type)
+	_turn = (turn_index - type) / 3
+	$TileMap.update_aliens(_turn)
+	$Info.set_turn(_turn, type)
 	_update_tile_info()
 
 func _update_tile_info():
@@ -67,8 +68,10 @@ func _update_tile_info():
 	if $TileMap.get_cellv(selected_tile) == $TileMap.get_tileset().find_tile_by_name("Alien"):
 		for a in $TileMap.aliens:
 			if a.pos == selected_tile:
-				alien = a
-				break
+				if _turn >= a.first_turn and _turn < a.first_turn + a.duration \
+						and a.capture < constants.NB_TOURS_CAPTURE:
+					alien = a
+					break
 	$Info.set_tile(selected_tile, $TileMap.walls[selected_tile.x][selected_tile.y], alien)
 
 func _input(event):
