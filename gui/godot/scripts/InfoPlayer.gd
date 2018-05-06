@@ -13,17 +13,14 @@ var _turn = 0
 var _type = 0
 var _turn_slider = null
 
-const NB_AGENTS = 4
-const NB_ACTION_POINTS = 10
-
 func _ready():
 	$Player1.set("custom_colors/font_color", Color(0, 0.5, 1, 1))
 	$Player2.set("custom_colors/font_color", Color(1, 0.5, 0, 1))
 	$Speed.text = "Vitesse : " + str(global.speed_factor)
 	$SpeedSlider.connect("value_changed", self, "_speed_slider")
 	redraw()
-	players[0].action_points.resize(NB_AGENTS)
-	players[1].action_points.resize(NB_AGENTS)
+	players[0].action_points.resize(constants.NB_AGENTS)
+	players[1].action_points.resize(constants.NB_AGENTS)
 
 func _redraw_player(id, label):
 	label.text = players[id].name + "\nScore : " + str(players[id].score) + \
@@ -37,7 +34,7 @@ func redraw():
 func set_turn(turn, type):
 	_turn = turn
 	_type = type
-	for agent_id in range(NB_AGENTS):
+	for agent_id in range(constants.NB_AGENTS):
 		players[0].action_points[agent_id] = 0
 		players[1].action_points[agent_id] = 0
 		if type != 0:
