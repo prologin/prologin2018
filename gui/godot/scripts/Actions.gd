@@ -83,3 +83,21 @@ func _input(event):
 			else:
 				selected_tile = pos
 			_update_tile_info()
+
+
+func _no_flags():
+	$TileMap.flagNodes[0].set_visible(false)
+	$TileMap.flagNodes[1].set_visible(false)
+
+func _flags_j1():
+	$TileMap.flagNodes[0].set_visible(true)
+	$TileMap.flagNodes[1].set_visible(false)
+
+func _flags_j2():
+	$TileMap.flagNodes[0].set_visible(false)
+	$TileMap.flagNodes[1].set_visible(true)
+
+func _ready():
+	$Info/FlagsNo.connect("pressed", self, "_no_flags")
+	$Info/FlagsP1.connect("pressed", self, "_flags_j1")
+	$Info/FlagsP2.connect("pressed", self, "_flags_j2")
