@@ -105,6 +105,8 @@ func _process(delta):
 				animating = $GameState.push(int(action['id_agent']), DIR[action['dir']], player_id)
 			elif action['type'] == 'ID_ACTION_GLISSER':
 				animating = $GameState.slide(int(action['id_agent']), DIR[action['dir']], player_id)
+			elif action['type'] == 'ID_ACTION_DEBUG_AFFICHER_DRAPEAU':
+				$GameState/TileMap.set_flag(player_id, Vector2(action['pos']['c'], action['pos']['r']), action['drapeau'])
 			else:
 				print("Unknown action ", action['type'])
 		else:
