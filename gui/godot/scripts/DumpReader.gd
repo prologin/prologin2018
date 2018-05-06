@@ -41,6 +41,7 @@ static func parse_turn(json):
 		var node = json["players"][player_id]
 		var player = PlayerStats.new()
 		player.name = node["name"]
+		player.score = node["score"]
 		for i in range(node["agents"].size()):
 			player.agents.append(Vector2(-1, -1))
 		for agent in node["agents"]:

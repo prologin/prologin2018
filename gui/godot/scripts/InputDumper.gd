@@ -54,8 +54,6 @@ func _finish_last_turn(warn_teleport = true):
 	"""The actions for a turn have been processed; now prepare next"""
 	actions_playing = []
 	var state = DumpReader.parse_turn(dump[_dump_index()])
-	$GameState/Info.players[0].score = state.players[0].score
-	$GameState/Info.players[1].score = state.players[1].score
 	var size = state.players[0].agents.size()
 	for agent_id in range(size):
 		for player_id in range(2):
@@ -68,6 +66,8 @@ func _update_aliens():
 	var state = DumpReader.parse_turn(dump[(turn_index - turn_index % 3) / 3 * 2 + 1])
 	for i in range(state.aliens.size()):
 		$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
+	$GameState/Info.players[0].score = state.players[0].score
+	$GameState/Info.players[1].score = state.players[1].score
 
 func _jump(index):
 	turn_index = max(index - 1, 0)
