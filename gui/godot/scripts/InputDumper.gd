@@ -12,12 +12,32 @@ var turn_index = 0
 var actions_playing = []
 var animating = false
 var playing = false
+var flags = []
 
 func get_json_path():
 	for arg in OS.get_cmdline_args():
 		if arg.begins_with("-json="):
 			return arg.right(6)
 	return "res://../../test_dumper.json"
+
+func _create_flags_maps():
+	"""Go through all the rounds to create maps of debug flags"""
+	flags.resize(constants.NB_TOURS * 3)
+	flags[0] = []
+	for i in range(constants.TAILLE_ICEBERG):
+		flags[0].append([])
+		for j in range(constants.TAILLE_ICEBERG):
+			flags[0][i].append([0, 0])
+	for index in range(1, flags.size()):
+		flags[index] = flags[index - 1].duplicate()
+		if index % 3:
+			var i = (index - index % 3) / 3 * 2 + index % 3
+			var state = DumpReader.parse_turn(dump[i])
+			for player_id in range(2):
+				for action in state.players[0].history:
+					if action['type'] == 'ID_ACTION_DEBUG_AFFICHER_DRAPEAU':
+						var byte = {'AUCUN_DRAPEAU': 0, 'DRAPEAU_ROUGE': 1, 'DRAPEAU_VERT': 2, 'DRAPEAU_BLEU': 4}[action['drapeau']]
+						flags[index][action['pos']['c']][action['pos']['r']][player_id] = byte
 
 func _ready():
 	var json = get_json_path()
@@ -39,6 +59,7 @@ func _ready():
 		$GameState/TileMap.aliens.append(alien)
 	$GameState.set_turn(0)
 	$GameState/Info.add_turn_slider().connect("value_changed", self, "_turn_slider")
+	_create_flags_maps()
 
 func _turn_slider(value):
 	if int(value) != (turn_index - turn_index % 3) / 3:
