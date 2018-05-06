@@ -6,6 +6,7 @@ extends TileMap
 var walls = []
 var agents = []
 var agents_pos = []
+var flags = [[], []]
 
 class Alien:
 	var pos = Vector2()
@@ -34,12 +35,39 @@ func spawn_agents():
 		add_child(character)
 		agents.append(character)
 
+func set_flag(player, pos, type):
+	var flag = flags[player][pos.x][pos.y]
+	flag.set_visible(type != 'AUCUN_DRAPEAU')
+	if flag.is_visible():
+		var color = Color(0, 0, 0, 1)
+		if type == 'DRAPEAU_BLEU':
+			color.b = 1
+		elif type == 'DRAPEAU_ROUGE':
+			color.r = 1
+		elif type == 'DRAPEAU_VERT':
+			color.g = 1
+		flag.set_modulate(color)
+
+func _new_flag(pos):
+	var sprite = Sprite.new()
+	sprite.set_texture(load("res://assets/flag.png"))
+	sprite.set_centered(false)
+	sprite.set_offset(map_to_world(pos))
+	sprite.set_visible(false)
+	add_child(sprite)
+	return sprite
+
 func set_map():
 	clear()
 	var size = walls.size()
+	flags = [[], []]
 	for x in range(size):
+		flags[0].append([])
+		flags[1].append([])
 		for y in range(size):
 			set_cell(x, y, get_tile(x, y))
+			flags[0][x].append(_new_flag(Vector2(x, y)))
+			flags[1][x].append(_new_flag(Vector2(x, y)))
 
 func update_aliens(turn):
 	for alien in aliens:
