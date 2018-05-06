@@ -38,7 +38,7 @@ func set_turn(turn, type):
 		players[0].action_points[agent_id] = 0
 		players[1].action_points[agent_id] = 0
 		if type != 0:
-			players[type - 1].action_points[agent_id] = 10
+			players[type - 1].action_points[agent_id] = constants.NB_POINTS_ACTION
 	if _turn_slider:
 		_turn_slider.value = turn
 	redraw()
