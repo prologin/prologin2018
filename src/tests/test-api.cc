@@ -31,7 +31,7 @@ TEST_F(ApiTest, Api_Chemin)
         EXPECT_EQ(expected_path2, path2);
 
         position agent_pos = player.api->position_agent(player.id, 0);
-        position dest = {5, 5};
+        position dest = {5, 3};
         std::vector<direction> path3 = player.api->chemin(agent_pos, dest);
         for (auto& dir : path3)
             player.api->deplacer(0, dir);

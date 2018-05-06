@@ -70,8 +70,11 @@ TEST_F(ActionTest, ActionPousser_Valid)
     EXPECT_EQ(dest1, st->get_agent_position(PLAYER_1, 0));
     EXPECT_EQ(dest2, st->get_agent_position(PLAYER_2, 0));
     delete act;
+    EXPECT_EQ(NB_POINTS_ACTION - COUT_POUSSER,
+              st->get_agent_action_points(PLAYER_1, 0));
 
     st->set_agent_position(PLAYER_2, 1, dest3);
+    st->reset_action_points(PLAYER_1);
 
     act = new ActionPousser(0, EST, PLAYER_1);
     EXPECT_EQ(OK, act->check(st));
@@ -80,6 +83,6 @@ TEST_F(ActionTest, ActionPousser_Valid)
     EXPECT_EQ(dest4, st->get_agent_position(PLAYER_2, 1));
     delete act;
 
-    EXPECT_EQ(NB_POINTS_ACTION - 2 * COUT_POUSSER,
+    EXPECT_EQ(NB_POINTS_ACTION - COUT_POUSSER,
               st->get_agent_action_points(PLAYER_1, 0));
 }
