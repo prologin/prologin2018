@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/InputDumper.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Actions.gd" type="Script" id=2]
 [ext_resource path="res://scenes/tiles.tres" type="TileSet" id=3]
 [ext_resource path="res://scripts/TileMap.gd" type="Script" id=4]
 [ext_resource path="res://scripts/InfoPlayer.gd" type="Script" id=5]
+
+[sub_resource type="ButtonGroup" id=1]
+
+resource_local_to_scene = true
+resource_name = "FlagButtonGroup"
 
 [node name="World" type="Node" index="0"]
 
@@ -192,5 +197,80 @@ tick_count = 0
 ticks_on_borders = true
 focus_mode = 2
 _sections_unfolded = [ "Margin", "Pause" ]
+
+[node name="FlagsNo" type="CheckBox" parent="GameState/Info" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 550.0
+margin_right = 132.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+pressed = true
+enabled_focus_mode = 0
+shortcut = null
+group = SubResource( 1 )
+text = "Pas de drapeaux"
+flat = false
+align = 0
+_sections_unfolded = [ "Margin" ]
+
+[node name="FlagsP1" type="CheckBox" parent="GameState/Info" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 550.0
+margin_top = 16.0
+margin_right = 132.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 0
+shortcut = null
+group = SubResource( 1 )
+text = "Drapeaux j. bleu"
+flat = false
+align = 0
+_sections_unfolded = [ "Margin" ]
+
+[node name="FlagsP2" type="CheckBox" parent="GameState/Info" index="8"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 550.0
+margin_top = 32.0
+margin_right = 132.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 0
+shortcut = null
+group = SubResource( 1 )
+text = "Drapeaux j. rouge"
+flat = false
+align = 0
+_sections_unfolded = [ "Margin" ]
 
 
