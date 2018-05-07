@@ -152,10 +152,19 @@ alien_info Map::get_alien_info(position pos) const
     return alien_info{};
 }
 
-bool Map::is_alien_on_position(position pos) const
+bool Map::is_alien_invading(int round, int alien_id) const
+{
+    assert(alien_id >= 0 && alien_id < (int)alien_.size());
+    int start = alien_[alien_id].tour_invasion;
+    int end = start + alien_[alien_id].duree_invasion;
+    return start <= round && round <= end;
+}
+
+bool Map::is_alien_on_position(int round, position pos) const
 {
     for (size_t id = 0; id < alien_.size(); id++)
-        if (alien_[id].pos == pos && is_alien_on_map_[id])
+        if (alien_[id].pos == pos && is_alien_invading(round, id) &&
+            is_alien_on_map_[id])
             return true;
     return false;
 }

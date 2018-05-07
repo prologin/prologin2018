@@ -391,13 +391,16 @@ extern "C" bool api_alien_sur_case(position pos)
 }
 
 /// Indique la position de l'agent sur l'iceberg désigné par le numéro
-/// ``id_agent`` appartenant au joueur ``id_joueur``.
+/// ``id_agent`` appartenant au joueur ``id_joueur``. Si la description de
+/// l'agent est incorrecte, la position (-1, -1) est renvoyée.
 extern "C" position api_position_agent(int id_joueur, int id_agent)
 {
     return api->position_agent(id_joueur, id_agent);
 }
 
-/// Renvoie la description d'un alien en fonction d'une position donnée.
+/// Renvoie la description d'un alien en fonction d'une position donnée. Si
+/// l'alien n'est pas présent sur la carte, ou si la position est invalide, tous
+/// les membres de la structure ``alien_info`` renvoyée sont initialisés à -1.
 extern "C" alien_info api_info_alien(position pos)
 {
     return api->info_alien(pos);

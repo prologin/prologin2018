@@ -200,6 +200,8 @@ function:
     fct_name: position_agent
     fct_summary: Indique la position de l'agent sur l'iceberg désigné par le
                  numéro ``id_agent`` appartenant au joueur ``id_joueur``.
+                 Si la description de l'agent est incorrecte, la position (-1,
+                 -1) est renvoyée.
     fct_ret_type: position
     fct_arg:
       - [id_joueur, int, "Numéro du joueur"]
@@ -208,6 +210,9 @@ function:
     fct_name: info_alien
     fct_summary: Renvoie la description d'un alien en fonction d'une position
                  donnée.
+                 Si l'alien n'est pas présent sur la carte, ou si la position
+                 est invalide, tous les membres de la structure ``alien_info``
+                 renvoyée sont initialisés à -1.
     fct_ret_type: alien_info
     fct_arg:
       - [pos, position, "Case choisie"]

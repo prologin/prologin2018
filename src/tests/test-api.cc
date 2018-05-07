@@ -87,6 +87,7 @@ TEST_F(ApiTest, Api_AlienSurCase)
 
 TEST_F(ApiTest, Api_PositionAgent)
 {
+    const position invalid = {-1, -1};
     for (auto& player : players)
     {
         for (int agent_id = 0; agent_id < NB_AGENTS; agent_id++)
@@ -95,18 +96,32 @@ TEST_F(ApiTest, Api_PositionAgent)
             EXPECT_EQ(agent_pos,
                       player.api->position_agent(player.id, agent_id));
         }
+        EXPECT_EQ(invalid, player.api->position_agent(-2, 0));
+        EXPECT_EQ(invalid, player.api->position_agent(player.id, -10));
+        EXPECT_EQ(invalid, player.api->position_agent(player.id, 4));
     }
 }
 
 TEST_F(ApiTest, Api_InfoAlien)
 {
+    const alien_info invalid = {{-1, -1}, -1, -1, -1, -1};
     std::vector<alien_info> aliens = st->get_alien_info();
     for (auto& player : players)
     {
-        for (auto& expected : aliens)
+        for (int round = 0; round < NB_TOURS; round++)
         {
-            alien_info alien = player.api->info_alien(expected.pos);
-            EXPECT_EQ(expected, alien);
+            st->check_presence_alien();
+
+            for (auto& alien : aliens)
+            {
+                alien_info ret = player.api->info_alien(alien.pos);
+                if (st->is_alien_on_position(alien.pos))
+                    EXPECT_EQ(ret, alien);
+                else
+                    EXPECT_EQ(ret, invalid);
+            }
+
+            st->increment_round();
         }
     }
 }

@@ -118,16 +118,26 @@ bool Api::alien_sur_case(position pos)
 }
 
 /// Indique la position de l'agent sur l'iceberg désigné par le numéro
-/// ``id_agent`` appartenant au joueur ``id_joueur``.
+/// ``id_agent`` appartenant au joueur ``id_joueur``. Si la description de
+/// l'agent est incorrecte, la position (-1, -1) est renvoyée.
 position Api::position_agent(int id_joueur, int id_agent)
 {
-    return game_state_->get_agent_position(id_joueur, id_agent);
+    if ((id_joueur == moi() || id_joueur == adversaire()) && id_agent >= 0 &&
+        id_agent < NB_AGENTS)
+        return game_state_->get_agent_position(id_joueur, id_agent);
+    else
+        return {-1, -1};
 }
 
-/// Renvoie la description d'un alien en fonction d'une position donnée.
+/// Renvoie la description d'un alien en fonction d'une position donnée. Si
+/// l'alien n'est pas présent sur la carte, ou si la position est invalide, tous
+/// les membres de la structure ``alien_info`` renvoyée sont initialisés à -1.
 alien_info Api::info_alien(position pos)
 {
-    return game_state_->get_alien_info(pos);
+    if (game_state_->is_alien_on_position(pos))
+        return game_state_->get_alien_info(pos);
+    else
+        return {{-1, -1}, -1, -1, -1, -1};
 }
 
 /// Renvoie la liste de tous les aliens présents durant la partie.
