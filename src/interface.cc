@@ -362,7 +362,8 @@ extern "C" erreur api_debug_afficher_drapeau(position pos,
 }
 
 /// Renvoie le plus court chemin entre deux positions de l'iceberg sous la forme
-/// d'une suite de direction à emprunter. Si la position est invalide ou que le
+/// d'une suite de direction à emprunter. Ce chemin ne contient pas de glissade,
+/// uniquement des déplacements simples. Si la position est invalide ou que le
 /// chemin n'existe pas, le chemin renvoyé est vide.
 extern "C" std::vector<direction> api_chemin(position pos1, position pos2)
 {

@@ -70,8 +70,9 @@ public:
     erreur debug_afficher_drapeau(position pos, debug_drapeau drapeau);
 
     /// Renvoie le plus court chemin entre deux positions de l'iceberg sous la
-    /// forme d'une suite de direction à emprunter. Si la position est invalide
-    /// ou que le chemin n'existe pas, le chemin renvoyé est vide.
+    /// forme d'une suite de direction à emprunter. Ce chemin ne contient pas de
+    /// glissade, uniquement des déplacements simples. Si la position est
+    /// invalide ou que le chemin n'existe pas, le chemin renvoyé est vide.
     std::vector<direction> chemin(position pos1, position pos2);
 
     /// Renvoie le type d'une case donnée.
