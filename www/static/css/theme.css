@@ -51,10 +51,9 @@ body {
 /* main */
 /********/
 
-h1.hidden-xs {
-	background: no-repeat center url("../img/logo-stamp-pib.png");
-	background-size: contain;
-	height: 1.9em;
+[role=complementary] h1 {
+	margin: 0;
+	padding: 0 0 .5rem 0;
 }
 
 body>div.container {
@@ -170,4 +169,29 @@ pre, input[type=text], textarea.form-control {
 	background: transparent;
 	text-decoration: underline;
 	border-color: var(--border-color);
+}
+
+/* easter */
+.easter-peng {
+	position: fixed;
+	bottom: -128px;
+	transition: all .35s ease;
+	cursor: pointer;
+}
+.easter-peng.peak {
+	bottom: -64px;
+}
+.easter-peng.visible {
+	bottom: -12px;
+	animation: poop-dance .8s infinite alternate ease-in-out;
+}
+.easter-peng:not(.visible):hover {
+	bottom: -55px;
+}
+@keyframes poop-dance {
+  from, 49% { transform-origin: -50% 100%; }
+  50%, 75%, to { transform-origin: 150% 100%; }
+  25% { transform: rotate(-10deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(10deg); }
 }
