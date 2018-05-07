@@ -10,9 +10,9 @@ Iceberg
 -------
 
 Dans le cadre de votre mission, vous serez envoyé au Pôle Sud, plus exactement
-sur cet iceberg - oui, celui-ci - où nos services de renseignements ont
-indiqué que l'invasion alien débutera. L'iceberg est représenté par une grille
-carrée de ``TAILLE_ICEBERG`` cases de côté.
+sur cet iceberg - oui, celui-ci - où nos services de renseignements ont indiqué
+que l'invasion alien débutera. L'iceberg est représenté par une grille carrée de
+``TAILLE_ICEBERG`` cases de côté.
 
 .. image:: ../subject/img/map.png
 
@@ -45,8 +45,8 @@ Les aliens faisant des efforts admirables pour esquiver les agents - contraireme
 aux murs, qui sont davantage récalcitrants - ils esquiveront de leur mieux : ce
 ne sont donc pas des obstacles, et ne bloquent pas le déplacement des agents.
 
-De plus, les aliens apparaissent puis disparaissent, mais ne se déplacent pas
-sur l'iceberg.
+En revanche, les aliens ne sont pas assez habitués à la glace pour se déplacer
+sur l'iceberg, ils resteront donc fixes par rapport à leurs lieux d'invasion.
 
 ---------------------
 Déroulement d'un tour
