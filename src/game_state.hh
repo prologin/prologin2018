@@ -77,7 +77,7 @@ private:
     std::unordered_map<int, PlayerInfo> player_info_;
     std::array<int, 2> player_ids_;
 
-    Map* map_;
+    std::shared_ptr<Map> map_;
     std::array<std::array<position, NB_AGENTS>, 2> agent_info_;
     int round_;
 };
