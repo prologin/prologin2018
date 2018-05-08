@@ -10,9 +10,9 @@ Iceberg
 -------
 
 Dans le cadre de votre mission, vous serez envoyé au Pôle Sud, plus exactement
-sur cet iceberg - oui, celui-ci - où nos services de renseignements ont
-indiqué que l'invasion alien débutera. L'iceberg est représenté par une grille
-carrée de 25 cases de côté.
+sur cet iceberg - oui, celui-ci - où nos services de renseignements ont indiqué
+que l'invasion alien débutera. L'iceberg est représenté par une grille carrée de
+25 cases de côté.
 
 .. image:: ../subject/img/map.png
 
@@ -28,39 +28,38 @@ impossible d'avoir plusieurs agents ou aliens sur une même case.
 Agents
 ======
 
-Les deux recrues PiB ont à leur disposition quatre agents, numérotés de 0
-à 3. Ces derniers sont considérés comme des obstacles, et bloquent donc
-tout déplacement sur la case.
+Les deux recrues PiB ont à leur disposition quatre agents, numérotés de 0 à 3.
+Ces derniers sont considérés comme des obstacles, et bloquent donc tout
+déplacement sur la case.
 
 Aliens
 ======
 
 Des aliens débarqueront sur l'iceberg à des positions précises de la carte,
 pendant un certain nombre de tour. Pour capturer un alien, un agent doit être
-sur la case pendant au moins 3 tours. Si l'agent quitte la case (en se
-déplaçant ou alors en étant poussé par un agent), la capture devra reprendre
-de zéro.
+sur la case pendant au moins 3 tours. Si l'agent quitte la case (en se déplaçant
+ou alors en étant poussé par un agent), la capture devra reprendre de zéro.
 
-Les aliens ne sont pas assez habitués à la glace pour se déplacer sur
-l'iceberg, ils ne se déplaceront donc pas sur l'iceberg. En revanche, les
+Les aliens ne sont pas assez habitués à la glace pour se déplacer sur l'iceberg,
+ils resteront donc fixes par rapport à leurs lieux d'invasion. En revanche, les
 aliens ne sont pas des obstacles : faisant des efforts admirables pour éviter
-les agents - contrairement aux murs, qui sont davantage récalcitrants - ils
-se contorsionneront et esquiveront de leur mieux : ils ne bloquent donc pas le
-déplacement des agents
+les agents - contrairement aux murs, qui sont davantage récalcitrants - ils se
+contorsionneront et esquiveront de leur mieux : ils ne bloquent donc pas le
+déplacement des agents.
 
 ---------------------
 Déroulement d'un tour
 ---------------------
 
 Il y a 100 tours par partie, numérotés de 0 à 99. Pendant un tour les recrues
-jouent alternativement. Les invasions aliens ont toujours lieu en début de
-tour avant les actions des joueurs. En revanche, la capture des aliens se fait
+jouent alternativement. Les invasions aliens ont toujours lieu en début de tour
+avant les actions des joueurs. En revanche, la capture des aliens se fait
 toujours à la fin du tour, lorsque les deux recrues ont fini de jouer.
 
 Tous les agents se voient attribuer 8 points d'action au début de chaque tour.
-Ces points ne sont utilisables que durant ce tour et sont spécifiques à un
-agent (il est donc impossible de transférer des points d'un agent à un autre).
-Les points vous permettent d'effectuer les actions ci-dessous.
+Ces points ne sont utilisables que durant ce tour et sont spécifiques à un agent
+(il est donc impossible de transférer des points d'un agent à un autre). Les
+points vous permettent d'effectuer les actions ci-dessous.
 
 Actions
 =======
@@ -83,8 +82,8 @@ Pousser
 
 Il est possible de pousser un autre agent si ce dernier est sur une case
 adjacente à l'un de vos propres agents. Le pousser dans une direction le fait
-glisser jusqu'à ce qu'il rencontre un obstacle. Pousser un agent coûte
-5 points d'action.
+glisser jusqu'à ce qu'il rencontre un obstacle. Pousser un agent coûte 5 points
+d'action.
 
 Débug
 -----
@@ -120,7 +119,7 @@ et ``X`` pour un mur.
 Pour chaque joueur, quatre lignes, une par agent, indiquent la position de
 départ d'un agent sous la forme ``ligne colonne``.
 
-La description des aliens commencent par un nombre sur une seule ligne indiquant
+La description des aliens commence par un nombre sur une seule ligne indiquant
 le nombre d'aliens qui envahiront l'iceberg durant la partie. Chaque ligne
 précise ensuite les caractéristiques d'un alien :
 ``position_ligne position_colonne points_capture tour_invasion duree_invasion``
