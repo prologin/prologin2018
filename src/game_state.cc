@@ -14,6 +14,7 @@
 */
 
 #include <algorithm>
+#include <bitset>
 #include <queue>
 
 #include "actions.hh"
@@ -48,43 +49,64 @@ rules::GameState* GameState::copy() const
     return new GameState(*this);
 }
 
+// Optimized BFS
+// https://github.com/prologin/prologin2014/blob/master/src/map.cc#L152
 std::vector<direction> GameState::get_shortest_path(position start,
                                                     position dest) const
 {
-    std::queue<position> q;
-    std::array<std::array<bool, TAILLE_ICEBERG>, TAILLE_ICEBERG> seen{};
-    std::array<std::array<direction, TAILLE_ICEBERG>, TAILLE_ICEBERG>
-        backtrace{};
+    if (is_obstacle(dest) || start == dest)
+        return {};
 
+    std::queue<position> q;
+    std::bitset<TAILLE_ICEBERG * TAILLE_ICEBERG> seen{};
+    std::bitset<TAILLE_ICEBERG * TAILLE_ICEBERG * 2> backtrace{};
     q.push(start);
-    while (!q.empty())
+
+    position dummy = {-1, -1};
+    q.push(dummy);
+
+    int dist = 1;
+
+    while (q.size() > 1)
     {
         position cur = q.front();
         q.pop();
-        if (cur == dest)
+
+        if (cur == dummy)
         {
-            // Extract path from backtrace
-            std::vector<direction> path;
-            while (cur != start)
-            {
-                direction dir = backtrace[cur.ligne][cur.colonne];
-                path.push_back(dir);
-                cur = get_position_offset(cur, opposite_dir(dir));
-            }
-            std::reverse(path.begin(), path.end());
-            return path;
+            dist++;
+            q.push(dummy);
+            continue;
         }
 
-        for (int dir = 0; dir < 4; dir++)
+        for (int idir = 0; idir < 4; idir++)
         {
-            position next_pos = get_position_offset(cur, (direction)dir);
-            if (inside_map(next_pos) &&
-                !seen[next_pos.ligne][next_pos.colonne] &&
-                !is_obstacle(next_pos))
+            position next_pos = get_position_offset(cur, (direction)idir);
+            int coord = next_pos.ligne * TAILLE_ICEBERG + next_pos.colonne;
+            if (inside_map(next_pos) && !seen[coord] && !is_obstacle(next_pos))
             {
-                seen[next_pos.ligne][next_pos.colonne] = true;
-                backtrace[next_pos.ligne][next_pos.colonne] = (direction)dir;
+                backtrace.set(coord * 2, idir & 1);
+                backtrace.set(coord * 2 + 1, idir & 2);
                 q.push(next_pos);
+                seen.set(coord);
+            }
+
+            if (next_pos == dest)
+            {
+                // Extract path from backtrace
+                std::vector<direction> path;
+                path.resize(dist);
+                auto it = path.rbegin();
+                while (next_pos != start)
+                {
+                    int coord =
+                        next_pos.ligne * TAILLE_ICEBERG + next_pos.colonne;
+                    direction dir = (direction)(backtrace[coord * 2] +
+                                                backtrace[coord * 2 + 1] * 2);
+                    *it++ = dir;
+                    next_pos = get_position_offset(next_pos, opposite_dir(dir));
+                }
+                return path;
             }
         }
     }
