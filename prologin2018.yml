@@ -165,7 +165,9 @@ function:
   -
     fct_name: chemin
     fct_summary: Renvoie le plus court chemin entre deux positions de l'iceberg
-                 sous la forme d'une suite de direction à emprunter.
+                 sous la forme d'une suite de direction à emprunter. Ce chemin
+                 ne contient pas de glissade, uniquement des déplacements
+                 simples.
                  Si la position est invalide ou que le chemin n'existe pas, le
                  chemin renvoyé est vide.
     fct_ret_type: direction array
