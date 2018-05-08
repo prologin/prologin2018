@@ -10,9 +10,9 @@ Iceberg
 -------
 
 Dans le cadre de votre mission, vous serez envoyé au Pôle Sud, plus exactement
-sur cet iceberg - oui, celui-ci - où nos services de renseignements ont indiqué
-que l'invasion alien débutera. L'iceberg est représenté par une grille carrée de
-``TAILLE_ICEBERG`` cases de côté.
+sur cet iceberg - oui, celui-ci - où nos services de renseignements ont
+indiqué que l'invasion alien débutera. L'iceberg est représenté par une grille
+carrée de 25 cases de côté.
 
 .. image:: ../subject/img/map.png
 
@@ -28,38 +28,37 @@ impossible d'avoir plusieurs agents ou aliens sur une même case.
 Agents
 ======
 
-Les deux recrues PiB ont à leur disposition ``NB_AGENTS`` agents, numérotés de 0
-à ``NB_AGENTS`` - 1. Ces derniers sont considérés comme des obstacles, et
-bloquent donc tout déplacement sur la case.
+Les deux recrues PiB ont à leur disposition quatre agents, numérotés de 0
+à 3. Ces derniers sont considérés comme des obstacles, et bloquent donc
+tout déplacement sur la case.
 
 Aliens
 ======
 
 Des aliens débarqueront sur l'iceberg à des positions précises de la carte,
 pendant un certain nombre de tour. Pour capturer un alien, un agent doit être
-sur la case pendant au moins ``NB_TOURS_CAPTURE`` tours. Si l'agent quitte la
-case (en se déplaçant ou alors en étant poussé par un agent), la capture devra
-reprendre de zéro.
+sur la case pendant au moins 3 tours. Si l'agent quitte la case (en se
+déplaçant ou alors en étant poussé par un agent), la capture devra reprendre
+de zéro.
 
-Les aliens faisant des efforts admirables pour esquiver les agents - contrairement
-aux murs, qui sont davantage récalcitrants - ils esquiveront de leur mieux : ce
-ne sont donc pas des obstacles, et ne bloquent pas le déplacement des agents.
-
-En revanche, les aliens ne sont pas assez habitués à la glace pour se déplacer
-sur l'iceberg, ils resteront donc fixes par rapport à leurs lieux d'invasion.
+Les aliens ne sont pas assez habitués à la glace pour se déplacer sur
+l'iceberg, ils ne se déplaceront donc pas sur l'iceberg. En revanche, les
+aliens ne sont pas des obstacles : faisant des efforts admirables pour éviter
+les agents - contrairement aux murs, qui sont davantage récalcitrants - ils
+se contorsionneront et esquiveront de leur mieux : ils ne bloquent donc pas le
+déplacement des agents
 
 ---------------------
 Déroulement d'un tour
 ---------------------
 
-Il y a ``NB_TOURS`` tours par partie, numérotés de 0 à ``NB_TOURS`` - 1. Pendant
-un tour les recrues jouent alternativement. Les invasions aliens ont toujours
-lieu en début de tour avant les actions des joueurs. En revanche, la capture des
-aliens se fait toujours à la fin du tour, lorsque les deux recrues ont fini de
-jouer.
+Il y a 100 tours par partie, numérotés de 0 à 99. Pendant un tour les recrues
+jouent alternativement. Les invasions aliens ont toujours lieu en début de
+tour avant les actions des joueurs. En revanche, la capture des aliens se fait
+toujours à la fin du tour, lorsque les deux recrues ont fini de jouer.
 
-Tous les agents se voient attribuer ``NB_POINTS_ACTION`` au début de chaque
-tour. Ces points ne sont utilisables que durant ce tour et sont spécifiques à un
+Tous les agents se voient attribuer 8 points d'action au début de chaque tour.
+Ces points ne sont utilisables que durant ce tour et sont spécifiques à un
 agent (il est donc impossible de transférer des points d'un agent à un autre).
 Les points vous permettent d'effectuer les actions ci-dessous.
 
@@ -70,15 +69,14 @@ Déplacer
 --------
 
 Vous pouvez déplacer un agent vers une case adjacente dans la direction de votre
-choix. Cette action coûte ``COUT_DEPLACEMENT`` points d'action à l'agent.
+choix. Cette action coûte 1 point d'action à l'agent.
 
 Glisser
 -------
 
 Un agent peut s'élancer fougueusement sur l'iceberg, directement sur le ventre,
 dans une certaine direction, ce qui le propulse jusqu'à ce qu'il heurte un
-obstacle (un autre agent ou un mur). L'action coûte ``COUT_GLISSADE`` points
-d'action.
+obstacle (un autre agent ou un mur). L'action coûte 3 points d'action.
 
 Pousser
 -------
@@ -86,7 +84,7 @@ Pousser
 Il est possible de pousser un autre agent si ce dernier est sur une case
 adjacente à l'un de vos propres agents. Le pousser dans une direction le fait
 glisser jusqu'à ce qu'il rencontre un obstacle. Pousser un agent coûte
-``COUT_POUSSER`` points d'action.
+5 points d'action.
 
 Débug
 -----
@@ -119,8 +117,8 @@ suivant :
 La représentation ASCII de l'iceberg est constituée de ``.`` pour une case libre
 et ``X`` pour un mur.
 
-Pour chaque joueur, ``NB_AGENTS`` lignes indiquent la position de départ d'un
-agent sous la forme ``ligne colonne``.
+Pour chaque joueur, quatre lignes, une par agent, indiquent la position de
+départ d'un agent sous la forme ``ligne colonne``.
 
 La description des aliens commencent par un nombre sur une seule ligne indiquant
 le nombre d'aliens qui envahiront l'iceberg durant la partie. Chaque ligne
