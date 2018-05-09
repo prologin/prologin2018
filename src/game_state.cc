@@ -182,7 +182,7 @@ bool GameState::is_agent_on_position(position pos) const
 
 bool GameState::is_alien_on_position(position pos) const
 {
-    return map_->is_alien_on_position(get_round(), pos);
+    return map_->is_alien_on_position(pos);
 }
 
 std::vector<alien_info> GameState::get_alien_info() const
