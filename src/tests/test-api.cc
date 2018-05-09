@@ -170,6 +170,7 @@ TEST_F(ApiTest, Api_Score)
     }
     EXPECT_EQ(alien.points_capture, players[0].api->score(players[0].id));
     EXPECT_EQ(0, players[1].api->score(players[1].id));
+    EXPECT_EQ(-1, players[0].api->score(-42));
 }
 
 TEST_F(ApiTest, Api_Moi)
@@ -231,5 +232,7 @@ TEST_F(ApiTest, Api_PointsAction)
                           st->get_agent_action_points(player.id, agent_id));
             }
         }
+        EXPECT_EQ(-1, player.api->points_action_agent(-2));
+        EXPECT_EQ(-1, player.api->points_action_agent(6));
     }
 }

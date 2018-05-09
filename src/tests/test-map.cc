@@ -28,23 +28,27 @@ TEST_F(ActionTest, Map_ShortestPath)
     EXPECT_TRUE(path2.empty());
     EXPECT_TRUE(path3.empty());
 
+    // Start = dest
+    std::vector<direction> path4 = st->get_shortest_path(TEST_EMPTY_CELL, TEST_EMPTY_CELL);
+    EXPECT_TRUE(path4.empty());
+
     // Simple pathfinding
-    std::vector<direction> path4 = st->get_shortest_path({2, 0}, {3, 3});
-    std::vector<direction> expected_path4 = {EST, EST, SUD, EST};
-    std::vector<direction> path5 = st->get_shortest_path({10, 10}, {15, 15});
-    std::vector<direction> expected_path5 = {EST, EST, EST, EST, EST,
+    std::vector<direction> path5 = st->get_shortest_path({2, 0}, {3, 3});
+    std::vector<direction> expected_path5 = {EST, EST, SUD, EST};
+    std::vector<direction> path6 = st->get_shortest_path({10, 10}, {15, 15});
+    std::vector<direction> expected_path6 = {EST, EST, EST, EST, EST,
                                              SUD, SUD, SUD, SUD, SUD};
-    EXPECT_EQ(expected_path4, path4);
     EXPECT_EQ(expected_path5, path5);
+    EXPECT_EQ(expected_path6, path6);
 
     // Go around agents/walls
     st->set_agent_position(PLAYER_1, 0, {5, 2});
     st->set_agent_position(PLAYER_1, 2, {5, 3});
     st->set_agent_position(PLAYER_2, 0, {5, 4});
-    std::vector<direction> path6 = st->get_shortest_path({0, 3}, {6, 3});
-    std::vector<direction> expected_path6 = {EST, EST, SUD, SUD,   SUD,
+    std::vector<direction> path7 = st->get_shortest_path({0, 3}, {6, 3});
+    std::vector<direction> expected_path7 = {EST, EST, SUD, SUD,   SUD,
                                              SUD, SUD, SUD, OUEST, OUEST};
-    EXPECT_EQ(expected_path6, path6);
+    EXPECT_EQ(expected_path7, path7);
 }
 
 TEST_F(ActionTest, Map_AlienSpawning)
