@@ -36,9 +36,11 @@ Aliens
 ======
 
 Des aliens débarqueront sur l'iceberg à des positions précises de la carte,
-pendant un certain nombre de tour. Pour capturer un alien, un agent doit être
-sur la case pendant au moins 3 tours. Si l'agent quitte la case (en se déplaçant
-ou alors en étant poussé par un agent), la capture devra reprendre de zéro.
+pendant un certain nombre de tour. De plus, les aliens n'envahissent jamais
+plusieurs fois au même endroit sur l'iceberg. Pour capturer un alien, un agent
+doit être sur la case pendant au moins 3 tours. Si l'agent quitte la case (en se
+déplaçant ou alors en étant poussé par un agent), la capture devra reprendre de
+zéro.
 
 Les aliens ne sont pas assez habitués à la glace pour se déplacer sur l'iceberg,
 ils resteront donc fixes par rapport à leurs lieux d'invasion. En revanche, les
@@ -52,9 +54,12 @@ Déroulement d'un tour
 ---------------------
 
 Il y a 100 tours par partie, numérotés de 0 à 99. Pendant un tour les recrues
-jouent alternativement. Les invasions aliens ont toujours lieu en début de tour
-avant les actions des joueurs. En revanche, la capture des aliens se fait
-toujours à la fin du tour, lorsque les deux recrues ont fini de jouer.
+jouent alternativement. Les invasions ou désistements aliens ont toujours lieu
+en début de tour avant les actions des joueurs. Par exemple, si un alien envahit
+l'iceberg au tour 10, pour une durée de 3 tours, alors il sera présent aux tours
+10, 11 et 12 et repartira au tout début du tour 13. En revanche, la capture des
+aliens se fait toujours à la fin du tour, lorsque les deux recrues ont fini de
+jouer.
 
 Tous les agents se voient attribuer 8 points d'action au début de chaque tour.
 Ces points ne sont utilisables que durant ce tour et sont spécifiques à un agent
