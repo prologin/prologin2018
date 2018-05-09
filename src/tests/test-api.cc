@@ -137,8 +137,6 @@ TEST_F(ApiTest, Api_Historique)
 {
     for (auto& player : players)
     {
-        position agent_pos = player.api->position_agent(player.id, 0);
-        agent_pos = get_position_offset(agent_pos, SUD);
         EXPECT_EQ(OK, player.api->deplacer(0, SUD));
         action_hist act1 = {ACTION_DEPLACER, 0, SUD};
 
