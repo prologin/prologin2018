@@ -3,8 +3,6 @@
 
 extends Node
 
-const DIR = {'OUEST': 0, 'SUD': 1, 'EST': 2, 'NORD': 3}
-
 const DumpReader = preload("res://scripts/DumpReader.gd")
 
 var dump = null
@@ -122,18 +120,7 @@ func _process(delta):
 		get_tree().paused = not playing
 	if not animating:
 		if actions_playing:
-			var action = actions_playing.pop_front()
-			var player_id = turn_index % 3 - 1
-			if action['type'] == 'ID_ACTION_DEPLACER':
-				animating = $GameState.move(int(action['id_agent']), DIR[action['dir']], player_id)
-			elif action['type'] == 'ID_ACTION_POUSSER':
-				animating = $GameState.push(int(action['id_agent']), DIR[action['dir']], player_id)
-			elif action['type'] == 'ID_ACTION_GLISSER':
-				animating = $GameState.slide(int(action['id_agent']), DIR[action['dir']], player_id)
-			elif action['type'] == 'ID_ACTION_DEBUG_AFFICHER_DRAPEAU':
-				$GameState/TileMap.set_flag(player_id, Vector2(action['pos']['c'], action['pos']['r']), action['drapeau'])
-			else:
-				print("Unknown action ", action['type'])
+			animating = $GameState.replay_action(actions_playing.pop_front(), turn_index % 3 - 1)
 		else:
 			if playing:
 				_continue()

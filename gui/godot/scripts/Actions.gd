@@ -4,6 +4,7 @@
 extends Node
 
 const DIR = [Vector2(-1, 0), Vector2(0, 1), Vector2(1, 0), Vector2(0, -1)]
+const DIR_DIC = {'OUEST': 0, 'SUD': 1, 'EST': 2, 'NORD': 3}
 
 var selected_tile = null
 var _turn = 0
@@ -83,6 +84,19 @@ func _input(event):
 			else:
 				selected_tile = pos
 			_update_tile_info()
+
+func replay_action(action, player_id):
+	if action['type'] == 'ID_ACTION_DEPLACER':
+		return move(int(action['id_agent']), DIR_DIC[action['dir']], player_id)
+	elif action['type'] == 'ID_ACTION_POUSSER':
+		return push(int(action['id_agent']), DIR_DIC[action['dir']], player_id)
+	elif action['type'] == 'ID_ACTION_GLISSER':
+		return slide(int(action['id_agent']), DIR_DIC[action['dir']], player_id)
+	elif action['type'] == 'ID_ACTION_DEBUG_AFFICHER_DRAPEAU':
+		$TileMap.set_flag(player_id, Vector2(action['pos']['c'], action['pos']['r']), action['drapeau'])
+	else:
+		print("Unknown action ", action['type'])
+	return false
 
 
 func _no_flags():
