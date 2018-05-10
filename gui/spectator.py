@@ -6,8 +6,6 @@ import subprocess
 import socket
 import ctypes
 
-gui = '/home/shaac/soft/godot/Godot_v3.0.2-stable_x11.64 --main-pack /home/shaac/repos/stechec2/games/prologin2018/gui/godot/prologin2018.pck'
-
 get_dump = None
 conn = None
 
@@ -24,7 +22,7 @@ def partie_init():
     sock.bind(('', 0))
     port = sock.getsockname()[1]
     sock.listen(1)
-    subprocess.Popen(gui.split() + ['-socket={}'.format(port)])
+    subprocess.Popen(['prologin2018-gui', str(port)])
     conn, _ = sock.accept()
 
     conn.send(get_dump())

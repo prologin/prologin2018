@@ -16,7 +16,7 @@ chmod +x $replay
 gui="$build_dir/prologin2018-gui"
 echo -e "#!/usr/bin/env sh\n" > $gui
 echo "test \$# -eq 0 && echo "Usage: \$0 socket_port" && exit 1" >> $gui
-echo "godot --main-pack /opt/prologin2018.pck -ssockt=\$1" >> $gui
+echo "godot --main-pack /opt/prologin2018.pck -socket=\$1" >> $gui
 chmod +x $gui
 
 echo "The installer will install two files in /usr/bin and one in /opt"
