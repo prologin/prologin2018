@@ -10,6 +10,7 @@ var waiting = false
 var playing = false
 var animating = false
 var turn_index = 0
+var actions_playing = []
 
 func _init_socket():
 	var port = 0
@@ -64,8 +65,11 @@ func _process(delta):
 			for i in range(state.aliens.size()):
 				$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
 			assert((turn_index - turn_index % 3) / 3 == state.roundNumber)
+			actions_playing = state.players[turn_index % 3 - 1].history
 			waiting = false
-	if playing and not animating and not waiting:
+	if not animating and actions_playing:
+		animating = $GameState.replay_action(actions_playing.pop_front(), turn_index % 3 - 1)
+	if playing and not actions_playing and not waiting:
 		_next_turn()
 	if Input.is_action_just_pressed("ui_select"):
 		playing = !playing
