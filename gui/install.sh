@@ -26,9 +26,9 @@ cp "$pwd/spectator.cc" "$build_dir/cxx/prologin.cc"
 make -C $build_dir/cxx
 
 echo "The installer will install 2 files in /usr/bin, and 2 in /opt"
-sudo cp "$gui" "$replay" /usr/bin
-sudo cp "$build_dir/prologin2018.pck" /opt
-sudo cp "$build_dir/cxx/champion.so" /opt/prologin2018-gui.so
+sudo install "$gui" "$replay" /usr/bin
+sudo install "$build_dir/prologin2018.pck" /opt
+sudo install "$build_dir/cxx/champion.so" /opt/prologin2018-gui.so
 
 echo "To uninstall:"
 echo "sudo rm /usr/bin/prologin2018-{gui,replay} /opt/prologin2018{.pck,-gui.so}"
