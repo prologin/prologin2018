@@ -27,8 +27,8 @@ def partie_init():
 
     conn.send(get_dump())
     data = ''
-    while data != 'NEXT':
-        data = conn.recv(1024).decode()[4:]
+    while 'NEXT' not in data:
+        data = conn.recv(1024).decode()
 
 
 def jouer_tour():
@@ -37,7 +37,7 @@ def jouer_tour():
 
     conn.send(get_dump())
     data = ''
-    while data != 'NEXT':
+    while 'NEXT' not in data:
         data = conn.recv(1024).decode()
 
 
