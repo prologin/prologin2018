@@ -9,6 +9,7 @@ var socket = null
 var waiting = false
 var playing = false
 var animating = false
+var turn_index = 0
 
 func _init_socket():
 	var port = 0
@@ -46,6 +47,13 @@ func _ready():
 func _finish_animating():
 	animating = false
 
+func _next_turn():
+	turn_index += 1
+	$GameState.set_turn(turn_index)
+	if turn_index % 3:
+		socket.put_utf8_string("NEXT")
+		waiting = true
+
 func _process(delta):
 	if waiting:
 		var available = socket.get_available_bytes()
@@ -55,10 +63,9 @@ func _process(delta):
 			var state = DumpReader.parse_turn(json)
 			for i in range(state.aliens.size()):
 				$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
-			$GameState.set_turn(state.roundNumber * 3)
+			assert((turn_index - turn_index % 3) / 3 == state.roundNumber)
 			waiting = false
-	if playing and not animating:
-		socket.put_utf8_string("NEXT")
-		waiting = true
+	if playing and not animating and not waiting:
+		_next_turn()
 	if Input.is_action_just_pressed("ui_select"):
 		playing = !playing
