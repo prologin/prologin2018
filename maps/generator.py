@@ -17,24 +17,31 @@ class case(IntEnum):
 
 
 class symetry(IntEnum):
-    DIAG = 0
+    CENT = 0
     HORI = 1
     VERT = 2
+    DIAG1 = 3
+    DIAG2 = 4
 
 
 def get_opp(pos, sym):
-    if (sym == symetry.DIAG):
+    if (sym == symetry.CENT):
         return (TAILLE_ICEBERG - 1 - pos[0], TAILLE_ICEBERG - 1 - pos[1])
     elif (sym == symetry.HORI):
         return (TAILLE_ICEBERG - 1 - pos[0], pos[1])
-    else:
+    elif (sym == symetry.VERT):
         return (pos[0], TAILLE_ICEBERG - 1 - pos[1])
+    elif (sym == symetry.DIAG1):
+        return (TAILLE_ICEBERG - 1 - pos[1], TAILLE_ICEBERG - 1 - pos[0])
+    elif (sym == symetry.DIAG2):
+        return (pos[1], pos[0])
 
 class Generator:
     def __init__(self, murs, aliens):
         self.murs = min(murs, TAILLE_ICEBERG ** 2 // 2)
         self.nb_aliens = aliens
         self.sym = choice(list(symetry))
+        print(self.sym, file=sys.stderr)
         self.iceberg = [[case.LIBRE] * TAILLE_ICEBERG for i in range(TAILLE_ICEBERG)]
         self.pinguins1 = []
         self.pinguins2 = []
@@ -49,18 +56,13 @@ class Generator:
 
 
     def gen_pinguins(self):
-        positions = []
+        positions = set()
         for i in range(TAILLE_ICEBERG):
             for j in range(TAILLE_ICEBERG):
-                if (self.sym == symetry.DIAG and self.iceberg[i][j] == case.LIBRE \
-                        and i < j):
-                    positions.append((i, j))
-                elif (self.sym == symetry.HORI and self.iceberg[i][j] == case.LIBRE \
-                        and i < TAILLE_ICEBERG // 2):
-                    positions.append((i, j))
-                elif (self.sym == symetry.VERT and self.iceberg[i][j] == case.LIBRE \
-                        and j < TAILLE_ICEBERG // 2):
-                    positions.append((i, j))
+                if self.iceberg[i][j] == case.LIBRE and not get_opp((i, j), self.sym) in positions:
+                    positions.add((i, j))
+        positions = list(positions)
+
         if len(positions) < NB_AGENTS:
             print("Il y a trop de murs", file=sys.stderr)
             exit(1)
@@ -72,18 +74,12 @@ class Generator:
 
 
     def gen_aliens(self):
-        positions = []
+        positions = set()
         for i in range(TAILLE_ICEBERG):
             for j in range(TAILLE_ICEBERG):
-                if (self.sym == symetry.DIAG and self.iceberg[i][j] == case.LIBRE \
-                        and i <= j):
-                    positions.append((i, j))
-                elif (self.sym == symetry.HORI and self.iceberg[i][j] == case.LIBRE \
-                        and i <= TAILLE_ICEBERG // 2):
-                    positions.append((i, j))
-                elif (self.sym == symetry.VERT and self.iceberg[i][j] == case.LIBRE \
-                        and j <= TAILLE_ICEBERG // 2):
-                    positions.append((i, j))
+                if self.iceberg[i][j] == case.LIBRE and not get_opp((i, j), self.sym) in positions:
+                    positions.add((i, j))
+        positions = list(positions)
 
         if len(positions) < self.nb_aliens:
             print("Il y a trop de murs et aliens", file=sys.stderr)
