@@ -3,7 +3,8 @@
 pwd=`pwd`
 build_dir="$pwd/build/"
 
-mkdir -p $build_dir
+rm -rf $build_dir
+mkdir $build_dir
 cd godot
 godot --export "pck" $build_dir/prologin2018.pck
 
