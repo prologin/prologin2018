@@ -55,7 +55,7 @@ void partie_init()
     {
         auto s = std::to_string(port);
         execl("/usr/bin/prologin2018-gui", "/usr/bin/prologin2018-gui",
-              s.c_str(), (char*)nullptr);
+              s.c_str(), std::to_string(moi()).c_str(), (char*)nullptr);
         exit(5);
     }
     conn = accept(socket_fd, (struct sockaddr*)&address, (socklen_t*)&len);
