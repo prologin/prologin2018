@@ -6,7 +6,9 @@ extends Node
 const DumpReader = preload("res://scripts/DumpReader.gd")
 
 var socket = null
-var waiting = true
+var waiting = false
+var playing = false
+var animating = false
 
 func _init_socket():
 	var port = 0
@@ -40,10 +42,9 @@ func _ready():
 		alien.capture = alien_input.capture
 		$GameState/TileMap.aliens.append(alien)
 	$GameState.set_turn(0)
-	socket.put_utf8_string("NEXT")
 
 func _finish_animating():
-	pass
+	animating = false
 
 func _process(delta):
 	if waiting:
@@ -55,5 +56,9 @@ func _process(delta):
 			for i in range(state.aliens.size()):
 				$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
 			$GameState.set_turn(state.roundNumber * 3)
-			socket.put_utf8_string("NEXT")
-			waiting = true
+			waiting = false
+	if playing and not animating:
+		socket.put_utf8_string("NEXT")
+		waiting = true
+	if Input.is_action_just_pressed("ui_select"):
+		playing = !playing
