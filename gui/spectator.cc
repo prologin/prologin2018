@@ -13,24 +13,18 @@ extern "C" const char* dump_state_json();
 
 static int conn = 0;
 
-static void send_and_wait()
+static std::string receive()
 {
-    const char* dump = dump_state_json();
-    send(conn, dump, strlen(dump), 0);
     char buffer[1024] = {0};
-    std::string received = "";
-    while (received != "NEXT")
+    while (true)
     {
         int len = read(conn, buffer, 1024);
         if (len == 0)
-            received = "";
-        else
-        {
-            int offset = 0;
-            while (int(buffer[offset]) < 33 and offset < 1024)
-                ++offset;
-            received = std::string(buffer + offset);
-        }
+            continue;
+        int offset = 0;
+        while (int(buffer[offset]) < 33 and offset < 1024)
+            ++offset;
+        return std::string(buffer + offset);
     }
 }
 
@@ -66,12 +60,22 @@ void partie_init()
     conn = accept(socket_fd, (struct sockaddr*)&address, (socklen_t*)&len);
     if (conn < 0)
         exit(6);
-    send_and_wait();
+    const char* dump = dump_state_json();
+    send(conn, dump, strlen(dump), 0);
+    while (receive() != "NEXT")
+        ;
 }
 
 void jouer_tour()
 {
-    send_and_wait();
+    const char* dump = dump_state_json();
+    send(conn, dump, strlen(dump), 0);
+    while (true)
+    {
+        std::string command = receive();
+        if (command == "NEXT")
+            return;
+    }
 }
 
 void partie_fin()
