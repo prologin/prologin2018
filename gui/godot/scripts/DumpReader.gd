@@ -34,8 +34,8 @@ class Turn:
 
 static func parse_turn(json):
 	var result = Turn.new()
-	result.roundNumber = json["round"][0]
-	result.roundTotal = json["round"][1]
+	result.roundNumber = int(json["round"][0])
+	result.roundTotal = int(json["round"][1])
 	assert(json["players"].size() == 2)
 	for player_id in ["1", "2"]:
 		var node = json["players"][player_id]

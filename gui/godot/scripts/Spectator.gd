@@ -6,6 +6,7 @@ extends Node
 const DumpReader = preload("res://scripts/DumpReader.gd")
 
 var socket = null
+var waiting = true
 
 func _init_socket():
 	var port = 0
@@ -23,9 +24,7 @@ func _ready():
 	while available == 0:
 		available = socket.get_available_bytes()
 	var dump = socket.get_string(available)
-	print(dump)
 	var json = JSON.parse(dump).result
-	print(json)
 	var init = DumpReader.parse_turn(json)
 	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
 	for agent in $GameState/TileMap.agents:
@@ -41,6 +40,20 @@ func _ready():
 		alien.capture = alien_input.capture
 		$GameState/TileMap.aliens.append(alien)
 	$GameState.set_turn(0)
+	socket.put_utf8_string("NEXT")
 
 func _finish_animating():
 	pass
+
+func _process(delta):
+	if waiting:
+		var available = socket.get_available_bytes()
+		if available:
+			var dump = socket.get_string(available)
+			var json = JSON.parse(dump).result
+			var state = DumpReader.parse_turn(json)
+			for i in range(state.aliens.size()):
+				$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
+			$GameState.set_turn(state.roundNumber * 3)
+			socket.put_utf8_string("NEXT")
+			waiting = true
