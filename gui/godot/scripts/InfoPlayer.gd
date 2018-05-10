@@ -29,9 +29,7 @@ func _redraw_player(id, label):
 func redraw():
 	_redraw_player(0, $Player1)
 	_redraw_player(1, $Player2)
-	$Turn.text = "Tour : " + str(_turn)
-	if _turn_slider:
-		$Turn.text += "\n" + ["Aliens", "Bleu", "Rouge"][_type]
+	$Turn.text = "Tour : " + str(_turn) + "\n" + ["Aliens", "Bleu", "Rouge"][_type]
 
 func set_turn(turn, type):
 	_turn = turn

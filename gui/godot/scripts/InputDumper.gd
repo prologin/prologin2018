@@ -55,8 +55,8 @@ func _ready():
 		alien.duration = alien_input.duration
 		alien.capture = alien_input.capture
 		$GameState/TileMap.aliens.append(alien)
-	$GameState/Info.add_turn_slider().connect("value_changed", self, "_turn_slider")
 	$GameState.set_turn(0)
+	$GameState/Info.add_turn_slider().connect("value_changed", self, "_turn_slider")
 	_create_flags_maps()
 
 func _turn_slider(value):
