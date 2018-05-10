@@ -19,9 +19,15 @@ echo "test \$# -eq 0 && echo "Usage: \$0 socket_port" && exit 1" >> $gui
 echo "godot --main-pack /opt/prologin2018.pck -socket=\$1" >> $gui
 chmod +x $gui
 
-echo "The installer will install two files in /usr/bin and one in /opt"
+cd $build_dir
+stechec2-generator player prologin2018 .
+cp "$pwd/spectator.cc" "$build_dir/cxx/prologin.cc"
+make -C $build_dir/cxx
+
+echo "The installer will install 2 files in /usr/bin, and 2 in /opt"
 sudo cp "$gui" "$replay" /usr/bin
 sudo cp "$build_dir/prologin2018.pck" /opt
+sudo cp "$build_dir/cxx/champion.so" /opt/prologin2018-gui.so
 
 echo "To uninstall:"
-echo "sudo rm /usr/bin/prologin2018-{gui,replay} /opt/prologin2018.pck"
+echo "sudo rm /usr/bin/prologin2018-{gui,replay} /opt/prologin2018{.pck,-gui.so}"
