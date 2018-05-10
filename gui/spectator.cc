@@ -3,6 +3,7 @@
 
 #include "prologin.hh"
 #include <netinet/in.h>
+#include <sstream>
 #include <string.h>
 #include <string>
 #include <sys/socket.h>
@@ -75,6 +76,21 @@ void jouer_tour()
         std::string command = receive();
         if (command == "NEXT")
             return;
+        std::istringstream ss(command);
+        std::vector<std::string> words;
+        while (!ss.eof())
+        {
+            std::string word;
+            std::getline(ss, word, ' ');
+            if (!word.empty())
+                words.push_back(word);
+        }
+        if (words[0] == "MOVE")
+            deplacer(std::stoi(words[1]), (direction)std::stoi(words[2]));
+        else if (words[0] == "SLIDE")
+            glisser(std::stoi(words[1]), (direction)std::stoi(words[2]));
+        else if (words[0] == "PUSH")
+            pousser(std::stoi(words[1]), (direction)std::stoi(words[2]));
     }
 }
 
