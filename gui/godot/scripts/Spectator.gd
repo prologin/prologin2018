@@ -73,3 +73,5 @@ func _process(delta):
 		_next_turn()
 	if Input.is_action_just_pressed("ui_select"):
 		playing = !playing
+	if not playing and not actions_playing and Input.is_action_just_pressed("ui_right") :
+		_next_turn()
