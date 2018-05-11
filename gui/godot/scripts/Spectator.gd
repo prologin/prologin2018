@@ -104,6 +104,7 @@ func _process(delta):
 		_select_agent((agent_selected + 1) % constants.NB_AGENTS)
 	if not playing and not actions_playing and Input.is_action_just_pressed("ui_right") :
 		_next_turn()
+	$Waiting.set_visible(waiting)
 
 func _action(pos):
 	var offset = my_internal_id * constants.NB_AGENTS
