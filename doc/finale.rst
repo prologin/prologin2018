@@ -36,11 +36,15 @@ Aliens
 ======
 
 Des aliens débarqueront sur l'iceberg à des positions précises de la carte,
-pendant un certain nombre de tour. De plus, les aliens n'envahissent jamais
-plusieurs fois au même endroit sur l'iceberg. Pour capturer un alien, un agent
-doit être sur la case pendant au moins 3 tours. Si l'agent quitte la case (en se
-déplaçant ou alors en étant poussé par un agent), la capture devra reprendre de
-zéro.
+pendant un certain nombre de tours, après lesquels ils repartiront sur leur
+planète d'origine : FIXME. De plus, les aliens n'envahissent jamais plusieurs
+fois au même endroit sur l'iceberg.
+
+Pour capturer un alien, un agent doit être sur la case pendant au moins 3 tours.
+L'alien capturé disparaît de l'iceberg, et des échantillons d'analyse sont
+envoyés instantanément au QG des PiB, l'agent peut donc continuer sa mission.
+Si l'agent quitte la case (en se déplaçant ou alors en étant poussé par un
+agent), la capture devra reprendre de zéro.
 
 Les aliens ne sont pas assez habitués à la glace pour se déplacer sur l'iceberg,
 ils resteront donc fixes par rapport à leurs lieux d'invasion. En revanche, les
