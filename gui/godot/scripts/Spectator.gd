@@ -80,6 +80,7 @@ func _next_turn():
 	if interactive and turn_index % 3 - 1 == my_internal_id:
 		my_turn = true
 		playing = false
+		waiting = false
 
 func _process(delta):
 	if waiting:
