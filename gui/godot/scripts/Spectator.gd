@@ -94,6 +94,8 @@ func _process(delta):
 				$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
 			assert((turn_index - turn_index % 3) / 3 == state.roundNumber)
 			actions_playing = state.players[turn_index % 3 - 1].history
+			for player_id in range(2):
+				$GameState/Info.players[player_id].score = state.players[player_id].score
 			waiting = false
 	if not animating and actions_playing:
 		animating = $GameState.replay_action(actions_playing.pop_front(), turn_index % 3 - 1)
