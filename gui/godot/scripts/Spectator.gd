@@ -126,16 +126,23 @@ func _action(pos):
 		dir = 2
 	elif dy < 0:
 		dir = 3
+	var action_points = $GameState/Info.players[my_internal_id].action_points[agent_selected]
 	if abs(dx) == 1 or abs(dy) == 1:
 		if pos in $GameState/TileMap.agents_pos:
+			if action_points < constants.COUT_POUSSER:
+				return
 			animating = $GameState.push(agent_selected, dir, my_internal_id)
 			if animating:
 				socket.put_utf8_string("PUSH " + str(agent_selected) + " " + str(dir))
 		else:
+			if action_points < constants.COUT_DEPLACEMENT:
+				return
 			animating = $GameState.move(agent_selected, dir, my_internal_id)
 			if animating:
 				socket.put_utf8_string("MOVE " + str(agent_selected) + " " + str(dir))
 	else:
+		if action_points < constants.COUT_GLISSADE:
+			return
 		animating = $GameState.slide(agent_selected, dir, my_internal_id)
 		if animating:
 			socket.put_utf8_string("SLIDE " + str(agent_selected) + " " + str(dir))
