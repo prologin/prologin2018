@@ -1,0 +1,19 @@
+This IA is meant to try out cooperation between agents:
+    - A pair of agents will work together throughout the game to get high
+      capture points aliens: one agent is responsible of capturing the alien,
+      and the other one to defend around.
+    - The other two agents will work on their own, by trying to capture close
+      aliens to make additional points.
+
+# TODO
+
+- coop_mode:
+    - choose closest alien when the two selected have the same amount of points
+    - improve radius approach to target 
+    - careful to not block ourself
+    - fix bug when agents do not push the ennemy
+- solo mode:
+    - annoy the ennemy when trying to capture important aliens
+    - fix bug where solo targets are the same as the coop target
+    - improve push
+    - improve selection of next target
