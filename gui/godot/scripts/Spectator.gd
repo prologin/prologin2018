@@ -76,12 +76,12 @@ func _next_turn():
 	turn_index += 1
 	$GameState.set_turn(turn_index)
 	if turn_index % 3:
-		socket.put_utf8_string("NEXT")
-		waiting = true
-	if interactive and turn_index % 3 - 1 == my_internal_id:
-		my_turn = true
-		playing = false
-		waiting = false
+		if interactive and turn_index % 3 - 1 == my_internal_id:
+			my_turn = true
+			playing = false
+		else:
+			socket.put_utf8_string("NEXT")
+			waiting = true
 
 func _process(delta):
 	if waiting:
