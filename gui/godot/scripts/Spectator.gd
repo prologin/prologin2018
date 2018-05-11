@@ -14,6 +14,7 @@ var actions_playing = []
 var my_stechec_id = -1
 var my_internal_id = -1
 var interactive = false
+var agent_selected = 0
 
 func _init_socket():
 	var port = 0
@@ -55,6 +56,16 @@ func _ready():
 		alien.capture = alien_input.capture
 		$GameState/TileMap.aliens.append(alien)
 	$GameState.set_turn(0)
+	if interactive:
+		_select_agent(0)
+
+func _select_agent(i):
+	assert i >= 0 and i < constants.NB_AGENTS
+	assert my_internal_id >= 0 and my_internal_id < 2
+	var offset = my_internal_id * constants.NB_AGENTS
+	$GameState/TileMap.agents[agent_selected + offset].unfocus()
+	$GameState/TileMap.agents[i + offset].focus()
+	agent_selected = i
 
 func _finish_animating():
 	animating = false
@@ -84,5 +95,7 @@ func _process(delta):
 		_next_turn()
 	if Input.is_action_just_pressed("ui_select"):
 		playing = !playing
+	elif interactive and Input.is_action_just_pressed("ui_focus_next"):
+		_select_agent((agent_selected + 1) % constants.NB_AGENTS)
 	if not playing and not actions_playing and Input.is_action_just_pressed("ui_right") :
 		_next_turn()
