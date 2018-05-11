@@ -11,12 +11,17 @@ var playing = false
 var animating = false
 var turn_index = 0
 var actions_playing = []
+var my_stechec_id = -1
+var my_internal_id = -1
+var interactive = false
 
 func _init_socket():
 	var port = 0
 	for arg in OS.get_cmdline_args():
 		if arg.begins_with("-socket="):
 			port = int(arg.right(8))
+		elif arg.begins_with("-id="):
+			my_stechec_id = int(arg.right(4))
 	socket = StreamPeerTCP.new()
 	var connected = socket.connect_to_host("127.0.0.1", port)
 	if connected != OK:
@@ -29,6 +34,12 @@ func _ready():
 		available = socket.get_available_bytes()
 	var dump = socket.get_string(available)
 	var json = JSON.parse(dump).result
+	if json["players"].has(str(my_stechec_id)):
+		interactive = true
+		my_internal_id = 0
+		for id in json["players"].keys():
+			if int(id) < my_stechec_id:
+				my_internal_id = 1
 	var init = DumpReader.parse_turn(json)
 	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
 	for agent in $GameState/TileMap.agents:
