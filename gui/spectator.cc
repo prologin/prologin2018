@@ -67,6 +67,15 @@ void partie_init()
         ;
 }
 
+static direction to_direction(const std::string& input)
+{
+    int value = std::stoi(input);
+    // If you think this does not makes sense it is because I inverted the x
+    // and y axis. It is no big deal I make the conversion here
+    direction convert[4] = {OUEST, SUD, EST, NORD};
+    return convert[value];
+}
+
 void jouer_tour()
 {
     const char* dump = dump_state_json();
@@ -86,11 +95,11 @@ void jouer_tour()
                 words.push_back(word);
         }
         if (words[0] == "MOVE")
-            deplacer(std::stoi(words[1]), (direction)std::stoi(words[2]));
+            deplacer(std::stoi(words[1]), to_direction(words[2]));
         else if (words[0] == "SLIDE")
-            glisser(std::stoi(words[1]), (direction)std::stoi(words[2]));
+            glisser(std::stoi(words[1]), to_direction(words[2]));
         else if (words[0] == "PUSH")
-            pousser(std::stoi(words[1]), (direction)std::stoi(words[2]));
+            pousser(std::stoi(words[1]), to_direction(words[2]));
     }
 }
 
