@@ -15,6 +15,7 @@ var my_stechec_id = -1
 var my_internal_id = -1
 var interactive = false
 var agent_selected = 0
+var my_turn = false
 
 func _init_socket():
 	var port = 0
@@ -76,6 +77,9 @@ func _next_turn():
 	if turn_index % 3:
 		socket.put_utf8_string("NEXT")
 		waiting = true
+	if interactive and turn_index % 3 - 1 == my_internal_id:
+		my_turn = true
+		playing = false
 
 func _process(delta):
 	if waiting:
@@ -99,3 +103,44 @@ func _process(delta):
 		_select_agent((agent_selected + 1) % constants.NB_AGENTS)
 	if not playing and not actions_playing and Input.is_action_just_pressed("ui_right") :
 		_next_turn()
+
+func _action(pos):
+	var offset = my_internal_id * constants.NB_AGENTS
+	var agent_pos = $GameState/TileMap.agents_pos[agent_selected + offset]
+	var dx = pos.x - agent_pos.x
+	var dy = pos.y - agent_pos.y
+	# One of them must be zero
+	if dx != 0 and dy != 0:
+		return
+	if dx == 0 and dy == 0:
+		return
+	var dir = 0
+	if dy > 0:
+		dir = 1
+	elif dx > 0:
+		dir = 2
+	elif dy < 0:
+		dir = 3
+	if abs(dx) == 1 or abs(dy) == 1:
+		if pos in $GameState/TileMap.agents_pos:
+			animating = $GameState.push(agent_selected, dir, my_internal_id)
+			if animating:
+				socket.put_utf8_string("PUSH " + str(agent_selected) + " " + str(dir))
+		else:
+			animating = $GameState.move(agent_selected, dir, my_internal_id)
+			if animating:
+				socket.put_utf8_string("MOVE " + str(agent_selected) + " " + str(dir))
+	else:
+		animating = $GameState.slide(agent_selected, dir, my_internal_id)
+		if animating:
+			socket.put_utf8_string("SLIDE " + str(agent_selected) + " " + str(dir))
+
+func _input(event):
+	if not my_turn:
+		return
+	if animating:
+		return
+	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed:
+		var pos = $GameState/TileMap.world_to_map(event.position)
+		if pos.x >= 0 and pos.y >= 0 and pos.x < $GameState/TileMap.walls.size() and pos.y < $GameState/TileMap.walls.size():
+			_action(pos)
