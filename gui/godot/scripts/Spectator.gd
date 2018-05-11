@@ -59,6 +59,7 @@ func _ready():
 	$GameState.set_turn(0)
 	if interactive:
 		_select_agent(0)
+		playing = true
 
 func _select_agent(i):
 	assert i >= 0 and i < constants.NB_AGENTS
@@ -99,7 +100,7 @@ func _process(delta):
 	if playing and not actions_playing and not waiting:
 		_next_turn()
 	if Input.is_action_just_pressed("ui_select"):
-		playing = !playing
+		playing = !playing or interactive
 	elif interactive and Input.is_action_just_pressed("ui_focus_next"):
 		_select_agent((agent_selected + 1) % constants.NB_AGENTS)
 	if not playing and not actions_playing and Input.is_action_just_pressed("ui_right") :
