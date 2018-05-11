@@ -75,10 +75,10 @@ func _finish_animating():
 func _next_turn():
 	turn_index += 1
 	$GameState.set_turn(turn_index)
+	my_turn = false
 	if turn_index % 3:
 		if interactive and turn_index % 3 - 1 == my_internal_id:
 			my_turn = true
-			playing = false
 		else:
 			socket.put_utf8_string("NEXT")
 			waiting = true
@@ -97,13 +97,15 @@ func _process(delta):
 			waiting = false
 	if not animating and actions_playing:
 		animating = $GameState.replay_action(actions_playing.pop_front(), turn_index % 3 - 1)
-	if playing and not actions_playing and not waiting:
+	if playing and not actions_playing and not waiting and not my_turn:
 		_next_turn()
 	if Input.is_action_just_pressed("ui_select"):
 		playing = !playing or interactive
+		if my_turn:
+			_next_turn()
 	elif interactive and Input.is_action_just_pressed("ui_focus_next"):
 		_select_agent((agent_selected + 1) % constants.NB_AGENTS)
-	if not playing and not actions_playing and Input.is_action_just_pressed("ui_right") :
+	if not playing and not actions_playing and not my_turn and Input.is_action_just_pressed("ui_right") :
 		_next_turn()
 	$Waiting.set_visible(waiting)
 
