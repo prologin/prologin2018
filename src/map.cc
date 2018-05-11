@@ -50,6 +50,7 @@ void Map::load_map_cells(std::istream& stream)
 
 void Map::load_agents_info(std::istream& stream)
 {
+    std::vector<position> seen_agent_pos;
     for (int player = 0; player < 2; player++)
     {
         for (int agent = 0; agent < NB_AGENTS; agent++)
@@ -59,17 +60,24 @@ void Map::load_agents_info(std::istream& stream)
             position pos = {l, c};
 
             bool is_agent_already_here = false;
-            for (int p = 0; p < player; p++)
-                for (int a = 0; a < agent; a++)
-                    if (start_position_[p][a] == pos)
-                        is_agent_already_here = true;
+            for (auto prev : seen_agent_pos)
+                if (prev == pos)
+                    is_agent_already_here = true;
 
-            if (is_agent_already_here || !inside_map(pos) || is_wall(pos))
-                FATAL("starting position (%d;%d) for player %d agent %d is "
-                      "invalid",
-                      l, c, player + 1, agent + 1);
+            std::string error = "";
+            if (is_agent_already_here)
+                error = "already taken";
+            if (!inside_map(pos))
+                error = "outside of map";
+            if (is_wall(pos))
+                error = "a wall";
+
+            if (error != "")
+                FATAL("starting position (%d;%d) for player %d agent %d is %s",
+                      l, c, player + 1, agent, error.c_str());
 
             start_position_[player][agent] = pos;
+            seen_agent_pos.push_back(pos);
         }
     }
 }
@@ -93,12 +101,19 @@ void Map::load_aliens_info(std::istream& stream)
             if (alien_[id].pos == pos)
                 is_alien_already_here = true;
 
-        if (is_alien_already_here || !inside_map(pos) || is_wall(pos))
-            FATAL("starting position (%d;%d) for alien %d is invalid", l, c,
-                  alien + 1);
+        std::string error = "";
+        if (is_alien_already_here)
+            error = "already taken";
+        if (!inside_map(pos))
+            error = "outside of map";
+        if (is_wall(pos))
+            error = "a wall";
+
+        if (error != "")
+            FATAL("starting position (%d;%d) for alien %d is %s", l, c, alien,
+                  error.c_str());
         if (round_spawn < 0 || round_spawn >= NB_TOURS)
-            FATAL("invalid spawn round %d for alien %d", round_spawn,
-                  alien + 1);
+            FATAL("invalid spawn round %d for alien %d", round_spawn, alien);
 
         alien_[alien] = alien_info{pos, nb_point, round_spawn, round_span, 0};
         is_alien_on_map_[alien] = false;
