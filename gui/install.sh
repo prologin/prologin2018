@@ -25,6 +25,8 @@ stechec2-generator player prologin2018 .
 cp "$pwd/spectator.cc" "$build_dir/cxx/prologin.cc"
 make -C $build_dir/cxx
 
+cp "$build_dir/prologin2018.pck" $pwd/../www/static/godot/
+
 echo "The installer will install 2 files in /usr/bin, and 2 in /opt"
 sudo install "$gui" "$replay" /usr/bin
 sudo install "$build_dir/prologin2018.pck" /opt
