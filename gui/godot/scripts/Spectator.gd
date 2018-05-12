@@ -14,7 +14,6 @@ var actions_playing = []
 var my_stechec_id = -1
 var my_internal_id = -1
 var interactive = false
-var agent_selected = 0
 var my_turn = false
 
 func _init_socket():
@@ -58,16 +57,8 @@ func _ready():
 		$GameState/TileMap.aliens.append(alien)
 	$GameState.set_turn(0)
 	if interactive:
-		_select_agent(0)
+		$GameState.select_agent(constants.NB_AGENTS)
 		playing = true
-
-func _select_agent(i):
-	assert i >= 0 and i < constants.NB_AGENTS
-	assert my_internal_id >= 0 and my_internal_id < 2
-	var offset = my_internal_id * constants.NB_AGENTS
-	$GameState/TileMap.agents[agent_selected + offset].unfocus()
-	$GameState/TileMap.agents[i + offset].focus()
-	agent_selected = i
 
 func _finish_animating():
 	animating = false
@@ -105,13 +96,16 @@ func _process(delta):
 		playing = !playing or interactive
 		if my_turn:
 			_next_turn()
-	elif interactive and Input.is_action_just_pressed("ui_focus_next"):
-		_select_agent((agent_selected + 1) % constants.NB_AGENTS)
 	if not playing and not actions_playing and not my_turn and Input.is_action_just_pressed("ui_right") :
 		_next_turn()
 	$Waiting.set_visible(waiting)
 
 func _action(pos):
+	var agent_selected = $GameState.selected_agent
+	if agent_selected < constants.NB_AGENTS * my_internal_id or \
+			agent_selected >= constants.NB_AGENTS * (1 + my_internal_id):
+		return
+	agent_selected -= constants.NB_AGENTS * my_internal_id
 	var offset = my_internal_id * constants.NB_AGENTS
 	var agent_pos = $GameState/TileMap.agents_pos[agent_selected + offset]
 	var dx = pos.x - agent_pos.x
