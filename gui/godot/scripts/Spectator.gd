@@ -84,6 +84,7 @@ func _process(delta):
 			for i in range(state.aliens.size()):
 				$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
 			assert((turn_index - turn_index % 3) / 3 == state.roundNumber)
+			$GameState.set_turn(turn_index) # To update the aliens
 			actions_playing = state.players[turn_index % 3 - 1].history
 			for player_id in range(2):
 				$GameState/Info.players[player_id].score = state.players[player_id].score
