@@ -10,8 +10,8 @@ Iceberg
 -------
 
 Dans le cadre de votre mission, vous serez envoyé au Pôle Sud, plus exactement
-sur cet iceberg - oui, celui-ci - où nos services de renseignements ont indiqué
-que l'invasion alien débutera. L'iceberg est représenté par une grille carrée de
+sur cet iceberg, où nos services de renseignements ont indiqué que les premiers
+repérages aliens auront lieu. L'iceberg est représenté par une grille carrée de
 25 cases de côté.
 
 .. image:: ../subject/img/map.png
@@ -36,20 +36,21 @@ Aliens
 ======
 
 Des aliens débarqueront sur l'iceberg à des positions précises de la carte,
-pendant un certain nombre de tours, après lesquels ils repartiront sur leur
-planète d'origine : FIXME. De plus, les aliens n'envahissent jamais plusieurs
-fois au même endroit sur l'iceberg.
+pendant un certain nombre de tours afin d'accomplir leur mission de
+reconnaissance, avant de repartir sur leur planète d'origine. De plus, les
+aliens n'envahissent jamais plusieurs fois au même endroit sur l'iceberg.
 
 Pour capturer un alien, un agent doit être sur la case pendant au moins 3 tours.
 L'alien capturé disparaît de l'iceberg, et des échantillons d'analyse sont
 envoyés instantanément au QG des PiB, l'agent peut donc continuer sa mission.
-Si l'agent quitte la case (en se déplaçant ou alors en étant poussé par un
-agent), la capture devra reprendre de zéro.
+Si l'agent quitte la case, ne serait-ce qu'un instant (en se déplaçant ou alors
+en étant poussé par un agent), la capture devra reprendre de **zéro**.
 
-Les aliens ne sont pas assez habitués à la glace pour se déplacer sur l'iceberg,
-ils resteront donc fixes par rapport à leurs lieux d'invasion. En revanche, les
-aliens ne sont pas des obstacles : faisant des efforts admirables pour éviter
-les agents - contrairement aux murs, qui sont davantage récalcitrants - ils se
+Les aliens ne sont pas assez habitués à la glace pour se déplacer sur l'iceberg.
+Ils se contenteront donc pour leur mission de repérage de rester fixes par
+rapport à leurs lieux d'invasion. En revanche, les aliens ne sont pas des
+obstacles : faisant des efforts admirables pour éviter les agents -
+contrairement aux murs, qui sont davantage récalcitrants - ils se
 contorsionneront et esquiveront de leur mieux : ils ne bloquent donc pas le
 déplacement des agents.
 
@@ -107,7 +108,8 @@ Score
 Chaque alien capturé vous rapporte un certain nombre de points en fonction de
 l'alien, selon son espèce, le danger brut qu'il représente, et ses opinions
 politiques. La recrue ayant accumulé le plus de points à la fin de la partie
-sera déclarée vainqueur.
+rejoindra les rangs des Prologin in Black pour lutter contre les invasions
+intergalactiques.
 
 Format de la carte
 ==================
