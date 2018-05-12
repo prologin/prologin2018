@@ -22,7 +22,7 @@ chmod +x $gui
 
 cd $build_dir
 stechec2-generator player prologin2018 .
-cp "$pwd/spectator.cc" "$build_dir/cxx/prologin.cc"
+cp "$pwd/gui-stechec.cc" "$build_dir/cxx/prologin.cc"
 make -C $build_dir/cxx
 
 cp "$build_dir/prologin2018.pck" $pwd/../www/static/godot/
