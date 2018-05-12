@@ -80,6 +80,7 @@
 
 \begin{frame}
     \frametitle{Déroulement de la mission}
+    \pause
     \begin{center}
         \includegraphics[width=0.65\textwidth]{../img/map}
     \end{center}
@@ -93,16 +94,91 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Contrôle à distance}
-    \begin{itemize}
-        \item Déplacement simple
-        \item Glissade
-        \item Pousser
+    \frametitle{Nos agents de terrain}
+    \begin{itemize}[<+->]
+        \item Redoutables, parfaitement à l'aise sur la glace, mais...
+        \item Totalement stupides
+        \item Chaque recrue contrôle 4 agents
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Contrôle à distance}
+    \begin{columns}[T]
+    \begin{column}{0.3\textwidth}
+        \begin{itemize}
+            \item<1-> Déplacer
+            \item<2-> Glisser
+            \item<3-> Pousser
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.7\textwidth}
+        \centering
+        \only<1>{
+            \includegraphics[width=4cm]{../img/move}
+        }
+        \only<2>{
+            \includegraphics[width=7cm]{../img/slide1}
+            \vspace{0.5cm}
+            \includegraphics[width=7cm]{../img/slide2}
+            \vspace{0.5cm}
+            \includegraphics[width=7cm]{../img/slide3}
+        }
+        \only<3>{
+            \includegraphics[width=7cm]{../img/push1}
+            \vspace{0.3cm}
+            \includegraphics[width=7cm]{../img/push2}
+            \vspace{0.3cm}
+            \includegraphics[width=7cm]{../img/push3}
+        }
+    \end{column}
+    \end{columns}    
 \end{frame}
 
 \begin{frame}
     \frametitle{Les aliens}
+    \begin{columns}[T]
+        \begin{column}{.2\textwidth}
+            \includegraphics[width=2.5cm]{../img/alien_big}
+        \end{column}
+        \begin{column}{.8\textwidth}
+            \begin{itemize}
+                \item Envahissent l'iceberg durant un certain nombre de tours
+                \item Fixes par rapport à leur lieux d'invasion
+                \item Ne sont \textbf{pas} des obstacles !
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Capture d'aliens}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aspects techniques}
+    \begin{itemize}
+        \item Tour par tour
+        \item Maximiser votre score d'alien (<= FIXME)
+        \item La mission dure 100 tours
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aspects techniques}
+    \begin{block}{Points d'action}
+        \begin{itemize}
+            \item À chaque tour, tous les agents ont 8 points d'action
+            \item Pas de transfert de points entre agents
+            \item Les points ne sont utilisables que pour le tour actuel
+        \end{itemize}
+    \end{block}
+    \begin{block}{Coût}
+        \begin{itemize}
+            \item Déplacer : 1 point
+            \item Glisser : 3 points
+            \item Pousser : 5 points
+        \end{itemize}
+    \end{block}
 \end{frame}
 
 \begin{frame}
