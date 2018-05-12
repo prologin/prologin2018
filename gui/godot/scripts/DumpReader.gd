@@ -11,6 +11,13 @@ static func parse_dump(filename):
 	
 	return rounds
 
+static func parse_dump_js():
+	var text = JavaScript.eval('dump_value', true)
+	var rounds = []
+	for line in text.split('\n', false):
+		rounds.append(JSON.parse(line).result)
+	return rounds
+
 class PlayerStats:
 	var name = ""
 	var score = 0

@@ -12,11 +12,17 @@ var animating = false
 var playing = false
 var flags = []
 
-func get_json_path():
-	for arg in OS.get_cmdline_args():
-		if arg.begins_with("-json="):
-			return arg.right(6)
-	return "res://../../test_dumper.json"
+func _parse_json():
+	if OS.has_feature('JavaScript'):
+		return DumpReader.parse_dump_js()
+	else:
+		for arg in OS.get_cmdline_args():
+			if arg.begins_with("-json="):
+				var json = arg.right(6)
+				print("Read dump ", json)
+				return DumpReader.parse_dump(json)
+	print("FATAL: could not retreive dump")
+	get_tree().quit()
 
 func _create_flags_maps():
 	"""Go through all the rounds to create maps of debug flags"""
@@ -36,9 +42,7 @@ func _create_flags_maps():
 						flags[index][(action['pos']['c'] * constants.TAILLE_ICEBERG + action['pos']['r']) * 2 + player_id] = byte
 
 func _ready():
-	var json = get_json_path()
-	print("Read dump ", json)
-	dump = DumpReader.parse_dump(json)
+	dump = _parse_json()
 	var init = DumpReader.parse_turn(dump[0])
 	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
 	for agent in $GameState/TileMap.agents:
