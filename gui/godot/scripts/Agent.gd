@@ -20,7 +20,7 @@ func set_team(blue):
 	set_modulate(modulate_color)
 
 func focus():
-	set_modulate(Color(1, 1, 1, 1))
+	set_modulate(modulate_color.lightened(0.7))
 
 func unfocus():
 	set_modulate(modulate_color)

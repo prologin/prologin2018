@@ -7,6 +7,7 @@ const DIR = [Vector2(-1, 0), Vector2(0, 1), Vector2(1, 0), Vector2(0, -1)]
 const DIR_DIC = {'OUEST': 0, 'SUD': 1, 'EST': 2, 'NORD': 3}
 
 var selected_tile = null
+var selected_agent = -1
 var _turn = 0
 
 func agent_id_to_internal(agent_id, player_id):
@@ -57,6 +58,7 @@ func set_turn(turn_index):
 	$TileMap.update_aliens(_turn)
 	$Info.set_turn(_turn, type)
 	_update_tile_info()
+	_update_agent_info()
 
 func _update_tile_info():
 	if selected_tile == null:
@@ -75,15 +77,32 @@ func _update_tile_info():
 					break
 	$Info.set_tile(selected_tile, $TileMap.walls[selected_tile.x][selected_tile.y], alien)
 
+func _update_agent_info():
+	$Info.set_agent(selected_agent)
+
+func select_agent(agent):
+	if agent == selected_agent:
+		agent = -1
+	if selected_agent != -1:
+		$TileMap.agents[selected_agent].unfocus()
+	if agent != -1:
+		$TileMap.agents[agent].focus()
+	selected_agent = agent
+
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
 		var pos = $TileMap.world_to_map(event.position)
 		if pos.x >= 0 and pos.y >= 0 and pos.x < $TileMap.walls.size() and pos.y < $TileMap.walls.size():
-			if selected_tile == pos:
-				selected_tile = null
+			var agent = $TileMap.agents_pos.find(pos)
+			if agent != -1 and not Input.is_action_pressed("ui_shift"):
+				select_agent(agent)
+				_update_agent_info()
 			else:
-				selected_tile = pos
-			_update_tile_info()
+				if selected_tile == pos:
+					selected_tile = null
+				else:
+					selected_tile = pos
+				_update_tile_info()
 
 func replay_action(action, player_id):
 	if action['type'] == 'ID_ACTION_DEPLACER':
