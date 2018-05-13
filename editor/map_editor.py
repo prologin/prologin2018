@@ -1,17 +1,37 @@
+#!/usr/bin/env python3
+
 # Based on https://stackoverflow.com/a/30045893
-from tkinter import Tk, Canvas, Frame, Button
+from tkinter import Tk, Canvas, Frame, Button, StringVar, OptionMenu
 from tkinter.filedialog import asksaveasfilename, askopenfilename
 
+import sys
 
-MAP_NB_ROW = 25
-MAP_NB_COL = 25
-MAP_CELL_SIZE = 30
+
+TAILLE_ICEBERG = 25
+
+MAP_CELL_SIZE = 20
 
 BORDER_COLOR = "black"
 EMPTY_COLOR = "white"
 FILLED_COLOR = "black"
 GRID_OFFSET = 50
 TEXT_OFFSET = 30
+
+SYMETRY = ["NONE", "CENT", "HORI", "VERT", "DIAG1", "DIAG2"]
+
+
+def get_opp(pos, sym):
+    if (sym == "CENT"):
+        return (TAILLE_ICEBERG - 1 - pos[0], TAILLE_ICEBERG - 1 - pos[1])
+    if (sym == "HORI"):
+      return (TAILLE_ICEBERG - 1 - pos[0], pos[1])
+    if (sym == "VERT"):
+      return (pos[0], TAILLE_ICEBERG - 1 - pos[1])
+    if (sym == "DIAG1"):
+      return (TAILLE_ICEBERG - 1 - pos[1], TAILLE_ICEBERG - 1 - pos[0])
+    if (sym == "DIAG2"):
+        return (pos[1], pos[0])
+    return (-1, -1)
 
 
 class Cell():
@@ -45,8 +65,8 @@ class Cell():
 class Grid(Canvas):
     def __init__(self, master):
         Canvas.__init__(self, master,
-                        width=MAP_CELL_SIZE * MAP_NB_COL + 2 * GRID_OFFSET,
-                        height=MAP_CELL_SIZE * MAP_NB_ROW + 2 * GRID_OFFSET)
+                        width=MAP_CELL_SIZE * TAILLE_ICEBERG+ 2 * GRID_OFFSET,
+                        height=MAP_CELL_SIZE * TAILLE_ICEBERG + 2 * GRID_OFFSET)
 
         self.menu = Frame(master)
         self.menu.pack(side="top")
@@ -63,6 +83,11 @@ class Grid(Canvas):
         self.clean_grid()
         self.switched = []
 
+        self.symetry = StringVar(master)
+        self.symetry.set(SYMETRY[0])
+        self.dd_symetry = OptionMenu(master, self.symetry, *SYMETRY)
+        self.dd_symetry.pack(side="bottom")
+
         self.bind("<Button-1>", self.handle_mouse_click)
         self.bind("<B1-Motion>", self.handle_mouse_motion)
         self.bind("<ButtonRelease-1>", lambda event: self.switched.clear())
@@ -76,10 +101,10 @@ class Grid(Canvas):
                 cell.draw()
 
     def draw_coords(self):
-        for row in range(1, MAP_NB_ROW + 1):
+        for row in range(1, TAILLE_ICEBERG + 1):
             y_pos = MAP_CELL_SIZE * row - (MAP_CELL_SIZE // 2)
             self.create_text(TEXT_OFFSET, y_pos + GRID_OFFSET, text=str(row))
-        for col in range(1, MAP_NB_COL + 1):
+        for col in range(1, TAILLE_ICEBERG + 1):
             x_pos = MAP_CELL_SIZE * col - (MAP_CELL_SIZE // 2)
             self.create_text(x_pos + GRID_OFFSET, TEXT_OFFSET, text=str(col))
 
@@ -90,8 +115,8 @@ class Grid(Canvas):
 
     @staticmethod
     def inside_grid(event):
-        return GRID_OFFSET <= event.x < GRID_OFFSET + MAP_NB_ROW * MAP_CELL_SIZE and \
-               GRID_OFFSET <= event.y < GRID_OFFSET + MAP_NB_COL * MAP_CELL_SIZE
+        return GRID_OFFSET <= event.x < GRID_OFFSET + TAILLE_ICEBERG * MAP_CELL_SIZE and \
+               GRID_OFFSET <= event.y < GRID_OFFSET + TAILLE_ICEBERG * MAP_CELL_SIZE
 
     def handle_mouse_click(self, event):
         if not self.inside_grid(event):
@@ -101,6 +126,12 @@ class Grid(Canvas):
         cell.switch()
         cell.draw()
         self.switched.append(cell)
+        opp = get_opp((row, col), self.symetry.get())
+        if opp != (-1, -1):
+            cell = self.grid[opp[0]][opp[1]]
+            cell.switch()
+            cell.draw()
+            self.switched.append(cell)
 
     def handle_mouse_motion(self, event):
         if not self.inside_grid(event):
@@ -112,12 +143,18 @@ class Grid(Canvas):
             cell.switch()
             cell.draw()
             self.switched.append(cell)
+            opp = get_opp((row, col), self.symetry.get())
+            if opp != (-1, -1):
+                cell = self.grid[opp[0]][opp[1]]
+                cell.switch()
+                cell.draw()
+                self.switched.append(cell)
 
     def clean_grid(self):
         self.grid = []
-        for row in range(MAP_NB_ROW):
+        for row in range(TAILLE_ICEBERG):
             line = []
-            for col in range(MAP_NB_COL):
+            for col in range(TAILLE_ICEBERG):
                 line.append(Cell(self, col, row))
             self.grid.append(line)
         self.draw_cells()
@@ -139,9 +176,12 @@ class Grid(Canvas):
         filename = askopenfilename()
         if not filename:
             return
+        self.load_grid(filename)
+
+    def load_grid(self, filename):
         with open(filename, 'r') as f:
-            for row in range(MAP_NB_ROW):
-                for col in range(MAP_NB_COL):
+            for row in range(TAILLE_ICEBERG):
+                for col in range(TAILLE_ICEBERG):
                     c = f.read(1)
                     self.grid[row][col].fill = (c == 'X')
                 f.read(1)
@@ -152,6 +192,8 @@ if __name__ == "__main__":
     app = Tk()
 
     grid = Grid(app)
+    if len(sys.argv) == 2:
+        grid.load_grid(sys.argv[1])
     grid.pack()
 
     app.mainloop()
