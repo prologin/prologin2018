@@ -2,9 +2,6 @@
 Instructions de mission
 =======================
 
-FIXME: ajouter des images de l'interface de jeu (case libre, mur, agents,
-aliens, actions, drapeau débug, etc.)
-
 -------
 Iceberg
 -------
@@ -13,8 +10,6 @@ Dans le cadre de votre mission, vous serez envoyé au Pôle Sud, plus exactement
 sur cet iceberg, où nos services de renseignements ont indiqué que les premiers
 repérages aliens auront lieu. L'iceberg est représenté par une grille carrée de
 25 cases de côté.
-
-.. image:: ../subject/img/map.png
 
 Cases
 =====
