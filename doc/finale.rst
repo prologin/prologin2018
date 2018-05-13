@@ -44,7 +44,7 @@ en étant poussé par un agent), la capture devra reprendre de **zéro**.
 Les aliens ne sont pas assez habitués à la glace pour se déplacer sur l'iceberg.
 Ils se contenteront donc pour leur mission de repérage de rester fixes par
 rapport à leurs lieux d'invasion. En revanche, les aliens ne sont pas des
-obstacles : faisant des efforts admirables pour éviter les agents -
+obstacles : faisant des efforts admirables pour éviter les agents - 
 contrairement aux murs, qui sont davantage récalcitrants - ils se
 contorsionneront et esquiveront de leur mieux : ils ne bloquent donc pas le
 déplacement des agents.
@@ -98,8 +98,9 @@ Débug
 -----
 
 Pour vous permettre de débugger votre intelligence artificielle, il est possible
-de placer des drapeaux de débug sur la carte que vous pourrez ainsi voir dans
-l'interface de jeu. Cette action ne coûte aucun point d'action.
+de placer des drapeaux de débug de trois couleurs différentes sur la carte que
+vous pourrez ainsi voir dans l'interface de jeu. Cette action ne coûte aucun
+point d'action.
 
 Score
 =====
