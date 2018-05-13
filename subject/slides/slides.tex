@@ -70,17 +70,15 @@
 
 \begin{frame}
     \frametitle{Contexte intergalactique}
-    FIXME
     \begin{itemize}
-        \item Détection d'un groupe extra-terrestre
-        \item Justification invasion
-        \item Phase de repérage
+        \item Détection d'un groupe extra-terrestre, et premier contact
+        \item Intention d'invasion encore inconnue
+        \item Actuellement en phase de reconnaissance
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Déroulement de la mission}
-    \pause
     \begin{center}
         \includegraphics[width=0.65\textwidth]{../img/map}
     \end{center}
@@ -89,7 +87,7 @@
 \begin{frame}
     \frametitle{Nos agents de terrain}
     \begin{center}
-        \includegraphics[width=0.7\textwidth]{../logofinale}
+        \includegraphics[width=0.7\textwidth]{../logofinale_inv}
     \end{center}
 \end{frame}
 
@@ -99,6 +97,23 @@
         \item Redoutables, parfaitement à l'aise sur la glace, mais...
         \item Totalement stupides
         \item Chaque recrue contrôle 4 agents
+    \end{itemize}
+\end{frame}
+
+% FIXME: we do not see the differences enough
+%\begin{frame}
+%    \frametitle{"All your base are belong to us"}
+%    \centering
+%    \only<1>{\includegraphics[width=7cm]{../img/poster_prologin2018}}
+%    \only<2>{\includegraphics[width=7cm]{../img/poster_prologin2018_pib}}
+%\end{frame}
+
+\begin{frame}
+    \frametitle{Aspects techniques}
+    \begin{itemize}
+        \item Simulation en tour par tour
+        \item Objectif : capturer des aliens
+        \item La mission dure 100 tours
     \end{itemize}
 \end{frame}
 
@@ -135,6 +150,24 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Aspects techniques}
+    \begin{block}{Points d'action}
+        \begin{itemize}
+            \item À chaque tour, tous les agents ont 8 points d'action
+            \item Les points ne sont utilisables que pour le tour actuel
+            \item Pas de transfert de points entre agents
+        \end{itemize}
+    \end{block}
+    \begin{block}{Coût}
+        \begin{itemize}
+            \item Déplacer : 1 point
+            \item Glisser : 3 points
+            \item Pousser : 5 points
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
     \frametitle{Les aliens}
     \begin{columns}[T]
         \begin{column}{.2\textwidth}
@@ -146,39 +179,58 @@
                 \item Fixes par rapport à leur lieux d'invasion
                 \item Ne sont \textbf{pas} des obstacles !
             \end{itemize}
+            \only<2>{
+                \vspace{1cm}
+                \hspace{-2.5cm}
+                \includegraphics[width=5cm]{../img/alien_not_obstacle1}
+                \hspace{0.5cm}
+                \includegraphics[width=5cm]{../img/alien_not_obstacle2}
+            }
         \end{column}
     \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{Capture d'aliens}
+    \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item L'agent doit rester 3 tours sur la case de l'alien
+            \item Si l'agent bouge de la case, la capture reprend \textbf{depuis 0}
+            \item Une fois capturé, l'agent peut continuer sa mission tout de suite
+            \item Chaque alien a un score attribué
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \centering
+        \includegraphics[width=4.5cm]{../img/alien_capture1}
+        \vspace{0.5cm}
+        \includegraphics[width=4.5cm]{../img/alien_capture2}
+        \vspace{0.5cm}
+        \includegraphics[width=4.5cm]{../img/alien_capture3}
+    \end{column}
+    \end{columns}    
 \end{frame}
 
 \begin{frame}
-    \frametitle{Aspects techniques}
-    \begin{itemize}
-        \item Tour par tour
-        \item Maximiser votre score d'alien (<= FIXME)
-        \item La mission dure 100 tours
-    \end{itemize}
+    \frametitle{Drapeaux de débug}
+    \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item Possibilité de placer des drapeaux sur n'importe quelles cases
+            \item Trois types : rouge, vert, bleu
+            \item Ne coûte pas de points d'action
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \centering
+        \includegraphics[width=5cm]{../img/debug_flags}
+    \end{column}
+    \end{columns}    
 \end{frame}
 
 \begin{frame}
-    \frametitle{Aspects techniques}
-    \begin{block}{Points d'action}
-        \begin{itemize}
-            \item À chaque tour, tous les agents ont 8 points d'action
-            \item Pas de transfert de points entre agents
-            \item Les points ne sont utilisables que pour le tour actuel
-        \end{itemize}
-    \end{block}
-    \begin{block}{Coût}
-        \begin{itemize}
-            \item Déplacer : 1 point
-            \item Glisser : 3 points
-            \item Pousser : 5 points
-        \end{itemize}
-    \end{block}
+    \frametitle{Exemple de simulation}
 \end{frame}
 
 \begin{frame}
@@ -201,7 +253,10 @@
 
 \begin{frame}
     \frametitle{Fin}
-    Importance vestimentaire...
+    Bonne chance pour votre mission...
+    \pause
+
+    ... mais d'abord, place à \textbf{l'importance vestimentaire}
 \end{frame}
 
 \end{document}
