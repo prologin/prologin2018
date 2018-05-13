@@ -95,6 +95,10 @@ adjacente à l'un de vos propres agents. Le pousser dans une direction le fait
 glisser jusqu'à ce qu'il rencontre un obstacle. Pousser un agent coûte 5 points
 d'action.
 
+À nouveau, les aliens font tout leur possible pour esquiver les agents, vous ne
+pouvez donc pas les pousser (ce n'est pas pour rien qu'il faut 3 tours pour les
+capturer !).
+
 Débug
 -----
 
