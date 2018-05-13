@@ -59,6 +59,14 @@
     \footnotesize{\color{red}TOP SECRET//SI//ORCON//NOFORN}
 \end{frame}
 
+% Add top secret info on each slide
+\addtobeamertemplate{footline}{%
+    \setlength\unitlength{1ex}%
+    \begin{picture}(0,0) 
+        \put(1,4.5){\makebox(0,0)[bl]{\tiny \color{red}TOP SECRET//SI//ORCON//NOFORN}}%
+    \end{picture}%
+}{}
+
 \begin{frame}
     \frametitle{L'organisation PiB}
     \begin{itemize}
