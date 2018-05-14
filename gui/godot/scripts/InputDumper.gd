@@ -123,11 +123,10 @@ func _process(delta):
 		playing = !playing
 		get_tree().paused = not playing
 	if not animating:
-		if actions_playing:
-			animating = $GameState.replay_action(actions_playing.pop_front(), turn_index % 3 - 1)
-		else:
-			if playing:
-				_continue()
+		while actions_playing and not animating:
+			$GameState.replay_action(actions_playing.pop_front(), turn_index % 3 - 1)
+	if not actions_playing and not animating and playing:
+		_continue()
 	if Input.is_action_just_pressed("ui_right") and turn_index < constants.NB_TOURS * 3:
 		_jump(turn_index + 1)
 	elif Input.is_action_just_pressed("ui_left") and turn_index > 0:
