@@ -89,7 +89,7 @@ func _process(delta):
 			for player_id in range(2):
 				$GameState/Info.players[player_id].score = state.players[player_id].score
 			waiting = false
-	if not animating and actions_playing:
+	while not animating and actions_playing:
 		animating = $GameState.replay_action(actions_playing.pop_front(), turn_index % 3 - 1)
 	if playing and not actions_playing and not waiting and not my_turn:
 		_next_turn()
