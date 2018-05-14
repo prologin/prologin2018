@@ -18,7 +18,7 @@ Chaque case de l'iceberg est soit libre, soit un mur de glace. Les murs sont des
 obstacles et bloquent tout déplacement sur la case.
 
 Une case libre peut contenir un alien ainsi qu'un agent. À noter qu'il est
-impossible d'avoir plusieurs agents ou aliens sur une même case.
+impossible d'avoir plusieurs agents ou plusieurs aliens sur une même case.
 
 Agents
 ======
