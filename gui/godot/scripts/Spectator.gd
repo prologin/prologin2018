@@ -57,7 +57,7 @@ func _ready():
 		$GameState/TileMap.aliens.append(alien)
 	$GameState.set_turn(0)
 	if interactive:
-		$GameState.select_agent(constants.NB_AGENTS)
+		$GameState.select_agent(my_internal_id * constants.NB_AGENTS)
 		playing = true
 
 func _finish_animating():
