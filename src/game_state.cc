@@ -287,7 +287,7 @@ const std::vector<action_hist> GameState::get_history(int player_id) const
         get_internal_history(player_id);
     std::vector<action_hist> hist;
     for (auto action : internal_hist)
-        if (action.type != ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
+        if (action.atype != ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
             hist.push_back(action.move_action);
     return hist;
 }

@@ -36,7 +36,7 @@ void ActionGlisser::apply_on(GameState* st) const
     st->set_agent_position(player_id_, agent_id_, end);
 
     internal_action action;
-    action.type = ID_ACTION_GLISSER;
+    action.atype = ID_ACTION_GLISSER;
     action.move_action = (action_hist){ACTION_GLISSER, agent_id_, dir_};
     st->add_to_internal_history(player_id_, action);
 }

@@ -110,7 +110,7 @@ struct:
     str_summary: Action de déplacement représentée dans l'historique.
     str_tuple: no
     str_field:
-      - [type, action_type, "Type de l'action"]
+      - [atype, action_type, "Type de l'action"]
       - [id_agent, int, "Numéro de l'agent concerné par l'action"]
       - [dir, direction, "Direction visée par l'agent durant le déplacement"]
 

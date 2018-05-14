@@ -168,8 +168,8 @@ typedef struct alien_info
 /// Action de déplacement représentée dans l'historique.
 typedef struct action_hist
 {
-    action_type type; /* <- Type de l'action */
-    int id_agent;     /* <- Numéro de l'agent concerné par l'action */
+    action_type atype; /* <- Type de l'action */
+    int id_agent;      /* <- Numéro de l'agent concerné par l'action */
     direction dir; /* <- Direction visée par l'agent durant le déplacement */
 } action_hist;
 

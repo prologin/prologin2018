@@ -30,20 +30,20 @@ inline bool operator==(const alien_info& a, const alien_info& b)
 
 inline bool operator==(const action_hist& a, const action_hist& b)
 {
-    return a.type == b.type && a.id_agent == b.id_agent && a.dir == b.dir;
+    return a.atype == b.atype && a.id_agent == b.id_agent && a.dir == b.dir;
 }
 
 inline bool operator==(const debug_flag_info& a, const debug_flag_info& b)
 {
-    return a.type == b.type && a.pos == b.pos;
+    return a.ftype == b.ftype && a.pos == b.pos;
 }
 
 inline bool operator==(const internal_action& a, const internal_action& b)
 {
-    if (a.type != b.type)
+    if (a.atype != b.atype)
         return false;
 
-    if (a.type == ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
+    if (a.atype == ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
         return a.debug_flag == b.debug_flag;
     else
         return a.move_action == b.move_action;

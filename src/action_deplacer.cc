@@ -46,7 +46,7 @@ void ActionDeplacer::apply_on(GameState* st) const
     st->set_agent_position(player_id_, agent_id_, dest);
 
     internal_action action;
-    action.type = ID_ACTION_DEPLACER;
+    action.atype = ID_ACTION_DEPLACER;
     action.move_action = (action_hist){ACTION_DEPLACER, agent_id_, dir_};
     st->add_to_internal_history(player_id_, action);
 }

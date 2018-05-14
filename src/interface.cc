@@ -305,11 +305,11 @@ std::string convert_to_string(std::vector<alien_info> in)
 }
 std::string convert_to_string(action_hist in)
 {
-    std::string type = convert_to_string(in.type);
+    std::string atype = convert_to_string(in.atype);
     std::string id_agent = convert_to_string(in.id_agent);
     std::string dir = convert_to_string(in.dir);
     std::string out = "{";
-    out += "type:" + type;
+    out += "atype:" + atype;
     out += ", ";
     out += "id_agent:" + id_agent;
     out += ", ";
@@ -644,8 +644,8 @@ extern "C" void api_afficher_alien_info(alien_info v)
 std::ostream& operator<<(std::ostream& os, action_hist v)
 {
     os << "{ ";
-    os << "type"
-       << "=" << v.type;
+    os << "atype"
+       << "=" << v.atype;
     os << ", ";
     os << "id_agent"
        << "=" << v.id_agent;

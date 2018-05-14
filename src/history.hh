@@ -20,7 +20,7 @@
 
 typedef struct debug_flag_info
 {
-    debug_drapeau type;
+    debug_drapeau ftype;
     position pos;
 } debug_flag_info;
 
@@ -28,7 +28,7 @@ typedef struct debug_flag_info
 // only action_hist is not enough to store the complete internal history.
 typedef struct internal_action
 {
-    int type;
+    int atype;
     union {
         debug_flag_info debug_flag;
         action_hist move_action;

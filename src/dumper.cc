@@ -226,9 +226,9 @@ static void dump_history(std::ostream& ss, const GameState& st, int player_id)
         ss << sep;
         sep = COMMA;
 
-        ss << "{\"type\": " << (action_id)action.type << ", ";
-        if (action.type == ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
-            ss << "\"drapeau\": " << action.debug_flag.type << ", "
+        ss << "{\"atype\": " << (action_id)action.atype << ", ";
+        if (action.atype == ID_ACTION_DEBUG_AFFICHER_DRAPEAU)
+            ss << "\"drapeau\": " << action.debug_flag.ftype << ", "
                << "\"pos\": " << action.debug_flag.pos;
         else
             ss << "\"id_agent\": " << action.move_action.id_agent << ", "

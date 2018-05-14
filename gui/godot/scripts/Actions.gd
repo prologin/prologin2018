@@ -105,16 +105,16 @@ func _input(event):
 				_update_tile_info()
 
 func replay_action(action, player_id):
-	if action['type'] == 'ID_ACTION_DEPLACER':
+	if action['atype'] == 'ID_ACTION_DEPLACER':
 		return move(int(action['id_agent']), DIR_DIC[action['dir']], player_id)
-	elif action['type'] == 'ID_ACTION_POUSSER':
+	elif action['atype'] == 'ID_ACTION_POUSSER':
 		return push(int(action['id_agent']), DIR_DIC[action['dir']], player_id)
-	elif action['type'] == 'ID_ACTION_GLISSER':
+	elif action['atype'] == 'ID_ACTION_GLISSER':
 		return slide(int(action['id_agent']), DIR_DIC[action['dir']], player_id)
-	elif action['type'] == 'ID_ACTION_DEBUG_AFFICHER_DRAPEAU':
+	elif action['atype'] == 'ID_ACTION_DEBUG_AFFICHER_DRAPEAU':
 		$TileMap.set_flag(player_id, Vector2(action['pos']['c'], action['pos']['r']), action['drapeau'])
 	else:
-		print("Unknown action ", action['type'])
+		print("Unknown action ", action['atype'])
 	return false
 
 
