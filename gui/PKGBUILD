@@ -1,27 +1,43 @@
 # Maintainer: Sacha Delanoue <sacha.delanoue@prologin.org>
 pkgname=prologin2018-gui
-pkgver=0.1
+pkgver=1.0
 pkgrel=1
 pkgdesc="GUI for prologin 2018"
 arch=('any')
 url="https://github.com/prologin/prologin2018"
 license=('GPL')
-depends=('godot>=3')
+depends=('godot>=3', 'stechec2=r839')
+makedepends=('git' 'gcc' 'make')
+source=("git+ssh://git@github.com/prologin/prologin2018")
+sha512sums=(SKIP)
 
 build() {
-    cd ../godot
-    godot --export "pck" "$srcdir/$pkgname-$pkgver.pck"
+    cd prologin2018/gui/godot
+    godot --export "pck" "prologin2018.pck"
 
-    replay="$srcdir/prologin2018-replay"
-    echo -e "#!/usr/bin/sh\n" > $replay
+    cd ../../../
+    replay="prologin2018-replay"
+    echo -e "#!/usr/bin/env sh\n" > $replay
     echo "test \$# -eq 0 && echo "Usage: \$0 dump.json" && exit 1" >> $replay
-    echo "godot --main-pack /opt/$pkgname-$pkgver.pck -json=\$1" >> $replay
+    echo "godot --main-pack /opt/prologin2018.pck -json=\$1" >> $replay
     chmod +x $replay
+
+    gui="prologin2018-gui"
+    echo -e "#!/usr/bin/env sh\n" > $gui
+    echo "test \$# -ne 2 && echo "Usage: \$0 port player_id" && exit 1" >> $gui
+    echo "godot --main-pack /opt/prologin2018.pck -socket=\$1 -id=\$2" >> $gui
+    chmod +x $gui
+
+    stechec2-generator player prologin2018 .
+    cp "prologin2018/gui/gui-stechec.cc" "cxx/prologin.cc"
+    make -C cxx
 }
 
 package() {
     mkdir "$pkgdir/opt/"
-    cp "$srcdir/$pkgname-$pkgver.pck" "$pkgdir/opt/"
+    cp "prologin2018/gui/godot/prologin2018.pck" "$pkgdir/opt/"
+    cp "cxx/champion.so" "$pkgdir/opt/prologin2018-gui.so"
     mkdir -p "$pkgdir/usr/bin"
-    cp "$srcdir/prologin2018-replay" "$pkgdir/usr/bin/"
+    cp "prologin2018-replay" "$pkgdir/usr/bin/"
+    cp "prologin2018-gui" "$pkgdir/usr/bin/"
 }
