@@ -11,6 +11,9 @@ icebergs où nos services de renseignements ont indiqué que les premiers
 repérages aliens auront lieu. L'iceberg est représenté par une grille carrée de
 25 cases de côté.
 
+Une position sur l'iceberg est notée à l'aide d'un couple :math:`(ligne,
+colonne)`, où :math:`0 \leq ligne, colonne < 25`.
+
 Cases
 =====
 
@@ -72,8 +75,9 @@ Actions
 Déplacer
 --------
 
-Vous pouvez déplacer un agent vers une case adjacente dans la direction de votre
-choix. Cette action coûte 1 point d'action à l'agent.
+Vous pouvez déplacer un agent vers une case libre adjacente dans la direction de
+votre choix (nord, sud, est, ouest). Cette action coûte 1 point d'action à
+l'agent.
 
 Glisser
 -------
@@ -99,8 +103,8 @@ Débug
 
 Pour vous permettre de débugger votre intelligence artificielle, il est possible
 de placer des drapeaux de débug de trois couleurs différentes sur la carte que
-vous pourrez ainsi voir dans l'interface de jeu. Cette action ne coûte aucun
-point d'action.
+vous pourrez ainsi voir dans l'interface de la simulation. Cette action ne coûte
+aucun point d'action.
 
 Score
 =====

@@ -13,6 +13,9 @@ grille carrée de 25 cases de côté.
     \caption*{Un exemple d'iceberg.}
 \end{figure}
 
+Une position sur l'iceberg est notée à l'aide d'un couple $(ligne,
+colonne)$, où $0 \leq ligne, colonne < 25$.
+
 \subsubsection{Cases}\label{cases}
 
 Chaque case de l'iceberg est soit libre, soit un mur de glace. Les murs
@@ -60,6 +63,8 @@ capture devra reprendre de \textbf{zéro}.
     \includegraphics[width=4.5cm]{img/alien_capture1}
     \includegraphics[width=4.5cm]{img/alien_capture2}
     \includegraphics[width=4.5cm]{img/alien_capture3}
+    \vspace{-0.3cm}
+    \caption*{(3 tours)}
     \caption*{Un agent qui capture un alien, puis continue sa mission.}
 \end{figure}
 
@@ -99,8 +104,9 @@ actions ci-dessous.
 
 \paragraph{Déplacer}\label{duxe9placer}
 
-Vous pouvez déplacer un agent vers une case adjacente dans la direction
-de votre choix. Cette action coûte 1 point d'action à l'agent.
+Vous pouvez déplacer un agent vers une case libre adjacente dans la
+direction de votre choix (nord, sud, est, ouest). Cette action coûte 1
+point d'action à l'agent.
 
 \paragraph{Glisser}\label{glisser}
 
@@ -118,6 +124,8 @@ d'action.
 
     \vspace{0.5cm}
     \includegraphics[width=7cm]{img/slide3}
+
+    \caption*{Un agent qui glisse vers l'ouest.}
 \end{figure}
 
 \newpage
@@ -137,6 +145,8 @@ coûte 5 points d'action.
 
     \vspace{0.5cm}
     \includegraphics[width=7cm]{img/push3}
+
+    \caption*{L'agent bleu pousse l'agent rouge.}
 \end{figure}
 
 À nouveau, les aliens font tout leur possible pour esquiver les agents,
@@ -147,8 +157,8 @@ tours pour les capturer !).
 
 Pour vous permettre de débugger votre intelligence artificielle, il est
 possible de placer des drapeaux de débug de trois couleurs différentes
-sur la carte que vous pourrez ainsi voir dans l'interface de jeu. Cette
-action ne coûte aucun point d'action.
+sur la carte que vous pourrez ainsi voir dans l'interface de la
+simulation. Cette action ne coûte aucun point d'action.
 
 \begin{figure}[!h]
     \centering
