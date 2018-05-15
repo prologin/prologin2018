@@ -36,7 +36,7 @@ func _create_flags_maps():
 			var i = (index - index % 3) / 3 * 2 + index % 3
 			var state = DumpReader.parse_turn(dump[i])
 			for player_id in range(2):
-				for action in state.players[0].history:
+				for action in state.players[player_id].history:
 					if action['atype'] == 'ID_ACTION_DEBUG_AFFICHER_DRAPEAU':
 						var byte = {'AUCUN_DRAPEAU': 0, 'DRAPEAU_ROUGE': 1, 'DRAPEAU_VERT': 2, 'DRAPEAU_BLEU': 3}[action['drapeau']]
 						flags[index][(action['pos']['c'] * constants.TAILLE_ICEBERG + action['pos']['r']) * 2 + player_id] = byte
