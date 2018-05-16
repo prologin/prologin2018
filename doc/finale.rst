@@ -37,7 +37,7 @@ Aliens
 Des aliens débarqueront sur la banquise à des positions précises de la carte,
 pendant un certain nombre de tours afin d'accomplir leur mission de
 reconnaissance, avant de repartir sur leur planète d'origine. De plus, les
-aliens n'envahissent jamais plusieurs fois au même endroit sur la banquise.
+aliens n'envahissent jamais plusieurs fois le même endroit sur la banquise.
 
 Pour capturer un alien, un agent doit être sur la case pendant au moins 3 tours.
 L'alien capturé disparaît de la banquise, et des échantillons d'analyse sont
