@@ -6,9 +6,9 @@ using min_queue = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 std::vector<action_hist> get_shortest_path(position start, position dest)
 {
     min_queue<std::pair<int, position>> q;
-    std::array<std::array<bool, TAILLE_ICEBERG>, TAILLE_ICEBERG> seen{};
-    std::array<std::array<std::pair<action_hist, position>, TAILLE_ICEBERG>,
-               TAILLE_ICEBERG>
+    std::array<std::array<bool, TAILLE_BANQUISE>, TAILLE_BANQUISE> seen{};
+    std::array<std::array<std::pair<action_hist, position>, TAILLE_BANQUISE>,
+               TAILLE_BANQUISE>
         backtrace{};
 
     q.push({0, start});

@@ -3,9 +3,9 @@ rules_type: turnbased
 
 constant:
   -
-    cst_name: TAILLE_ICEBERG
+    cst_name: TAILLE_BANQUISE
     cst_val: 25
-    cst_comment: Taille de l'iceberg (longueur et largeur).
+    cst_comment: Taille de la banquise (longueur et largeur).
   -
     cst_name: NB_TOURS
     cst_val: 100
@@ -58,11 +58,11 @@ enum:
       - [ok, "L'action s'est effectuée avec succès."]
       - [pa_insuffisants, "Votre agent ne possède pas assez de points d'action
                            pour réaliser cette action."]
-      - [position_invalide, "La position spécifiée n'est pas sur l'iceberg."]
+      - [position_invalide, "La position spécifiée n'est pas sur la banquise."]
       - [obstacle_mur, "La position spécifiée est un mur."]
       - [obstacle_agent, "La position spécifiée est un agent."]
       - [deplacement_hors_limites, "Ce déplacement fait sortir un agent des
-                                    limites de l'iceberg."]
+                                    limites de la banquise."]
       - [direction_invalide, "La direction spécifiée n'existe pas."]
       - [id_agent_invalide, "L'agent spécifié n'existe pas."]
       - [rien_a_pousser, "Aucun agent à pousser dans la direction indiquée."]
@@ -86,7 +86,7 @@ enum:
 struct:
   -
     str_name: position
-    str_summary: Position sur l'iceberg, donnée par deux coordonnées.
+    str_summary: Position sur la banquise, donnée par deux coordonnées.
     str_tuple: yes
     str_field:
       - [ligne, int, "Coordonnée : ligne"]
@@ -172,9 +172,9 @@ function:
       - [id_agent, int, "Numéro de l'agent"]
   -
     fct_name: chemin
-    fct_summary: Renvoie le plus court chemin entre deux positions de l'iceberg
-                 sous la forme d'une suite de direction à emprunter. Ce chemin
-                 ne contient pas de glissade, uniquement des déplacements
+    fct_summary: Renvoie le plus court chemin entre deux positions de la
+                 banquise sous la forme d'une suite de direction à emprunter. Ce
+                 chemin ne contient pas de glissade, uniquement des déplacements
                  simples.
                  Si la position est invalide ou que le chemin n'existe pas, le
                  chemin renvoyé est vide.
@@ -200,7 +200,7 @@ function:
   -
     fct_name: alien_sur_case 
     fct_summary: Indique si un alien se trouve sur une case donnée.
-                 Renvoie vrai si l'alien est en train d'envahir l'iceberg et
+                 Renvoie vrai si l'alien est en train d'envahir la banquise et
                  qu'il n'a pas encore été capturé.
                  Renvoie faux autremement, ou si la position est invalide.
     fct_ret_type: bool
@@ -208,7 +208,7 @@ function:
       - [pos, position, "Case choisie"]
   -
     fct_name: position_agent
-    fct_summary: Indique la position de l'agent sur l'iceberg désigné par le
+    fct_summary: Indique la position de l'agent sur la banquise désigné par le
                  numéro ``id_agent`` appartenant au joueur ``id_joueur``.
                  Si la description de l'agent est incorrecte, la position (-1,
                  -1) est renvoyée.

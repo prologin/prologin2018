@@ -7,7 +7,7 @@ from tkinter.filedialog import asksaveasfilename, askopenfilename
 import sys
 
 
-TAILLE_ICEBERG = 25
+TAILLE_BANQUISE = 25
 
 MAP_CELL_SIZE = 20
 
@@ -22,13 +22,13 @@ SYMETRY = ["NONE", "CENT", "HORI", "VERT", "DIAG1", "DIAG2"]
 
 def get_opp(pos, sym):
     if (sym == "CENT"):
-        return (TAILLE_ICEBERG - 1 - pos[0], TAILLE_ICEBERG - 1 - pos[1])
+        return (TAILLE_BANQUISE - 1 - pos[0], TAILLE_BANQUISE - 1 - pos[1])
     if (sym == "HORI"):
-      return (TAILLE_ICEBERG - 1 - pos[0], pos[1])
+      return (TAILLE_BANQUISE - 1 - pos[0], pos[1])
     if (sym == "VERT"):
-      return (pos[0], TAILLE_ICEBERG - 1 - pos[1])
+      return (pos[0], TAILLE_BANQUISE - 1 - pos[1])
     if (sym == "DIAG1"):
-      return (TAILLE_ICEBERG - 1 - pos[1], TAILLE_ICEBERG - 1 - pos[0])
+      return (TAILLE_BANQUISE - 1 - pos[1], TAILLE_BANQUISE - 1 - pos[0])
     if (sym == "DIAG2"):
         return (pos[1], pos[0])
     return (-1, -1)
@@ -65,8 +65,8 @@ class Cell():
 class Grid(Canvas):
     def __init__(self, master):
         Canvas.__init__(self, master,
-                        width=MAP_CELL_SIZE * TAILLE_ICEBERG+ 2 * GRID_OFFSET,
-                        height=MAP_CELL_SIZE * TAILLE_ICEBERG + 2 * GRID_OFFSET)
+                        width=MAP_CELL_SIZE * TAILLE_BANQUISE+ 2 * GRID_OFFSET,
+                        height=MAP_CELL_SIZE * TAILLE_BANQUISE + 2 * GRID_OFFSET)
 
         self.menu = Frame(master)
         self.menu.pack(side="top")
@@ -101,10 +101,10 @@ class Grid(Canvas):
                 cell.draw()
 
     def draw_coords(self):
-        for row in range(1, TAILLE_ICEBERG + 1):
+        for row in range(1, TAILLE_BANQUISE + 1):
             y_pos = MAP_CELL_SIZE * row - (MAP_CELL_SIZE // 2)
             self.create_text(TEXT_OFFSET, y_pos + GRID_OFFSET, text=str(row))
-        for col in range(1, TAILLE_ICEBERG + 1):
+        for col in range(1, TAILLE_BANQUISE + 1):
             x_pos = MAP_CELL_SIZE * col - (MAP_CELL_SIZE // 2)
             self.create_text(x_pos + GRID_OFFSET, TEXT_OFFSET, text=str(col))
 
@@ -115,8 +115,8 @@ class Grid(Canvas):
 
     @staticmethod
     def inside_grid(event):
-        return GRID_OFFSET <= event.x < GRID_OFFSET + TAILLE_ICEBERG * MAP_CELL_SIZE and \
-               GRID_OFFSET <= event.y < GRID_OFFSET + TAILLE_ICEBERG * MAP_CELL_SIZE
+        return GRID_OFFSET <= event.x < GRID_OFFSET + TAILLE_BANQUISE * MAP_CELL_SIZE and \
+               GRID_OFFSET <= event.y < GRID_OFFSET + TAILLE_BANQUISE * MAP_CELL_SIZE
 
     def handle_mouse_click(self, event):
         if not self.inside_grid(event):
@@ -152,9 +152,9 @@ class Grid(Canvas):
 
     def clean_grid(self):
         self.grid = []
-        for row in range(TAILLE_ICEBERG):
+        for row in range(TAILLE_BANQUISE):
             line = []
-            for col in range(TAILLE_ICEBERG):
+            for col in range(TAILLE_BANQUISE):
                 line.append(Cell(self, col, row))
             self.grid.append(line)
         self.draw_cells()
@@ -180,8 +180,8 @@ class Grid(Canvas):
 
     def load_grid(self, filename):
         with open(filename, 'r') as f:
-            for row in range(TAILLE_ICEBERG):
-                for col in range(TAILLE_ICEBERG):
+            for row in range(TAILLE_BANQUISE):
+                for col in range(TAILLE_BANQUISE):
                     c = f.read(1)
                     self.grid[row][col].fill = (c == 'X')
                 f.read(1)

@@ -5,7 +5,7 @@
 
 extends Node
 
-const TAILLE_ICEBERG = 25
+const TAILLE_BANQUISE = 25
 
 const NB_TOURS = 100
 

@@ -5,7 +5,7 @@ from enum import IntEnum
 from random import randint, choice
 
 
-TAILLE_ICEBERG = 25
+TAILLE_BANQUISE = 25
 NB_AGENTS = 4
 NB_TOURS_CAPTURE = 3
 NB_TOURS = 100
@@ -26,40 +26,40 @@ class symetry(IntEnum):
 
 def get_opp(pos, sym):
     if (sym == symetry.CENT):
-        return (TAILLE_ICEBERG - 1 - pos[0], TAILLE_ICEBERG - 1 - pos[1])
+        return (TAILLE_BANQUISE - 1 - pos[0], TAILLE_BANQUISE - 1 - pos[1])
     elif (sym == symetry.HORI):
-        return (TAILLE_ICEBERG - 1 - pos[0], pos[1])
+        return (TAILLE_BANQUISE - 1 - pos[0], pos[1])
     elif (sym == symetry.VERT):
-        return (pos[0], TAILLE_ICEBERG - 1 - pos[1])
+        return (pos[0], TAILLE_BANQUISE - 1 - pos[1])
     elif (sym == symetry.DIAG1):
-        return (TAILLE_ICEBERG - 1 - pos[1], TAILLE_ICEBERG - 1 - pos[0])
+        return (TAILLE_BANQUISE - 1 - pos[1], TAILLE_BANQUISE - 1 - pos[0])
     elif (sym == symetry.DIAG2):
         return (pos[1], pos[0])
 
 class Generator:
     def __init__(self, murs, aliens):
-        self.murs = min(murs, TAILLE_ICEBERG ** 2 // 2)
+        self.murs = min(murs, TAILLE_BANQUISE ** 2 // 2)
         self.nb_aliens = aliens
         self.sym = choice(list(symetry))
         print(self.sym, file=sys.stderr)
-        self.iceberg = [[case.LIBRE] * TAILLE_ICEBERG for i in range(TAILLE_ICEBERG)]
+        self.pack_ice = [[case.LIBRE] * TAILLE_BANQUISE for i in range(TAILLE_BANQUISE)]
         self.pinguins1 = []
         self.pinguins2 = []
         self.aliens = []
 
     def gen_walls(self):
         for i in range(self.murs // 2):
-            pos = (randint(0, TAILLE_ICEBERG - 1), randint(0, TAILLE_ICEBERG - 1))
-            self.iceberg[pos[0]][pos[1]] = case.MUR
+            pos = (randint(0, TAILLE_BANQUISE - 1), randint(0, TAILLE_BANQUISE - 1))
+            self.pack_ice[pos[0]][pos[1]] = case.MUR
             pos = get_opp(pos, self.sym)
-            self.iceberg[pos[0]][pos[1]] = case.MUR
+            self.pack_ice[pos[0]][pos[1]] = case.MUR
 
 
     def gen_pinguins(self):
         positions = set()
-        for i in range(TAILLE_ICEBERG):
-            for j in range(TAILLE_ICEBERG):
-                if self.iceberg[i][j] == case.LIBRE and not get_opp((i, j), self.sym) in positions:
+        for i in range(TAILLE_BANQUISE):
+            for j in range(TAILLE_BANQUISE):
+                if self.pack_ice[i][j] == case.LIBRE and not get_opp((i, j), self.sym) in positions:
                     positions.add((i, j))
         positions = list(positions)
 
@@ -75,9 +75,9 @@ class Generator:
 
     def gen_aliens(self):
         positions = set()
-        for i in range(TAILLE_ICEBERG):
-            for j in range(TAILLE_ICEBERG):
-                if self.iceberg[i][j] == case.LIBRE and not get_opp((i, j), self.sym) in positions:
+        for i in range(TAILLE_BANQUISE):
+            for j in range(TAILLE_BANQUISE):
+                if self.pack_ice[i][j] == case.LIBRE and not get_opp((i, j), self.sym) in positions:
                     positions.add((i, j))
         positions = list(positions)
 
@@ -98,7 +98,7 @@ class Generator:
 
 
     def dump(self):
-        for line in self.iceberg:
+        for line in self.pack_ice:
             for e in line:
                 print('.' if e == case.LIBRE else 'X', end='')
             print()

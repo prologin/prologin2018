@@ -18,8 +18,8 @@
 
 #include <functional> // needed for std::hash
 
-/// Taille de l'iceberg (longueur et largeur).
-#define TAILLE_ICEBERG 25
+/// Taille de la banquise (longueur et largeur).
+#define TAILLE_BANQUISE 25
 
 /// Nombre de tours à jouer avant la fin de la partie.
 #define NB_TOURS 100
@@ -84,11 +84,11 @@ typedef enum erreur {
     OK,              /* <- L'action s'est effectuée avec succès. */
     PA_INSUFFISANTS, /* <- Votre agent ne possède pas assez de points d'action
                           pour réaliser cette action.*/
-    POSITION_INVALIDE, /* <- La position spécifiée n'est pas sur l'iceberg. */
+    POSITION_INVALIDE, /* <- La position spécifiée n'est pas sur la banquise. */
     OBSTACLE_MUR,      /* <- La position spécifiée est un mur. */
     OBSTACLE_AGENT,    /* <- La position spécifiée est un agent. */
     DEPLACEMENT_HORS_LIMITES, /* <- Ce déplacement fait sortir un agent des
-                                 limites de l'iceberg. */
+                                 limites de la banquise. */
     DIRECTION_INVALIDE,       /* <- La direction spécifiée n'existe pas. */
     ID_AGENT_INVALIDE,        /* <- L'agent spécifié n'existe pas. */
     RIEN_A_POUSSER, /* <- Aucun agent à pousser dans la direction indiquée. */
@@ -143,7 +143,7 @@ template <> struct hash<debug_drapeau>
 };
 }
 
-/// Position sur l'iceberg, donnée par deux coordonnées.
+/// Position sur la banquise, donnée par deux coordonnées.
 typedef struct position
 {
     int ligne;   /* <- Coordonnée : ligne */

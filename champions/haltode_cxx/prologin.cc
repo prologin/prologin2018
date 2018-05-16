@@ -2,8 +2,8 @@
 
 void clear_debug_flags()
 {
-    for (int l = 0; l < TAILLE_ICEBERG; l++)
-        for (int c = 0; c < TAILLE_ICEBERG; c++)
+    for (int l = 0; l < TAILLE_BANQUISE; l++)
+        for (int c = 0; c < TAILLE_BANQUISE; c++)
             debug_afficher_drapeau({l, c}, AUCUN_DRAPEAU);
 }
 

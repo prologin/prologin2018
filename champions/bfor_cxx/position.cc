@@ -15,8 +15,8 @@ bool pos::is_valid(const position &position)
 {
     return position.colonne >= 0
            && position.ligne >= 0
-           && position.colonne < TAILLE_ICEBERG
-           && position.ligne < TAILLE_ICEBERG;
+           && position.colonne < TAILLE_BANQUISE
+           && position.ligne < TAILLE_BANQUISE;
 }
 
 bool pos::is_free(const position &position)
@@ -30,8 +30,8 @@ vector<action_hist> pos::shortest_path(position a, position b, int id_agent)
 {
     min_queue<pair<int, position>> queue;
     queue.push({ 0, a });
-    array<array<pair<action_hist, position>, TAILLE_ICEBERG>, TAILLE_ICEBERG> trace {};
-    array<array<bool, TAILLE_ICEBERG>, TAILLE_ICEBERG> seen {};
+    array<array<pair<action_hist, position>, TAILLE_BANQUISE>, TAILLE_BANQUISE> trace {};
+    array<array<bool, TAILLE_BANQUISE>, TAILLE_BANQUISE> seen {};
     while(!queue.empty())
     {
         pair<int, position> current = queue.top();

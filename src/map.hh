@@ -48,7 +48,7 @@ private:
     void load_agents_info(std::istream& stream);
     void load_aliens_info(std::istream& stream);
 
-    std::array<std::array<case_type, TAILLE_ICEBERG>, TAILLE_ICEBERG> map_;
+    std::array<std::array<case_type, TAILLE_BANQUISE>, TAILLE_BANQUISE> map_;
 
     std::array<std::array<position, NB_AGENTS>, 2> start_position_;
 

@@ -57,8 +57,8 @@ bool alien_shoud_be_on_round(alien_info alien)
 
 bool inside_map(position pos)
 {
-    return pos.ligne >= 0 && pos.ligne < TAILLE_ICEBERG && pos.colonne >= 0 &&
-           pos.colonne < TAILLE_ICEBERG;
+    return pos.ligne >= 0 && pos.ligne < TAILLE_BANQUISE && pos.colonne >= 0 &&
+           pos.colonne < TAILLE_BANQUISE;
 }
 
 bool is_obstacle(position pos)

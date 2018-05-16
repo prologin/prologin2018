@@ -70,8 +70,8 @@ inline int distance(const position& a, const position& b)
 
 inline bool inside_map(const position& pos)
 {
-    return pos.ligne >= 0 && pos.ligne < TAILLE_ICEBERG && pos.colonne >= 0 &&
-           pos.colonne < TAILLE_ICEBERG;
+    return pos.ligne >= 0 && pos.ligne < TAILLE_BANQUISE && pos.colonne >= 0 &&
+           pos.colonne < TAILLE_BANQUISE;
 }
 
 static const position offset[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};

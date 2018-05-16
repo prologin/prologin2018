@@ -89,7 +89,7 @@ void action::capture(int id_agent)
             vector<action_hist> actions = pos::shortest_path(my_pos, alien.pos, id_agent);
             if(actions.size() == 0)
                 continue;
-            int score = alien.points_capture * TAILLE_ICEBERG * TAILLE_ICEBERG;
+            int score = alien.points_capture * TAILLE_BANQUISE * TAILLE_BANQUISE;
             score -= cost(actions);
             if(score > max_score)
             {

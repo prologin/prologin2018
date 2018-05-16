@@ -368,7 +368,8 @@ extern "C" int api_points_action_agent(int id_agent)
     return api->points_action_agent(id_agent);
 }
 
-/// Renvoie le plus court chemin entre deux positions de l'iceberg sous la forme
+/// Renvoie le plus court chemin entre deux positions de la banquise sous la
+/// forme
 /// d'une suite de direction à emprunter. Ce chemin ne contient pas de glissade,
 /// uniquement des déplacements simples. Si la position est invalide ou que le
 /// chemin n'existe pas, le chemin renvoyé est vide.
@@ -391,14 +392,14 @@ extern "C" int api_agent_sur_case(position pos)
 }
 
 /// Indique si un alien se trouve sur une case donnée. Renvoie vrai si
-/// l'alien est en train d'envahir l'iceberg et qu'il n'a pas encore été
+/// l'alien est en train d'envahir la banquise et qu'il n'a pas encore été
 /// capturé. Renvoie faux autremement, ou si la position est invalide.
 extern "C" bool api_alien_sur_case(position pos)
 {
     return api->alien_sur_case(pos);
 }
 
-/// Indique la position de l'agent sur l'iceberg désigné par le numéro
+/// Indique la position de l'agent sur la banquise désigné par le numéro
 /// ``id_agent`` appartenant au joueur ``id_joueur``. Si la description de
 /// l'agent est incorrecte, la position (-1, -1) est renvoyée.
 extern "C" position api_position_agent(int id_joueur, int id_agent)

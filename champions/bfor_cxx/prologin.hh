@@ -11,8 +11,8 @@
 
 # include <vector>
 
-/// Taille de l'iceberg (longueur et largeur).
-# define TAILLE_ICEBERG            25
+/// Taille de la banquise (longueur et largeur).
+# define TAILLE_BANQUISE            25
 
 /// Nombre de tours à jouer avant la fin de la partie.
 # define NB_TOURS                  100
@@ -72,10 +72,10 @@ namespace std
 typedef enum erreur {
   OK, /* <- L'action s'est effectuée avec succès. */
   PA_INSUFFISANTS, /* <- Votre agent ne possède pas assez de points d'action pour réaliser cette action. */
-  POSITION_INVALIDE, /* <- La position spécifiée n'est pas sur l'iceberg. */
+  POSITION_INVALIDE, /* <- La position spécifiée n'est pas sur la banquise. */
   OBSTACLE_MUR, /* <- La position spécifiée est un mur. */
   OBSTACLE_AGENT, /* <- La position spécifiée est un agent. */
-  DEPLACEMENT_HORS_LIMITES, /* <- Ce déplacement fait sortir un agent des limites de l'iceberg. */
+  DEPLACEMENT_HORS_LIMITES, /* <- Ce déplacement fait sortir un agent des limites de la banquise. */
   DIRECTION_INVALIDE, /* <- La direction spécifiée n'existe pas. */
   ID_AGENT_INVALIDE, /* <- L'agent spécifié n'existe pas. */
   RIEN_A_POUSSER, /* <- Aucun agent à pousser dans la direction indiquée. */
@@ -124,7 +124,7 @@ namespace std
   };
 }
 
-/// Position sur l'iceberg, donnée par deux coordonnées.
+/// Position sur la banquise, donnée par deux coordonnées.
 typedef struct position {
   int ligne;  /* <- Coordonnée : ligne */
   int colonne;  /* <- Coordonnée : colonne */
@@ -181,7 +181,7 @@ static inline erreur debug_afficher_drapeau(position pos, debug_drapeau drapeau)
 }
 
 
-/// Renvoie le plus court chemin entre deux positions de l'iceberg sous la forme d'une suite de direction à emprunter. Si la position est invalide ou que le chemin n'existe pas, le chemin renvoyé est vide.
+/// Renvoie le plus court chemin entre deux positions de la banquise sous la forme d'une suite de direction à emprunter. Si la position est invalide ou que le chemin n'existe pas, le chemin renvoyé est vide.
 extern "C" std::vector<direction> api_chemin(position pos1, position pos2);
 static inline std::vector<direction> chemin(position pos1, position pos2)
 {
@@ -205,7 +205,7 @@ static inline int agent_sur_case(position pos)
 }
 
 
-/// Indique si un alien se trouve sur une case donnée. Renvoie vrai si l'alien est en train d'envahir l'iceberg et qu'il n'a pas encore été capturé. Renvoie faux autremement, ou si la position est invalide.
+/// Indique si un alien se trouve sur une case donnée. Renvoie vrai si l'alien est en train d'envahir la banquise et qu'il n'a pas encore été capturé. Renvoie faux autremement, ou si la position est invalide.
 extern "C" bool api_alien_sur_case(position pos);
 static inline bool alien_sur_case(position pos)
 {
@@ -213,7 +213,7 @@ static inline bool alien_sur_case(position pos)
 }
 
 
-/// Indique la position de l'agent sur l'iceberg désigné par le numéro ``id_agent`` appartenant au joueur ``id_joueur``.
+/// Indique la position de l'agent sur la banquise désigné par le numéro ``id_agent`` appartenant au joueur ``id_joueur``.
 extern "C" position api_position_agent(int id_joueur, int id_agent);
 static inline position position_agent(int id_joueur, int id_agent)
 {

@@ -21,16 +21,16 @@
 
 void Map::load_map_cells(std::istream& stream)
 {
-    for (int l = 0; l < TAILLE_ICEBERG; l++)
+    for (int l = 0; l < TAILLE_BANQUISE; l++)
     {
         std::string line;
         stream >> line;
-        if (line.length() != (size_t)TAILLE_ICEBERG)
+        if (line.length() != (size_t)TAILLE_BANQUISE)
             FATAL("map: line %d is not the right length "
                   "(is %d long, should be %d)",
-                  l, line.length(), TAILLE_ICEBERG);
+                  l, line.length(), TAILLE_BANQUISE);
 
-        for (int c = 0; c < TAILLE_ICEBERG; c++)
+        for (int c = 0; c < TAILLE_BANQUISE; c++)
         {
             switch (line[c])
             {

@@ -62,7 +62,7 @@ alien_info get_closest_alien(int player_id, alien_info last_target)
 position get_empty_cell_radius(position start, position dest, int radius)
 {
     std::queue<std::pair<position, int>> q;
-    std::array<std::array<bool, TAILLE_ICEBERG>, TAILLE_ICEBERG> seen{};
+    std::array<std::array<bool, TAILLE_BANQUISE>, TAILLE_BANQUISE> seen{};
     int min_dist = INF;
     position best_cell = {-1, -1};
     q.push({dest, 0});

@@ -287,13 +287,13 @@ static void dump_map(std::ostream& ss, const GameState& st)
 {
     ss << "{"
        << "\"cells\": [";
-    for (int l = 0; l < TAILLE_ICEBERG; l++)
+    for (int l = 0; l < TAILLE_BANQUISE; l++)
     {
-        for (int c = 0; c < TAILLE_ICEBERG; c++)
+        for (int c = 0; c < TAILLE_BANQUISE; c++)
         {
             position pos{l, c};
             ss << st.get_cell_type(pos);
-            if (!(l == TAILLE_ICEBERG - 1 && c == TAILLE_ICEBERG - 1))
+            if (!(l == TAILLE_BANQUISE - 1 && c == TAILLE_BANQUISE - 1))
                 ss << ", ";
         }
     }

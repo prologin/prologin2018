@@ -58,8 +58,8 @@ std::vector<direction> GameState::get_shortest_path(position start,
         return {};
 
     std::queue<position> q;
-    std::bitset<TAILLE_ICEBERG * TAILLE_ICEBERG> seen{};
-    std::bitset<TAILLE_ICEBERG * TAILLE_ICEBERG * 2> backtrace{};
+    std::bitset<TAILLE_BANQUISE * TAILLE_BANQUISE> seen{};
+    std::bitset<TAILLE_BANQUISE * TAILLE_BANQUISE * 2> backtrace{};
     q.push(start);
 
     position dummy = {-1, -1};
@@ -82,7 +82,7 @@ std::vector<direction> GameState::get_shortest_path(position start,
         for (int idir = 0; idir < 4; idir++)
         {
             position next_pos = get_position_offset(cur, (direction)idir);
-            int coord = next_pos.ligne * TAILLE_ICEBERG + next_pos.colonne;
+            int coord = next_pos.ligne * TAILLE_BANQUISE + next_pos.colonne;
             if (inside_map(next_pos) && !seen[coord] && !is_obstacle(next_pos))
             {
                 backtrace.set(coord * 2, idir & 1);
@@ -100,7 +100,7 @@ std::vector<direction> GameState::get_shortest_path(position start,
                 while (next_pos != start)
                 {
                     int coord =
-                        next_pos.ligne * TAILLE_ICEBERG + next_pos.colonne;
+                        next_pos.ligne * TAILLE_BANQUISE + next_pos.colonne;
                     direction dir = (direction)(backtrace[coord * 2] +
                                                 backtrace[coord * 2 + 1] * 2);
                     *it++ = dir;

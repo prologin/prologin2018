@@ -47,9 +47,9 @@ TEST_F(ActionTest, ActionGlisser_InvalidAgentID)
 TEST_F(ActionTest, ActionGlisser_Valid)
 {
     position dest1 = {9, 0};
-    position dest2 = {TAILLE_ICEBERG - 1, 0};
+    position dest2 = {TAILLE_BANQUISE - 1, 0};
     position dest3 = {1, 3};
-    position dest4 = {10, TAILLE_ICEBERG - 1};
+    position dest4 = {10, TAILLE_BANQUISE - 1};
 
     ActionGlisser* act;
     act = new ActionGlisser(0, SUD, PLAYER_1);

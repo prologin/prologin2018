@@ -28,7 +28,7 @@ func _create_flags_maps():
 	"""Go through all the rounds to create maps of debug flags"""
 	flags.resize(constants.NB_TOURS * 3)
 	flags[0] = []
-	for i in range(constants.TAILLE_ICEBERG * constants.TAILLE_ICEBERG * 2):
+	for i in range(constants.TAILLE_BANQUISE * constants.TAILLE_BANQUISE * 2):
 		flags[0].append(0)
 	for index in range(1, flags.size()):
 		flags[index] = flags[index - 1].duplicate()
@@ -39,7 +39,7 @@ func _create_flags_maps():
 				for action in state.players[player_id].history:
 					if action['atype'] == 'ID_ACTION_DEBUG_AFFICHER_DRAPEAU':
 						var byte = {'AUCUN_DRAPEAU': 0, 'DRAPEAU_ROUGE': 1, 'DRAPEAU_VERT': 2, 'DRAPEAU_BLEU': 3}[action['drapeau']]
-						flags[index][(action['pos']['c'] * constants.TAILLE_ICEBERG + action['pos']['r']) * 2 + player_id] = byte
+						flags[index][(action['pos']['c'] * constants.TAILLE_BANQUISE + action['pos']['r']) * 2 + player_id] = byte
 
 func _ready():
 	dump = _parse_json()
@@ -82,12 +82,12 @@ func _finish_last_turn(warn_teleport = true):
 			if $GameState/TileMap.teleport_agent(agent_id + player_id * size, pos):
 				if warn_teleport:
 					print("Had to fix inconsistency in dump agent position")
-	for x in range(constants.TAILLE_ICEBERG):
-		for y in range(constants.TAILLE_ICEBERG):
+	for x in range(constants.TAILLE_BANQUISE):
+		for y in range(constants.TAILLE_BANQUISE):
 			for player_id in range(2):
 				$GameState/TileMap.set_flag(player_id, Vector2(x, y), \
 						['AUCUN_DRAPEAU', 'DRAPEAU_ROUGE', 'DRAPEAU_VERT', 'DRAPEAU_BLEU'] \
-						[flags[turn_index][(x * constants.TAILLE_ICEBERG + y) * 2 + player_id]])
+						[flags[turn_index][(x * constants.TAILLE_BANQUISE + y) * 2 + player_id]])
 
 func _update_aliens():
 	var state = DumpReader.parse_turn(dump[(turn_index - turn_index % 3) / 3 * 2 + 1])

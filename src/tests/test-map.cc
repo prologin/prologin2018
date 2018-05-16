@@ -21,7 +21,7 @@ TEST_F(ActionTest, Map_ShortestPath)
 {
     // Invalid position
     std::vector<direction> path1 =
-        st->get_shortest_path({0, 0}, {-42, TAILLE_ICEBERG});
+        st->get_shortest_path({0, 0}, {-42, TAILLE_BANQUISE});
     std::vector<direction> path2 = st->get_shortest_path({0, 0}, TEST_WALL);
     std::vector<direction> path3 = st->get_shortest_path({0, 0}, TEST_AGENT);
     EXPECT_TRUE(path1.empty());
@@ -29,7 +29,8 @@ TEST_F(ActionTest, Map_ShortestPath)
     EXPECT_TRUE(path3.empty());
 
     // Start = dest
-    std::vector<direction> path4 = st->get_shortest_path(TEST_EMPTY_CELL, TEST_EMPTY_CELL);
+    std::vector<direction> path4 =
+        st->get_shortest_path(TEST_EMPTY_CELL, TEST_EMPTY_CELL);
     EXPECT_TRUE(path4.empty());
 
     // Simple pathfinding

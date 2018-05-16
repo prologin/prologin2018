@@ -57,9 +57,9 @@ TEST_F(ActionTest, ActionPousser_NothingToPush)
 TEST_F(ActionTest, ActionPousser_Valid)
 {
     position dest1 = {9, 0};
-    position dest2 = {TAILLE_ICEBERG - 1, 0};
+    position dest2 = {TAILLE_BANQUISE - 1, 0};
     position dest3 = get_position_offset(dest1, EST);
-    position dest4 = {9, TAILLE_ICEBERG - 1};
+    position dest4 = {9, TAILLE_BANQUISE - 1};
 
     st->set_agent_position(PLAYER_1, 0, dest1);
 
