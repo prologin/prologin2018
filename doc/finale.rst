@@ -89,10 +89,10 @@ obstacle (un autre agent ou un mur). L'action coûte 3 points d'action.
 Pousser
 -------
 
-Il est possible de pousser un autre agent si ce dernier est sur une case
-adjacente à l'un de vos propres agents. Le pousser dans une direction le fait
-glisser jusqu'à ce qu'il rencontre un obstacle. Pousser un agent coûte 5 points
-d'action.
+Il est possible de pousser un autre agent (allié ou ennemi) si ce dernier est
+sur une case adjacente à l'un de vos propres agents. Le pousser dans une
+direction le fait glisser jusqu'à ce qu'il rencontre un obstacle. Pousser un
+agent coûte 5 points d'action.
 
 À nouveau, les aliens font tout leur possible pour esquiver les agents, vous ne
 pouvez donc pas les pousser (ce n'est pas pour rien qu'il faut 3 tours pour les
