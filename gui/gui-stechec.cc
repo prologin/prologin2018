@@ -25,6 +25,8 @@ static std::string receive()
         int offset = 0;
         while (int(buffer[offset]) < 33 and offset < 1024)
             ++offset;
+        if (offset == 1024)
+            continue;
         return std::string(buffer + offset);
     }
 }

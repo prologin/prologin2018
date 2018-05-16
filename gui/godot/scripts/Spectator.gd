@@ -59,6 +59,9 @@ func _ready():
 	if interactive:
 		$GameState.select_agent(my_internal_id * constants.NB_AGENTS)
 		playing = true
+		if my_internal_id == 0:
+			socket.put_utf8_string("NEXT")
+			waiting = true
 
 func _finish_animating():
 	animating = false
