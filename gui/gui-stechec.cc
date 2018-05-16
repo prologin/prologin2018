@@ -100,6 +100,8 @@ void jouer_tour()
             glisser(std::stoi(words[1]), to_direction(words[2]));
         else if (words[0] == "PUSH")
             pousser(std::stoi(words[1]), to_direction(words[2]));
+        else if (words[0] == "UNDO")
+            annuler();
     }
 }
 

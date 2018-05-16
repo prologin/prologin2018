@@ -101,6 +101,7 @@ func _process(delta):
 		_next_turn()
 	elif my_turn and Input.is_action_just_pressed("ui_cancel"):
 		$GameState.undo()
+		socket.put_utf8_string("UNDO")
 	$Waiting.set_visible(waiting)
 
 func _action(pos):
