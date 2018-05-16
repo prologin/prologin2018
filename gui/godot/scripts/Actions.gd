@@ -109,10 +109,10 @@ func _input(event):
 		var pos = $TileMap.world_to_map(event.position)
 		if pos.x >= 0 and pos.y >= 0 and pos.x < $TileMap.walls.size() and pos.y < $TileMap.walls.size():
 			var agent = $TileMap.agents_pos.find(pos)
-			if agent != -1 and not Input.is_action_pressed("ui_shift"):
+			if agent != -1:
 				select_agent(agent)
 				_update_agent_info()
-			else:
+			if not Input.is_action_pressed("ui_shift") or agent == -1:
 				if selected_tile == pos:
 					selected_tile = null
 				else:
