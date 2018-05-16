@@ -69,6 +69,10 @@ public:
     /// Affiche le drapeau spécifié sur la case indiquée.
     erreur debug_afficher_drapeau(position pos, debug_drapeau drapeau);
 
+    /// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants
+    /// pour le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.
+    int points_action_agent(int id_agent);
+
     /// Renvoie le plus court chemin entre deux positions de l'iceberg sous la
     /// forme d'une suite de direction à emprunter. Ce chemin ne contient pas de
     /// glissade, uniquement des déplacements simples. Si la position est
@@ -123,10 +127,6 @@ public:
 
     /// Retourne le numéro du tour actuel.
     int tour_actuel();
-
-    /// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants
-    /// pour le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.
-    int points_action_agent(int id_agent);
 };
 
 #endif /* !API_HH_ */

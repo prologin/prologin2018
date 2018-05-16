@@ -19,6 +19,28 @@
 
 #include "test-helpers.hh"
 
+TEST_F(ApiTest, Api_PointsAction)
+{
+    for (auto& player : players)
+    {
+        for (int agent_id = 0; agent_id < NB_AGENTS; agent_id++)
+        {
+            for (int value : {0, 7, 10, 15, 36, 42})
+            {
+                st->reset_action_points(player.id);
+                st->decrease_agent_action_points(player.id, agent_id,
+                                                 NB_POINTS_ACTION - value);
+
+                EXPECT_EQ(value, player.api->points_action_agent(agent_id));
+                EXPECT_EQ(value,
+                          st->get_agent_action_points(player.id, agent_id));
+            }
+        }
+        EXPECT_EQ(-1, player.api->points_action_agent(-2));
+        EXPECT_EQ(-1, player.api->points_action_agent(6));
+    }
+}
+
 TEST_F(ApiTest, Api_Chemin)
 {
     for (auto& player : players)
@@ -210,27 +232,5 @@ TEST_F(ApiTest, Api_TourActuel)
         for (auto& player : players)
             EXPECT_EQ(round, player.api->tour_actuel());
         st->increment_round();
-    }
-}
-
-TEST_F(ApiTest, Api_PointsAction)
-{
-    for (auto& player : players)
-    {
-        for (int agent_id = 0; agent_id < NB_AGENTS; agent_id++)
-        {
-            for (int value : {0, 7, 10, 15, 36, 42})
-            {
-                st->reset_action_points(player.id);
-                st->decrease_agent_action_points(player.id, agent_id,
-                                                 NB_POINTS_ACTION - value);
-
-                EXPECT_EQ(value, player.api->points_action_agent(agent_id));
-                EXPECT_EQ(value,
-                          st->get_agent_action_points(player.id, agent_id));
-            }
-        }
-        EXPECT_EQ(-1, player.api->points_action_agent(-2));
-        EXPECT_EQ(-1, player.api->points_action_agent(6));
     }
 }

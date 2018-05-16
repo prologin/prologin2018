@@ -361,6 +361,13 @@ extern "C" erreur api_debug_afficher_drapeau(position pos,
     return api->debug_afficher_drapeau(pos, drapeau);
 }
 
+/// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants pour
+/// le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.
+extern "C" int api_points_action_agent(int id_agent)
+{
+    return api->points_action_agent(id_agent);
+}
+
 /// Renvoie le plus court chemin entre deux positions de l'iceberg sous la forme
 /// d'une suite de direction à emprunter. Ce chemin ne contient pas de glissade,
 /// uniquement des déplacements simples. Si la position est invalide ou que le
@@ -451,13 +458,6 @@ extern "C" bool api_annuler()
 extern "C" int api_tour_actuel()
 {
     return api->tour_actuel();
-}
-
-/// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants pour
-/// le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.
-extern "C" int api_points_action_agent(int id_agent)
-{
-    return api->points_action_agent(id_agent);
 }
 
 /// Affiche le contenu d'une valeur de type case_type

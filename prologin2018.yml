@@ -163,6 +163,14 @@ function:
 # Fonctions de requête de l'état du jeu
 
   -
+    fct_name: points_action_agent
+    fct_summary: Renvoie le nombre de points d'action de l'agent ``id_agent``
+                 restants pour le tour.
+                 Si le numéro d'agent est invalide, la fonction renvoie -1.
+    fct_ret_type: int
+    fct_arg:
+      - [id_agent, int, "Numéro de l'agent"]
+  -
     fct_name: chemin
     fct_summary: Renvoie le plus court chemin entre deux positions de l'iceberg
                  sous la forme d'une suite de direction à emprunter. Ce chemin
@@ -264,14 +272,6 @@ function:
     fct_summary: Retourne le numéro du tour actuel.
     fct_ret_type: int
     fct_arg: []
-  -
-    fct_name: points_action_agent
-    fct_summary: Renvoie le nombre de points d'action de l'agent ``id_agent``
-                 restants pour le tour.
-                 Si le numéro d'agent est invalide, la fonction renvoie -1.
-    fct_ret_type: int
-    fct_arg:
-      - [id_agent, int, "Numéro de l'agent"]
 
 user_function:
   -
