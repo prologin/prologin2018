@@ -20,8 +20,9 @@ Cases
 Chaque case de la banquise est soit libre, soit un mur de glace. Les murs sont
 des obstacles et bloquent tout déplacement sur la case.
 
-Une case libre peut contenir un alien ainsi qu'un agent. À noter qu'il est
-impossible d'avoir plusieurs agents ou plusieurs aliens sur une même case.
+Une case libre peut contenir un alien ainsi qu'un agent. Un agent peut être sur
+la même case qu'un alien, en revanche il est impossible d'avoir plusieurs agents
+ou plusieurs aliens sur une même case.
 
 Agents
 ======

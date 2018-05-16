@@ -33,7 +33,7 @@ constant:
   -
     cst_name: NB_TOURS_CAPTURE
     cst_val: 3
-    cst_comment: Nombre de tours nécessaires pour capturer un objectif.
+    cst_comment: Nombre de tours nécessaires pour capturer un alien.
 
 enum:
   -

@@ -9,8 +9,8 @@ par une grille carrée de 25 cases de côté.
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=9cm]{img/map.png}
-    \caption*{Une partie de la banquise}
+    \includegraphics[width=8cm]{img/map.png}
+    \caption*{Une partie de la banquise.}
 \end{figure}
 
 Une position sur la banquise est notée à l'aide d'un couple $(ligne,
@@ -21,9 +21,9 @@ colonne)$, où $0 \leq ligne, colonne < 25$.
 Chaque case de la banquise est soit libre, soit un mur de glace. Les
 murs sont des obstacles et bloquent tout déplacement sur la case.
 
-Une case libre peut contenir un alien ainsi qu'un agent. À noter qu'il
-est impossible d'avoir plusieurs agents ou plusieurs aliens sur une même
-case.
+Une case libre peut contenir un alien ainsi qu'un agent. Un agent peut
+être sur la même case qu'un alien, en revanche il est impossible d'avoir
+plusieurs agents ou plusieurs aliens sur une même case.
 
 \subsubsection{Agents}\label{agents}
 
@@ -84,6 +84,7 @@ ils ne bloquent donc pas le déplacement des agents.
     \caption*{Les aliens ne sont pas des obstacles.}
 \end{figure}
 
+\newpage
 \subsection{Déroulement d'un tour}\label{duxe9roulement-dun-tour}
 
 Il y a 100 tours par partie, numérotés de 0 à 99. Pendant un tour les
@@ -186,8 +187,8 @@ positions de depart agents joueur 2
 description des aliens
 \end{verbatim}
 
-La représentation ASCII de la banquise est constituée de \texttt{.} pour
-une case libre et \texttt{X} pour un mur.
+La représentation ASCII de la banquise est constituée de « \texttt{.} » pour
+une case libre et « \texttt{X} » pour un mur.
 
 Pour chaque joueur, quatre lignes, une par agent, indiquent la position
 de départ d'un agent sous la forme \texttt{ligne\ colonne}.

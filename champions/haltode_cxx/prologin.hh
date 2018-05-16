@@ -32,7 +32,7 @@
 /// Nombre d'agents par joueur.
 #define NB_AGENTS 4
 
-/// Nombre de tours nécessaires pour capturer un objectif.
+/// Nombre de tours nécessaires pour capturer un alien.
 #define NB_TOURS_CAPTURE 3
 
 /// Types de cases
