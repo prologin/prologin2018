@@ -97,8 +97,10 @@ func _process(delta):
 		playing = !playing or interactive
 		if my_turn:
 			_next_turn()
-	if not playing and not actions_playing and not my_turn and Input.is_action_just_pressed("ui_right") :
+	if not playing and not actions_playing and not my_turn and Input.is_action_just_pressed("ui_right"):
 		_next_turn()
+	elif my_turn and Input.is_action_just_pressed("ui_cancel"):
+		$GameState.undo()
 	$Waiting.set_visible(waiting)
 
 func _action(pos):

@@ -55,6 +55,13 @@ func push(agent_id, dir, player_id):
 	$Info.redraw()
 	return true
 
+func undo():
+	if _undo:
+		var data = _undo.pop_back()
+		$Info.players[data[0]].action_points[data[1]] += data[2]
+		$Info.redraw()
+		$TileMap.teleport_agent(data[3], data[4])
+
 func init(walls, agents):
 	$TileMap.init(walls, agents)
 	$Info.position.y = $TileMap.walls.size() * $TileMap.cell_size.y * $TileMap.scale.y
