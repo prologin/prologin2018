@@ -71,6 +71,14 @@ func _speed_slider(value):
 	global.speed_factor = v
 	$Speed.text = "Vitesse : " + str(v)
 
+func _process(delta):
+	if Input.is_action_just_pressed("ui_up"):
+		if $SpeedSlider.get_value() < $SpeedSlider.get_max():
+			$SpeedSlider.set_value($SpeedSlider.get_value() + 1)
+	elif Input.is_action_just_pressed("ui_down"):
+		if $SpeedSlider.get_value() > $SpeedSlider.get_min():
+			$SpeedSlider.set_value($SpeedSlider.get_value() - 1)
+
 func add_turn_slider():
 	_turn_slider = HSlider.new()
 	_turn_slider.margin_left = 200
