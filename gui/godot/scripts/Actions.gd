@@ -9,6 +9,7 @@ const DIR_DIC = {'OUEST': 0, 'SUD': 1, 'EST': 2, 'NORD': 3}
 var selected_tile = null
 var selected_agent = -1
 var _turn = 0
+var _undo = [] # player, agent, AP, agent_moved, pos
 
 func agent_id_to_internal(agent_id, player_id):
 	return agent_id + constants.NB_AGENTS * player_id
@@ -21,6 +22,8 @@ func move(agent_id, direction, player_id):
 	var destination = $TileMap.agents_pos[internal] + DIR[direction]
 	if not $TileMap.is_cell_free(destination):
 		return false
+	_undo.append([player_id, agent_id, constants.COUT_DEPLACEMENT, \
+			internal, $TileMap.agents_pos[internal]])
 	$TileMap.move_agent(internal, destination, false, false)
 	$Info.players[player_id].action_points[agent_id] -= constants.COUT_DEPLACEMENT
 	$Info.redraw()
@@ -31,16 +34,20 @@ func slide(agent_id, dir, player_id, pushed = false):
 	var dest = $TileMap.agents_pos[internal]
 	while $TileMap.is_cell_free(dest + DIR[dir]):
 		dest += DIR[dir]
-	$TileMap.move_agent(internal, dest, true, pushed)
 	if not pushed:
+		_undo.append([player_id, agent_id, constants.COUT_GLISSADE, \
+			internal, $TileMap.agents_pos[internal]])
 		$Info.players[player_id].action_points[agent_id] -= constants.COUT_GLISSADE
 		$Info.redraw()
+	$TileMap.move_agent(internal, dest, true, pushed)
 	return true
 
 func push(agent_id, dir, player_id):
 	var internal = agent_id_to_internal(agent_id, player_id)
 	var destination = $TileMap.agents_pos[internal] + DIR[dir]
 	var agent = $TileMap.agents_pos.find(destination)
+	_undo.append([player_id, agent_id, constants.COUT_POUSSER, \
+			agent, $TileMap.agents_pos[agent]])
 	if agent == -1:
 		return false
 	slide(internal_to_agent_id(agent), dir, agent / constants.NB_AGENTS, true)
@@ -55,6 +62,7 @@ func init(walls, agents):
 func set_turn(turn_index):
 	var type = turn_index % 3
 	_turn = (turn_index - type) / 3
+	_undo = []
 	$TileMap.update_aliens(_turn)
 	$Info.set_turn(_turn, type)
 	_update_tile_info()
