@@ -24,8 +24,7 @@ func _ready():
 	players[1].action_points.resize(constants.NB_AGENTS)
 
 func _redraw_player(id, label):
-	label.text = players[id].name + "\nScore : " + str(players[id].score) + \
-			"\n" + PoolStringArray(players[id].action_points).join(', ')
+	label.text = players[id].name + "\nScore : " + str(players[id].score)
 
 func redraw():
 	_redraw_player(0, $Player1)
