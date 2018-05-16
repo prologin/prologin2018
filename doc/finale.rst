@@ -124,9 +124,9 @@ suivant :
 ::
 
   iceberg ASCII
-  positions depart agents joueur 1
-  positions depart agents joueur 2
-  description aliens
+  positions de depart agents joueur 1
+  positions de depart agents joueur 2
+  description des aliens
 
 La représentation ASCII de l'iceberg est constituée de ``.`` pour une case libre
 et ``X`` pour un mur.
