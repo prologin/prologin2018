@@ -6,7 +6,7 @@ pkgdesc="GUI for prologin 2018"
 arch=('any')
 url="https://github.com/prologin/prologin2018"
 license=('GPL')
-depends=('godot>=3', 'stechec2=r839')
+depends=('godot>=3', 'stechec2')
 makedepends=('git' 'gcc' 'make')
 source=("git+ssh://git@github.com/prologin/prologin2018")
 sha512sums=(SKIP)
