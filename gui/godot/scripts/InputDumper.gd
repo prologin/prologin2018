@@ -36,6 +36,8 @@ func _begin():
 	$Names.set_visible(true)
 	$Names/Champ1.text = $GameState/Info.players[0].name
 	$Names/Champ2.text = $GameState/Info.players[1].name
+	$Score1.set_visible(true)
+	$Score2.set_visible(true)
 	playing = true
 	animating = true
 	$GameState/Info/SpeedSlider.set_value(4)
@@ -138,6 +140,9 @@ func _update_aliens():
 		$GameState/TileMap.aliens[i].capture = state.aliens[i].capture
 	$GameState/Info.players[0].score = state.players[0].score
 	$GameState/Info.players[1].score = state.players[1].score
+	if _tv_show:
+		$Score1.text = str(state.players[0].score)
+		$Score2.text = str(state.players[1].score)
 
 func _jump(index):
 	turn_index = max(index - 1, 0)
