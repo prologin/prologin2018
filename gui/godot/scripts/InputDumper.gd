@@ -47,6 +47,15 @@ func _begin():
 
 func _end():
 	if _tv_show:
+		$Names.set_visible(true)
+		$Names/Champ1.text = str($GameState/Info.players[0].score)
+		$Names/Champ2.text = str($GameState/Info.players[1].score)
+		if $GameState/Info.players[0].score > $GameState/Info.players[1].score:
+			$Names/VS.text = "Victoire : " + $GameState/Info.players[0].name
+		elif $GameState/Info.players[0].score < $GameState/Info.players[1].score:
+			$Names/VS.text = "Victoire : " + $GameState/Info.players[1].name
+		else:
+			$Names/VS.text = "Égalité"
 		var timer = Timer.new()
 		timer.connect("timeout", self, "_quit")
 		timer.set_wait_time(5)
