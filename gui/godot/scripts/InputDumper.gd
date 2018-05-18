@@ -33,6 +33,9 @@ func _begin():
 	if not _tv_show:
 		return
 	OS.window_fullscreen = true
+	$Names.set_visible(true)
+	$Names/Champ1.text = $GameState/Info.players[0].name
+	$Names/Champ2.text = $GameState/Info.players[1].name
 	playing = true
 	animating = true
 	$GameState/Info/SpeedSlider.set_value(4)
@@ -71,7 +74,6 @@ func _create_flags_maps():
 						flags[index][(action['pos']['c'] * constants.TAILLE_BANQUISE + action['pos']['r']) * 2 + player_id] = byte
 
 func _ready():
-	_begin()
 	dump = _parse_json()
 	var init = DumpReader.parse_turn(dump[0])
 	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
@@ -90,6 +92,7 @@ func _ready():
 	$GameState.set_turn(0)
 	$GameState/Info.add_turn_slider().connect("value_changed", self, "_turn_slider")
 	_create_flags_maps()
+	_begin()
 
 func _turn_slider(value):
 	if int(value) != (turn_index - turn_index % 3) / 3:
@@ -97,6 +100,7 @@ func _turn_slider(value):
 
 func _finish_animating():
 	animating = false
+	$Names.set_visible(false)
 
 func _dump_index():
 	return (turn_index - turn_index % 3) / 3 * 2 + turn_index % 3
