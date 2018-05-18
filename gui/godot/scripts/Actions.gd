@@ -149,3 +149,6 @@ func _ready():
 	$Info/FlagsNo.connect("pressed", self, "_no_flags")
 	$Info/FlagsP1.connect("pressed", self, "_flags_j1")
 	$Info/FlagsP2.connect("pressed", self, "_flags_j2")
+
+func _process(delta):
+	$Help.set_visible(Input.is_action_pressed("ui_h"))
