@@ -11,6 +11,7 @@ var actions_playing = []
 var animating = false
 var playing = false
 var flags = []
+var _tv_show = false
 
 func _parse_json():
 	if OS.has_feature('JavaScript'):
@@ -22,6 +23,33 @@ func _parse_json():
 				print("Read dump ", json)
 				return DumpReader.parse_dump(json)
 	print("FATAL: could not retreive dump")
+	get_tree().quit()
+
+func _begin():
+	for arg in OS.get_cmdline_args():
+		if arg == "-tv-show":
+			_tv_show = true
+			break
+	if not _tv_show:
+		return
+	playing = true
+	animating = true
+	$GameState/Info/SpeedSlider.set_value(4)
+	var timer = Timer.new()
+	timer.connect("timeout", self, "_finish_animating")
+	timer.set_wait_time(5)
+	timer.start()
+	add_child(timer)
+
+func _end():
+	if _tv_show:
+		var timer = Timer.new()
+		timer.connect("timeout", self, "_quit")
+		timer.set_wait_time(5)
+		timer.start()
+		add_child(timer)
+
+func _quit():
 	get_tree().quit()
 
 func _create_flags_maps():
@@ -42,6 +70,7 @@ func _create_flags_maps():
 						flags[index][(action['pos']['c'] * constants.TAILLE_BANQUISE + action['pos']['r']) * 2 + player_id] = byte
 
 func _ready():
+	_begin()
 	dump = _parse_json()
 	var init = DumpReader.parse_turn(dump[0])
 	$GameState.init(init.walls, init.players[0].agents + init.players[1].agents)
@@ -108,6 +137,7 @@ func _jump(index):
 func _continue():
 	_finish_last_turn()
 	if turn_index + 1 == constants.NB_TOURS * 3:
+		_end()
 		return
 	turn_index += 1
 	var state = DumpReader.parse_turn(dump[_dump_index()])

@@ -11,7 +11,7 @@ godot --export "pck" $build_dir/prologin2018.pck
 replay="$build_dir/prologin2018-replay"
 echo -e "#!/usr/bin/env sh\n" > $replay
 echo "test \$# -eq 0 && echo "Usage: \$0 dump.json" && exit 1" >> $replay
-echo "godot --main-pack /opt/prologin2018.pck -json=\$1" >> $replay
+echo "godot --main-pack /opt/prologin2018.pck -json=\$1 \$2" >> $replay
 chmod +x $replay
 
 gui="$build_dir/prologin2018-gui"
