@@ -88,6 +88,27 @@ visualiser avec
 
   prologin2018-replay dump.json
 
+Jouer contre son propre champion
+--------------------------------
+
+Pour jouer contre votre propre intelligence artificielle vous devez mettre
+comme champion la GUI
+
+::
+
+  clients:
+    - ./champion.so
+    - /opt/prologin2018-gui.so
+
+Il ne faut pas oublier de rajouter dans le fichier
+
+::
+
+  time: -1
+
+Afin de préciser que c'est un joueur humain et ainsi ne pas prendre en compte
+les contraintes de temps.
+
 Débugger
 ========
 
