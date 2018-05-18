@@ -51,4 +51,4 @@ Pourquoi la GUI bloque l'exécution de mon programme ?
 -----------------------------------------------------
 
 Elle est en mode "pause" par défaut, il faut le désactiver en appuyant sur
-Espace ou passer manuellement au tour suivant en appuyant sur N.
+Espace ou passer manuellement au tour suivant avec les flèches.
