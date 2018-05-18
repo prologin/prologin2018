@@ -39,12 +39,20 @@ class Turn:
 	var walls = []
 	var aliens = []
 
+class CastIntSorter:
+	static func sort(a, b):
+		if int(a) < int(b):
+			return true
+		return false
+
 static func parse_turn(json):
 	var result = Turn.new()
 	result.roundNumber = int(json["round"][0])
 	result.roundTotal = int(json["round"][1])
 	assert(json["players"].size() == 2)
-	for player_id in ["1", "2"]:
+	var player_ids = json["players"].keys().duplicate()
+	player_ids.sort_custom(CastIntSorter, "sort")
+	for player_id in player_ids:
 		var node = json["players"][player_id]
 		var player = PlayerStats.new()
 		player.name = node["name"]
