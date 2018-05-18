@@ -32,6 +32,7 @@ func _begin():
 			break
 	if not _tv_show:
 		return
+	OS.window_fullscreen = true
 	playing = true
 	animating = true
 	$GameState/Info/SpeedSlider.set_value(4)
