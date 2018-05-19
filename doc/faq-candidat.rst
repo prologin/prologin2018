@@ -59,3 +59,15 @@ Erreurs fréquentes
       le serveur (donc pour les tournois).
 - Si vous faites des fichiers annexes, n'oubliez pas de les mettre en plus dans
   le makefile après ``prologin.*`` dans ``champion-srcs``.
+
+
+Problèmes de Java
+=================
+
+En Java, certains fichiers générés automatiquement dans vos /home peuvent être
+incorrects. Pour les regénérer, utilisez ::
+
+   stechec2-generator player prologin2018 joueur
+
+Cela remplira le dossier "joueur" avec tous les codes à compléter pour tous les
+langages. Java devrait marcher dans ces nouveaux fichiers générés.
