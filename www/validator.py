@@ -33,7 +33,13 @@ for _ in range(2):
         s.add(pos)
 
 s = set()
-nb_aliens = int(input())
+nl = input()
+try:
+    nb_aliens = int(nl)
+except ValueError:
+    sys.exit("Après avoir lu {} positions d'agents, le nombre d'aliens est "
+             "attendu mais la ligne suivante a été trouvée : {}"
+             .format(NB_AGENTS, nl))
 for id_alien in range(nb_aliens):
     r, c, nb_point, round_spawn, round_span = map(int, input().split(' '))
     pos = (r, c)
