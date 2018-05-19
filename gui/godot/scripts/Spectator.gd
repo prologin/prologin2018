@@ -73,7 +73,7 @@ func _next_turn():
 		socket.put_utf8_string("NEXT")
 		waiting = true
 		my_turn = false
-		$GameState.set_turn(turn_index + 1)
+		$GameState.set_turn(turn_index + 1 + my_internal_id)
 		return
 	turn_index += 1
 	$GameState.set_turn(turn_index)
