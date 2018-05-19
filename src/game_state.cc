@@ -49,6 +49,16 @@ rules::GameState* GameState::copy() const
     return new GameState(*this);
 }
 
+GameState::GameState(const GameState& gs)
+    : rules::GameState()
+    , player_info_(gs.player_info_)
+    , player_ids_(gs.player_ids_)
+    , map_(new Map(*gs.map_.get()))
+    , agent_info_(gs.agent_info_)
+    , round_(gs.round_)
+{
+}
+
 // Optimized BFS
 // https://github.com/prologin/prologin2014/blob/master/src/map.cc#L152
 std::vector<direction> GameState::get_shortest_path(position start,

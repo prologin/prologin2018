@@ -129,6 +129,14 @@ Map::Map(std::istream& stream)
     load_aliens_info(stream);
 }
 
+Map::Map(const Map& map)
+    : map_(map.map_)
+    , start_position_(map.start_position_)
+    , alien_(map.alien_)
+    , is_alien_on_map_(map.is_alien_on_map_)
+{
+}
+
 case_type Map::get_cell_type(position pos) const
 {
     if (inside_map(pos))

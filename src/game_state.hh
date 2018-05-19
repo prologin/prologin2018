@@ -31,6 +31,7 @@ class GameState : public rules::GameState
 public:
     GameState(std::istream& map_stream, rules::Players_sptr players);
     rules::GameState* copy() const override;
+    GameState(const GameState& gs);
 
     const auto& get_player_info() const { return player_info_; };
 

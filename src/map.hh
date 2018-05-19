@@ -27,6 +27,7 @@ class Map
 {
 public:
     Map(std::istream& stream);
+    Map(const Map& map);
 
     case_type get_cell_type(position pos) const;
     bool is_empty(position pos) const;
