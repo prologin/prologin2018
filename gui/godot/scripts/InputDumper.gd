@@ -126,7 +126,8 @@ func _finish_last_turn(warn_teleport = true):
 			var pos = state.players[player_id].agents[agent_id]
 			if $GameState/TileMap.teleport_agent(agent_id + player_id * size, pos):
 				if warn_teleport:
-					print("Had to fix inconsistency in dump agent position")
+					#print("Had to fix inconsistency in dump agent position")
+					pass
 	for x in range(constants.TAILLE_BANQUISE):
 		for y in range(constants.TAILLE_BANQUISE):
 			for player_id in range(2):
