@@ -11,6 +11,12 @@ makedepends=('git' 'gcc' 'make')
 source=("git+ssh://git@github.com/prologin/prologin2018")
 sha512sums=(SKIP)
 
+pkgver() {
+    cd prologin2018
+    commits=$(git rev-list --count HEAD)
+    echo 1.$commits
+}
+
 build() {
     cd prologin2018/gui/godot
     godot --export "pck" "prologin2018.pck"
