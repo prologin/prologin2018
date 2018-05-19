@@ -57,30 +57,48 @@ func _ready():
 		$GameState/TileMap.aliens.append(alien)
 	$GameState.set_turn(0)
 	if interactive:
+		$GameState.set_turn(1)
 		$GameState.select_agent(my_internal_id * constants.NB_AGENTS)
 		playing = true
-		if my_internal_id == 0:
-			socket.put_utf8_string("NEXT")
-			waiting = true
+		socket.put_utf8_string("NEXT")
+		waiting = true
 
 func _finish_animating():
 	animating = false
 
+var _future_state = null
+
 func _next_turn():
+	if my_turn:
+		socket.put_utf8_string("NEXT")
+		waiting = true
+		my_turn = false
+		$GameState.set_turn(turn_index + 1)
+		return
 	turn_index += 1
 	$GameState.set_turn(turn_index)
 	my_turn = false
 	if turn_index % 3:
-		if interactive and turn_index % 3 - 1 == my_internal_id:
-			my_turn = true
+		if interactive:
+			if turn_index % 3 - 1 == my_internal_id:
+				my_turn = true
+			else:
+				actions_playing = _future_state.players[turn_index % 3 - 1].history
 		else:
 			socket.put_utf8_string("NEXT")
 			waiting = true
+	elif interactive:
+		for i in range(_future_state.aliens.size()):
+			$GameState/TileMap.aliens[i].capture = _future_state.aliens[i].capture
+			assert((turn_index - turn_index % 3) / 3 == _future_state.roundNumber)
+			$GameState.set_turn(turn_index) # To update the aliens
+			for player_id in range(2):
+				$GameState/Info.players[player_id].score = _future_state.players[player_id].score
 
 func _process(delta):
 	if waiting:
 		var available = socket.get_available_bytes()
-		if available:
+		if available and not interactive:
 			var dump = socket.get_string(available)
 			var json = JSON.parse(dump).result
 			var state = DumpReader.parse_turn(json)
@@ -92,6 +110,11 @@ func _process(delta):
 			for player_id in range(2):
 				$GameState/Info.players[player_id].score = state.players[player_id].score
 			waiting = false
+		elif available and interactive:
+			var json = JSON.parse(socket.get_string(available)).result
+			_future_state = DumpReader.parse_turn(json)
+			waiting = false
+			_next_turn()
 	while not animating and actions_playing:
 		animating = $GameState.replay_action(actions_playing.pop_front(), turn_index % 3 - 1)
 	if playing and not actions_playing and not waiting and not my_turn:
