@@ -2,7 +2,7 @@
 FAQ Penguin in Black
 ====================
 
-**Deux trois conseils avant de poser une question**
+**Quelques conseils avant de poser une question**
 
 1. Lire le sujet
 2. Relire le sujet

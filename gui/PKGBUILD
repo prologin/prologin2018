@@ -1,6 +1,6 @@
 # Maintainer: Sacha Delanoue <sacha.delanoue@prologin.org>
 pkgname=prologin2018-gui
-pkgver=1.0
+pkgver=1.340
 pkgrel=1
 pkgdesc="GUI for prologin 2018"
 arch=('any')
