@@ -58,7 +58,7 @@ Erreurs fréquentes
     - Attention, ça ne fera pas d'erreurs en local mais cela ne marchera pas sur
       le serveur (donc pour les tournois).
 - Si vous faites des fichiers annexes, n'oubliez pas de les mettre en plus dans
-  le makefile après ``prologin.*`` dans ``champion-srcs``.
+  le makefile après ``prologin.*`` dans ``champion-srcs`` (ou ``champion-dists`` pour Python).
 
 
 Problèmes de Java
