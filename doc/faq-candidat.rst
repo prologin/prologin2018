@@ -49,3 +49,13 @@ Pourquoi la GUI bloque l'exécution de mon programme ?
 
 Elle est en mode "pause" par défaut, il faut le désactiver en appuyant sur
 Espace ou passer manuellement au tour suivant avec les flèches.
+
+Erreurs fréquentes
+==================
+
+- Ne pas appeler les fonctions de l'API avant l'appel à ``partie_init``.
+- **Ne pas modifier** les fichiers générés (``api.*``, ``interface.*``, ...)
+    - Attention, ça ne fera pas d'erreurs en local mais cela ne marchera pas sur
+      le serveur (donc pour les tournois).
+- Si vous faites des fichiers annexes, n'oubliez pas de les mettre en plus dans
+  le makefile après ``prologin.*`` dans ``champion-srcs``.
