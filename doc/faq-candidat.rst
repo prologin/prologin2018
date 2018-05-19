@@ -2,9 +2,6 @@
 FAQ Penguin in Black
 ====================
 
-FIXME: rajouter une section pour débug avec stechec
-FIXME: mettre à jour la partie GUI
-
 **Deux trois conseils avant de poser une question**
 
 1. Lire le sujet
