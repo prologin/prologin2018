@@ -35,6 +35,8 @@ func _ready():
 		available = socket.get_available_bytes()
 	var dump = socket.get_string(available)
 	var json = JSON.parse(dump).result
+	if not json:
+		print("invalid json ", dump)
 	if json["players"].has(str(my_stechec_id)):
 		interactive = true
 		my_internal_id = 0
