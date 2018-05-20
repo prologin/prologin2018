@@ -64,8 +64,8 @@ GameState::GameState(const GameState& gs)
 std::vector<direction> GameState::get_shortest_path(position start,
                                                     position dest) const
 {
-    if (is_obstacle(dest) || start == dest || inside_map(start) ||
-        inside_map(dest))
+    if (is_obstacle(dest) || start == dest || !inside_map(start) ||
+        !inside_map(dest))
         return {};
 
     std::queue<position> q;
