@@ -1,21 +1,22 @@
 #!/usr/bin/python
 
-import collections
 import django
-import os
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'prologin.concours.settings'
 django.setup()
+User = get_user_model()
 
+from django.contrib.auth.models import get_user_model
 from django.db import connection
-from django.contrib.auth.models import User
+from django.utils.dateparse import parse_datetime
 from django.utils.timezone import now
 from prologin.concours.stechec.models import Tournament, Match, MatchPlayer, Champion, TournamentPlayer, Map
+import collections
+import os
+import pytz
 
-from tournoi_common import get_champions
-
-prologin = User.objects.get(username="seirl")
-tournoi = Tournament.objects.create()
+date_debut = parse_datetime('2018-05-21 00:42:00')
+date_debut = pytz.timezone('Europe/Paris').localize(date_debut, is_dst=None)
 
 #maps_ids = (2, 6, 16, 18)
 #maps_ids = (2, 3, 5, 6, 17)
@@ -26,6 +27,18 @@ tournoi = Tournament.objects.create()
 #maps_ids = (27,)
 maps_ids = (2, 3, 5, 6, 16, 17, 18, 21)
 maps = [Map.objects.get(pk=i) for i in maps_ids]
+
+def get_champions():
+    chs = []
+    for u in User.objects.all():
+        ch = Champion.objects.filter(author=u, author__is_staff=False, status='ready',
+                                     deleted=False, ts__lte=date_debut).order_by('-id')
+        if len(ch) > 0:
+            chs.append(ch[0])
+    return chs
+
+prologin = User.objects.get(username="seirl")
+tournoi = Tournament.objects.create()
 
 print('Launching tournament {}'.format(tournoi.id))
 

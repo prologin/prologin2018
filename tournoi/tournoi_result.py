@@ -15,10 +15,6 @@ django.setup()
 from django.contrib.auth.models import User
 from prologin.concours.stechec.models import Tournament, Match, MatchPlayer, Champion, TournamentPlayer, Map
 
-from tournoi_common import get_champions
-
-chs = get_champions()
-
 tournoi = Tournament.objects.get(id=int(sys.argv[1]))
 
 
@@ -35,11 +31,11 @@ while True:
     import time
     time.sleep(1)
 
+print('Ready.')
 input()
-print('lol')
 
-#matches = list(Match.objects.filter(createur = prologin, id__gt = 37911))
 matches = tournoi.matches.all()
+chs = {c for m in matches for c in m.players.all()}
 
 score = {}
 indice = {}

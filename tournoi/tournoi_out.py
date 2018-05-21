@@ -16,10 +16,6 @@ django.setup()
 from django.contrib.auth.models import User
 from prologin.concours.stechec.models import Tournament, Match, MatchPlayer, Champion, TournamentPlayer, Map
 
-from tournoi_common import get_champions
-
-chs = get_champions()
-
 tid = int(sys.argv[1])
 
 tournoi = Tournament.objects.get(id=tid)
