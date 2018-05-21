@@ -17,7 +17,14 @@ from tournoi_common import get_champions
 prologin = User.objects.get(username="seirl")
 tournoi = Tournament.objects.create()
 
-maps_ids = (6, 5, 3)
+#maps_ids = (2, 6, 16, 18)
+#maps_ids = (2, 3, 5, 6, 17)
+#maps_ids = (21, 16, 6, 5)
+#maps_ids = (3, 2, 5, 21)
+#maps_ids = (6, 17, 18, 21)
+#maps_ids = (2, 5, 21, 22)
+#maps_ids = (27,)
+maps_ids = (2, 3, 5, 6, 16, 17, 18, 21)
 maps = [Map.objects.get(pk=i) for i in maps_ids]
 
 print('Launching tournament {}'.format(tournoi.id))
@@ -25,7 +32,7 @@ print('Launching tournament {}'.format(tournoi.id))
 chs = get_champions()
 
 print()
-print('Champions are :')
+print('There are {} champions:'.format(len(chs)))
 for ch in chs:
     print('-', ch)
 
@@ -50,12 +57,11 @@ Match.objects.bulk_create(match_objs)
 matches = Match.objects.filter(ts=ts)
 matches_per_map = collections.defaultdict(list)
 for m in matches:
-    matches_per_map[m.map].append(m)
+    matches_per_map[m.map.id].append(m)
 
 player_objs = []
 for map in maps:
-    print(map.path)
-    map_matches = matches_per_map[map.path]
+    map_matches = matches_per_map[map.id]
     for c1 in chs:
         for c2 in chs:
             m = map_matches.pop()

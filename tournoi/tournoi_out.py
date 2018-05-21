@@ -24,6 +24,7 @@ tid = int(sys.argv[1])
 
 tournoi = Tournament.objects.get(id=tid)
 matches = Match.objects.filter(tournament=tournoi)
+chs = {c for m in matches for c in m.players.all()}
 
 score = defaultdict(int)
 indice = defaultdict(int)
@@ -50,40 +51,19 @@ for m in matches:
         score[c1.champion.id] += 1
         score[c2.champion.id] += 1
 
-print('<!DOCTYPE html><head><title>Prologin 2017 : {}</title></head><body>'.format(tournoi.name))
-
-print('''<style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse
-}
-
-th, td {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.won {
-    color: green;
-}
-
-td > a {
-    color: inherit;
-}
-.lost {
-    color: white;
-    background-color: grey;
-}
-
-table { border-collapse: collapse; text-align: left; width: 100%; } {font: normal 12px/150% Arial, Helvetica, sans-serif; background: #fff; overflow: hidden; border: 1px solid #8C8C8C; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }table td, table th { padding: 3px 10px; }table thead td {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8C8C8C), color-stop(1, #7D7D7D) );background:-moz-linear-gradient( center top, #8C8C8C 5%, #7D7D7D 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8C8C8C', endColorstr='#7D7D7D');background-color:#8C8C8C; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #A3A3A3; } table thead td:first-child { border: none; }table tbody td { color: #7D7D7D; border-left: 1px solid #DBDBDB;font-size: 12px;font-weight: normal; }table tbody .alt td { background: #EBEBEB; color: #7D7D7D; }table tbody td:first-child { border-left: none; }table tbody tr:last-child td { border-bottom: none; }table tfoot td div { border-top: 1px solid #8C8C8C;background: #EBEBEB;} table tfoot td { padding: 0; font-size: 12px } table tfoot td div{ padding: 2px; }table tfoot td ul { margin: 0; padding:0; list-style: none; text-align: right; }table tfoot  li { display: inline; }table tfoot li a { text-decoration: none; display: inline-block;  padding: 2px 8px; margin: 1px;color: #F5F5F5;border: 1px solid #8C8C8C;-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8C8C8C), color-stop(1, #7D7D7D) );background:-moz-linear-gradient( center top, #8C8C8C 5%, #7D7D7D 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8C8C8C', endColorstr='#7D7D7D');background-color:#8C8C8C; }table tfoot ul.active, table tfoot ul a:hover { text-decoration: none;border-color: #7D7D7D; color: #F5F5F5; background: none; background-color:#8C8C8C;}div.dhtmlx_window_active, div.dhx_modal_cover_dv { position: fixed !important; }
-</style>''')
+print('''<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <title>Prologin 2018 : {}</title>
+</head>
+<body>'''.format(tournoi.name))
 
 print('<h1>{}</h1>'.format(tournoi.name))
 print('<h2>Classement</h2>')
 
 print('<table>')
 print('<thead><td>#</td><td>Victoires</td><td>Nom</td><td>Login</td><td>Nom</td></thead>')
-l = chs[:]
+l = list(chs)
 l.sort(key=lambda x: -score.get(x.pk, 0))
 for i, c in enumerate(l, 1):
     print('<tr>')
@@ -112,8 +92,8 @@ for i, c1 in enumerate(l, 1):
             if c1.pk == c2.pk:
                 print('<td>X</td>')
             else:
-                color = 'red' if matrix[c1.pk, c2.pk][j] < matrix[c2.pk, c1.pk][j] else 'green'
-                print('<td><a style="color: {}" href="http://concours/matches/{}">{}</a></td>'.format(color, match_ids[c1.pk, c2.pk][j], matrix[c1.pk, c2.pk][j]))
+                cssclass = 'lost' if matrix[c1.pk, c2.pk][j] < matrix[c2.pk, c1.pk][j] else 'won'
+                print('<td class="{}"><a href="http://concours/matches/{}">{}</a></td>'.format(cssclass, match_ids[c1.pk, c2.pk][j], matrix[c1.pk, c2.pk][j]))
         print('<td><strong>{}</strong></td>'.format(sum(matrix[c1.pk, c2.pk])))
         print('</tr>')
     print('</table>')

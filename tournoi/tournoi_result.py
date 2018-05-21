@@ -56,7 +56,7 @@ for m in matches:
         score[c2.champion.id] = score.get(c2.champion.id, 0) + 1
 
 l = [(ch.author.username, score.get(ch.id, 0), indice.get(ch.id, 0), ch.id) for ch in chs]
-l.sort(key=lambda x: x[2])
+l.sort(key=lambda x: x[1])
 for e in l:
     print(e)
 

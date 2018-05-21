@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for f in "$1/"*.html; do
+for f in "$1/tourn"*.html; do
 	xmllint --html --xpath '//table[1]//td[4]' $f | sed 's#<td>\([^<]\+\)</td>#\1\n#g' | tail -n +2 > $( basename ${f%.html}.txt );
 done
 
