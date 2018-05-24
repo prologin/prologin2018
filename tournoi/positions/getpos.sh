@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright 2018 Antoine Pietri
+
 for f in "$1/tourn"*.html; do
 	xmllint --html --xpath '//table[1]//td[4]' $f | sed 's#<td>\([^<]\+\)</td>#\1\n#g' | tail -n +2 > $( basename ${f%.html}.txt );
 done

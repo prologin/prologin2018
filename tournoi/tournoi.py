@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright 2018 Antoine Pietri
+
 import django
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'prologin.concours.settings'
