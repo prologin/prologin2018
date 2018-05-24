@@ -3,6 +3,7 @@
 ** This file is part of Prologin2018, a rules library for stechec2.
 **
 ** Copyright (c) 2018 Association Prologin <info@prologin.org>
+** Copyright (c) 2018 Thibault Allançon
 **
 ** Prologin2018 is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
