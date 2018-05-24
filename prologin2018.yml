@@ -1,3 +1,7 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright 2018 Paul Guénézan
+# Copyright 2018 Thibault Allançon
+
 name: prologin2018
 rules_type: turnbased
 
