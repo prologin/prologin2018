@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
-# Based on https://stackoverflow.com/a/30045893
+# SPDX-License-Identifier: CC-BY-SA-3.0
+# Copyright 2015 Arthur Vaïsse (https://stackoverflow.com/a/30045893)
+# Copyright 2018 Paul Guénézan
+# Copyright 2018 Thibault Allançon
+
 from tkinter import Tk, Canvas, Frame, Button, StringVar, OptionMenu
 from tkinter.filedialog import asksaveasfilename, askopenfilename
 
