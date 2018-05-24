@@ -1,3 +1,7 @@
+.. SPDX-License-Identifier: GPL-2.0-or-later
+   Copyright 2018 Héloïse Vallerio
+   Copyright 2018 Thibault Allançon
+
 =======================
 Instructions de mission
 =======================

@@ -1,3 +1,7 @@
+.. SPDX-License-Identifier: GPL-2.0-or-later
+   Copyright 2013 Nicolas Hureau
+   Copyright 2018 Thibault Allançon
+
 =============================================
 Stechec 2 : le système de lancement de matchs
 =============================================
