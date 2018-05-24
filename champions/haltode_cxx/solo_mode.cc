@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright 2018 Thibault Allançon
+
 #include "common.hh"
 
 alien_info solo_targets[NB_AGENTS];

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright 2018 Paul Guénézan
+
 #ifndef BFOR_CXX_DIRECTION_HH
 #define BFOR_CXX_DIRECTION_HH
 

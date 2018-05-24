@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright 2018 Paul Guénézan
+
 #include "direction.hh"
 
 #include "position.hh"

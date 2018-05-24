@@ -1,4 +1,8 @@
 # coding: iso-8859-1
+
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright 2018 Association Prologin <info@prologin.org>
+
 from _api import *
 
 # Taille de l'iceberg (longueur et largeur).

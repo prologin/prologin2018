@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright 2018 Thibault Allançon
+
 #include "common.hh"
 
 std::pair<position, direction> get_push_cell(int agent_id, position target)

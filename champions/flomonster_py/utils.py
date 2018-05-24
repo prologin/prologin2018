@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright 2018 Florian Amsallem
+
 from api import *
 from collections import deque
 from operator import attrgetter

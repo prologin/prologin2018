@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright 2018 Thibault Allançon
+
 #include "common.hh"
 
 void do_actions(int agent_id, std::vector<action_hist> actions)

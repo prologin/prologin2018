@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright 2018 Thibault Allançon
+
 #include "common.hh"
 
 int get_closest_agent(int player_id, position dest)
