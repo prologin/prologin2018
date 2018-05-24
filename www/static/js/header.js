@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright 2018 Alexandre Macabies
+
 $(function() {
 	$('[role=complementary] h1').text('').html('<object data="/static/img/logo.svg" width="100%" type="image/svg+xml" />');
 
