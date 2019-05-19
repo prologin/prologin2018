@@ -1,6 +1,3 @@
-// SPDX-License-Identifier: GPL-2.0-or-later
-// Copyright 2018 Association Prologin <info@prologin.org>
-
 /// This file has been generated, if you wish to
 /// modify it in a permanent way, please refer
 /// to the script file : gen/generator_python.rb
