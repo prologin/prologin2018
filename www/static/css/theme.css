@@ -170,12 +170,10 @@ pre, input[type=text], textarea.form-control {
 /* default */
 
 .btn-default {
-	background: transparent;
 	border: 1px solid var(--border-color);
 }
 
 .btn-default:hover, .btn-default:active, .btn-default:focus {
-	background: transparent;
 	text-decoration: underline;
 	border-color: var(--border-color);
 }
