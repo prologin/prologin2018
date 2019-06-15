@@ -17,7 +17,7 @@
 #include "actions.hh"
 #include "history.hh"
 
-int ActionDebugAfficherDrapeau::check(const GameState* /*st*/) const
+int ActionDebugAfficherDrapeau::check(const GameState& /*st*/) const
 {
     if (!inside_map(pos_))
         return POSITION_INVALIDE;

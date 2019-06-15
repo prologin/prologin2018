@@ -18,10 +18,12 @@
 #define API_HH_
 
 #include <rules/actions.hh>
+#include <rules/api.hh>
 #include <rules/game-state.hh>
 #include <rules/player.hh>
 #include <vector>
 
+#include "actions.hh"
 #include "constant.hh"
 #include "game_state.hh"
 
@@ -29,46 +31,26 @@
 ** The methods of this class are exported through 'interface.cc'
 ** to be called by the clients
 */
-class Api
+class Api final : public rules::Api<GameState, erreur>
 {
-
 public:
-    Api(GameState* game_state, rules::Player_sptr player);
-    virtual ~Api() {}
+    Api(std::unique_ptr<GameState> game_state, rules::Player_sptr player);
 
-    const rules::Player_sptr player() const { return player_; }
-    void player_set(rules::Player_sptr player) { player_ = player; }
-
-    rules::Actions* actions() { return &actions_; }
-
-    const GameState* game_state() const { return game_state_; }
-    GameState* game_state() { return game_state_; }
-    void game_state_set(rules::GameState* gs)
-    {
-        game_state_ = dynamic_cast<GameState*>(gs);
-    }
-
-private:
-    GameState* game_state_;
-    rules::Player_sptr player_;
-    rules::Actions actions_;
-
-public:
     /// Déplace l'agent ``id_agent`` d'une case dans la direction choisie.
-    erreur deplacer(int id_agent, direction dir);
+    ApiActionFunc<ActionDeplacer> deplacer;
 
     /// Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il
     /// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent.
-    erreur glisser(int id_agent, direction dir);
+    ApiActionFunc<ActionGlisser> glisser;
 
     /// L'agent ``id_agent`` pousse tout autre agent se trouvant sur la case
     /// adjacente dans la direction indiquée. Ce dernier est propulsé jusqu'à ce
     /// qu'il rencontre un obstacle, c'est-à-dire soit un mur soit un autre
     /// agent.
-    erreur pousser(int id_agent, direction dir);
+    ApiActionFunc<ActionPousser> pousser;
 
     /// Affiche le drapeau spécifié sur la case indiquée.
-    erreur debug_afficher_drapeau(position pos, debug_drapeau drapeau);
+    ApiActionFunc<ActionDebugAfficherDrapeau> debug_afficher_drapeau;
 
     /// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants
     /// pour le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.

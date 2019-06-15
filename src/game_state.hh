@@ -31,8 +31,7 @@ class GameState : public rules::GameState
 {
 public:
     GameState(std::istream& map_stream, rules::Players_sptr players);
-    rules::GameState* copy() const override;
-    GameState(const GameState& gs);
+    GameState* copy() const override;
 
     const auto& get_player_info() const { return player_info_; };
 
@@ -76,6 +75,8 @@ public:
     void add_to_internal_history(int player_id, internal_action action);
 
 private:
+    GameState(const GameState& gs);
+
     std::unordered_map<int, PlayerInfo> player_info_;
     std::array<int, 2> player_ids_;
 

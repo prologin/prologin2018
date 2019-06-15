@@ -24,25 +24,25 @@ TEST_F(ActionTest, ActionGlisser_NotEnoughActionPoints)
     st->decrease_agent_action_points(PLAYER_1, 0, NB_POINTS_ACTION);
 
     ActionGlisser act(0, NORD, PLAYER_1);
-    EXPECT_EQ(PA_INSUFFISANTS, act.check(st));
+    EXPECT_EQ(PA_INSUFFISANTS, act.check(*st));
 }
 
 TEST_F(ActionTest, ActionGlisser_InvalidDirection)
 {
     ActionGlisser act(0, (direction)10, PLAYER_1);
-    EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
+    EXPECT_EQ(DIRECTION_INVALIDE, act.check(*st));
 
     ActionGlisser act2(0, (direction)-1, PLAYER_1);
-    EXPECT_EQ(DIRECTION_INVALIDE, act2.check(st));
+    EXPECT_EQ(DIRECTION_INVALIDE, act2.check(*st));
 }
 
 TEST_F(ActionTest, ActionGlisser_InvalidAgentID)
 {
     ActionGlisser act(NB_AGENTS + 5, NORD, PLAYER_1);
-    EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
+    EXPECT_EQ(ID_AGENT_INVALIDE, act.check(*st));
 
     ActionGlisser act2(-42, NORD, PLAYER_1);
-    EXPECT_EQ(ID_AGENT_INVALIDE, act2.check(st));
+    EXPECT_EQ(ID_AGENT_INVALIDE, act2.check(*st));
 }
 
 TEST_F(ActionTest, ActionGlisser_Valid)
@@ -54,26 +54,26 @@ TEST_F(ActionTest, ActionGlisser_Valid)
 
     ActionGlisser* act;
     act = new ActionGlisser(0, SUD, PLAYER_1);
-    EXPECT_EQ(OK, act->check(st));
-    act->apply_on(st);
+    EXPECT_EQ(OK, act->check(*st));
+    act->apply(st);
     EXPECT_EQ(dest1, st->get_agent_position(PLAYER_1, 0));
     delete act;
 
     act = new ActionGlisser(0, SUD, PLAYER_2);
-    EXPECT_EQ(OK, act->check(st));
-    act->apply_on(st);
+    EXPECT_EQ(OK, act->check(*st));
+    act->apply(st);
     EXPECT_EQ(dest2, st->get_agent_position(PLAYER_2, 0));
     delete act;
 
     act = new ActionGlisser(3, SUD, PLAYER_1);
-    EXPECT_EQ(OK, act->check(st));
-    act->apply_on(st);
+    EXPECT_EQ(OK, act->check(*st));
+    act->apply(st);
     EXPECT_EQ(dest3, st->get_agent_position(PLAYER_1, 3));
     delete act;
 
     act = new ActionGlisser(3, EST, PLAYER_2);
-    EXPECT_EQ(OK, act->check(st));
-    act->apply_on(st);
+    EXPECT_EQ(OK, act->check(*st));
+    act->apply(st);
     EXPECT_EQ(dest4, st->get_agent_position(PLAYER_2, 3));
     delete act;
 
