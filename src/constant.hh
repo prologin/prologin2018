@@ -44,7 +44,8 @@
 #define NB_TOURS_CAPTURE 3
 
 /// Types de cases
-typedef enum case_type {
+typedef enum case_type
+{
     LIBRE,  /* <- Case libre */
     MUR,    /* <- Mur */
     ERREUR, /* <- Erreur */
@@ -59,10 +60,11 @@ template <> struct hash<case_type>
         return hash<int>()(static_cast<int>(v));
     }
 };
-}
+} // namespace std
 
 /// Points cardinaux
-typedef enum direction {
+typedef enum direction
+{
     NORD,  /* <- Direction : nord */
     EST,   /* <- Direction : est */
     SUD,   /* <- Direction : sud */
@@ -78,10 +80,11 @@ template <> struct hash<direction>
         return hash<int>()(static_cast<int>(v));
     }
 };
-}
+} // namespace std
 
 /// Erreurs possibles
-typedef enum erreur {
+typedef enum erreur
+{
     OK,              /* <- L'action s'est effectuée avec succès. */
     PA_INSUFFISANTS, /* <- Votre agent ne possède pas assez de points d'action
                           pour réaliser cette action.*/
@@ -105,10 +108,11 @@ template <> struct hash<erreur>
         return hash<int>()(static_cast<int>(v));
     }
 };
-}
+} // namespace std
 
 /// Types d'actions
-typedef enum action_type {
+typedef enum action_type
+{
     ACTION_DEPLACER, /* <- Action ``deplacer`` */
     ACTION_GLISSER,  /* <- Action ``glisser`` */
     ACTION_POUSSER,  /* <- Action ``pousser`` */
@@ -123,10 +127,11 @@ template <> struct hash<action_type>
         return hash<int>()(static_cast<int>(v));
     }
 };
-}
+} // namespace std
 
 /// Types de drapeaux de débug
-typedef enum debug_drapeau {
+typedef enum debug_drapeau
+{
     AUCUN_DRAPEAU, /* <- Aucun drapeau, enlève le drapeau présent */
     DRAPEAU_BLEU,  /* <- Drapeau bleu */
     DRAPEAU_VERT,  /* <- Drapeau vert */
@@ -142,7 +147,7 @@ template <> struct hash<debug_drapeau>
         return hash<int>()(static_cast<int>(v));
     }
 };
-}
+} // namespace std
 
 /// Position sur la banquise, donnée par deux coordonnées.
 typedef struct position
@@ -157,10 +162,10 @@ typedef struct alien_info
     position pos;       /* <- Position de l'alien */
     int points_capture; /* <- Nombre de points obtenus pour la capture de cet
                          * alien
-                      */
+                         */
     int tour_invasion;  /* <- Tour où l'alien débarque sur la banquise */
     int duree_invasion; /* <- Nombre de tours où l'alien reste sur la banquise
-                           */
+                         */
     int capture_en_cours; /* <- Nombre de tours de la capture en cours, l'alien
                                 est considéré comme capturé si la variable
                                 atteint NB_TOURS_CAPTURE */
