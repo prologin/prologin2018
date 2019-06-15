@@ -17,18 +17,18 @@
 #include "actions.hh"
 #include "history.hh"
 
-int ActionPousser::check(const GameState* st) const
+int ActionPousser::check(const GameState& st) const
 {
     if (agent_id_ < 0 || agent_id_ >= NB_AGENTS)
         return ID_AGENT_INVALIDE;
     if (dir_ < 0 || dir_ > 3)
         return DIRECTION_INVALIDE;
-    if (COUT_POUSSER > st->get_agent_action_points(player_id_, agent_id_))
+    if (COUT_POUSSER > st.get_agent_action_points(player_id_, agent_id_))
         return PA_INSUFFISANTS;
 
-    position pos = st->get_agent_position(player_id_, agent_id_);
+    position pos = st.get_agent_position(player_id_, agent_id_);
     position adjacent = get_position_offset(pos, dir_);
-    if (!st->is_agent_on_position(adjacent))
+    if (!st.is_agent_on_position(adjacent))
         return RIEN_A_POUSSER;
 
     return OK;

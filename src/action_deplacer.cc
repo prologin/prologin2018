@@ -17,22 +17,22 @@
 #include "actions.hh"
 #include "history.hh"
 
-int ActionDeplacer::check(const GameState* st) const
+int ActionDeplacer::check(const GameState& st) const
 {
     if (agent_id_ < 0 || agent_id_ >= NB_AGENTS)
         return ID_AGENT_INVALIDE;
     if (dir_ < 0 || dir_ > 3)
         return DIRECTION_INVALIDE;
-    if (COUT_DEPLACEMENT > st->get_agent_action_points(player_id_, agent_id_))
+    if (COUT_DEPLACEMENT > st.get_agent_action_points(player_id_, agent_id_))
         return PA_INSUFFISANTS;
 
-    position start = st->get_agent_position(player_id_, agent_id_);
+    position start = st.get_agent_position(player_id_, agent_id_);
     position dest = get_position_offset(start, dir_);
     if (!inside_map(dest))
         return DEPLACEMENT_HORS_LIMITES;
-    if (st->get_cell_type(dest) == MUR)
+    if (st.get_cell_type(dest) == MUR)
         return OBSTACLE_MUR;
-    if (st->is_agent_on_position(dest))
+    if (st.is_agent_on_position(dest))
         return OBSTACLE_AGENT;
 
     return OK;

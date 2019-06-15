@@ -45,7 +45,7 @@ GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
         agent_info_[player] = map_->get_start_position(player);
 }
 
-rules::GameState* GameState::copy() const
+GameState* GameState::copy() const
 {
     return new GameState(*this);
 }

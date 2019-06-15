@@ -25,16 +25,16 @@ TEST_F(ActionTest, ActionDeplacer_NotEnoughActionPoints)
     st->decrease_agent_action_points(PLAYER_1, 0, NB_POINTS_ACTION);
 
     ActionDeplacer act(0, SUD, PLAYER_1);
-    EXPECT_EQ(PA_INSUFFISANTS, act.check(st));
+    EXPECT_EQ(PA_INSUFFISANTS, act.check(*st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_InvalidDirection)
 {
     ActionDeplacer act(0, (direction)-2, PLAYER_1);
-    EXPECT_EQ(DIRECTION_INVALIDE, act.check(st));
+    EXPECT_EQ(DIRECTION_INVALIDE, act.check(*st));
 
     ActionDeplacer act2(0, (direction)12, PLAYER_1);
-    EXPECT_EQ(DIRECTION_INVALIDE, act2.check(st));
+    EXPECT_EQ(DIRECTION_INVALIDE, act2.check(*st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_ObstacleWall)
@@ -42,7 +42,7 @@ TEST_F(ActionTest, ActionDeplacer_ObstacleWall)
     position next_to_wall = get_position_offset(TEST_WALL, SUD);
     st->set_agent_position(PLAYER_1, 0, next_to_wall);
     ActionDeplacer act(0, NORD, PLAYER_1);
-    EXPECT_EQ(OBSTACLE_MUR, act.check(st));
+    EXPECT_EQ(OBSTACLE_MUR, act.check(*st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_ObstacleAgent)
@@ -50,23 +50,23 @@ TEST_F(ActionTest, ActionDeplacer_ObstacleAgent)
     position next_to_agent = get_position_offset(TEST_AGENT, SUD);
     st->set_agent_position(PLAYER_1, 0, next_to_agent);
     ActionDeplacer act(0, NORD, PLAYER_1);
-    EXPECT_EQ(OBSTACLE_AGENT, act.check(st));
+    EXPECT_EQ(OBSTACLE_AGENT, act.check(*st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_MoveOutsideMap)
 {
     st->set_agent_position(PLAYER_1, 0, {0, 0});
     ActionDeplacer act(0, NORD, PLAYER_1);
-    EXPECT_EQ(DEPLACEMENT_HORS_LIMITES, act.check(st));
+    EXPECT_EQ(DEPLACEMENT_HORS_LIMITES, act.check(*st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_InvalidAgentID)
 {
     ActionDeplacer act(NB_AGENTS + 5, NORD, PLAYER_1);
-    EXPECT_EQ(ID_AGENT_INVALIDE, act.check(st));
+    EXPECT_EQ(ID_AGENT_INVALIDE, act.check(*st));
 
     ActionDeplacer act2(-3, NORD, PLAYER_2);
-    EXPECT_EQ(ID_AGENT_INVALIDE, act2.check(st));
+    EXPECT_EQ(ID_AGENT_INVALIDE, act2.check(*st));
 }
 
 TEST_F(ActionTest, ActionDeplacer_Valid)
@@ -77,9 +77,9 @@ TEST_F(ActionTest, ActionDeplacer_Valid)
     for (auto& dir : test_path)
     {
         ActionDeplacer act(0, dir, PLAYER_1);
-        EXPECT_EQ(OK, act.check(st));
+        EXPECT_EQ(OK, act.check(*st));
 
-        act.apply_on(st);
+        act.apply(st);
         cur = get_position_offset(cur, dir);
         EXPECT_EQ(cur, st->get_agent_position(PLAYER_1, 0));
     }

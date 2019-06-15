@@ -24,17 +24,18 @@ TEST_F(ApiTest, Api_PointsAction)
 {
     for (auto& player : players)
     {
+        auto st = [&]() { return &player.api->game_state(); }; // Shortcut
         for (int agent_id = 0; agent_id < NB_AGENTS; agent_id++)
         {
             for (int value : {0, 7, 10, 15, 36, 42})
             {
-                st->reset_action_points(player.id);
-                st->decrease_agent_action_points(player.id, agent_id,
-                                                 NB_POINTS_ACTION - value);
+                st()->reset_action_points(player.id);
+                st()->decrease_agent_action_points(player.id, agent_id,
+                                                   NB_POINTS_ACTION - value);
 
                 EXPECT_EQ(value, player.api->points_action_agent(agent_id));
                 EXPECT_EQ(value,
-                          st->get_agent_action_points(player.id, agent_id));
+                          st()->get_agent_action_points(player.id, agent_id));
             }
         }
         EXPECT_EQ(-1, player.api->points_action_agent(-2));
@@ -80,7 +81,8 @@ TEST_F(ApiTest, Api_AgentSurCase)
         {
             position agent_pos =
                 player.api->position_agent(player.id, agent_id);
-            EXPECT_EQ(agent_pos, st->get_agent_position(player.id, agent_id));
+            EXPECT_EQ(agent_pos, player.api->game_state().get_agent_position(
+                                     player.id, agent_id));
             EXPECT_EQ(player.id, player.api->agent_sur_case(agent_pos));
         }
     }
@@ -90,10 +92,11 @@ TEST_F(ApiTest, Api_AgentSurCase)
 
 TEST_F(ApiTest, Api_AlienSurCase)
 {
-    std::vector<alien_info> aliens = st->get_alien_info();
+    auto st = [&]() { return &players[0].api->game_state(); }; // Shortcut
+    std::vector<alien_info> aliens = st()->get_alien_info();
     for (int round = 0; round < NB_TOURS; round++)
     {
-        st->check_presence_alien();
+        st()->check_presence_alien();
         for (auto& alien : aliens)
         {
             if (round >= alien.tour_invasion &&
@@ -102,8 +105,8 @@ TEST_F(ApiTest, Api_AlienSurCase)
             else
                 EXPECT_FALSE(players[0].api->alien_sur_case(alien.pos));
         }
-        st->update_scores();
-        st->increment_round();
+        st()->update_scores();
+        st()->increment_round();
     }
     EXPECT_FALSE(players[0].api->alien_sur_case(TEST_EMPTY_CELL));
 }
@@ -115,7 +118,8 @@ TEST_F(ApiTest, Api_PositionAgent)
     {
         for (int agent_id = 0; agent_id < NB_AGENTS; agent_id++)
         {
-            position agent_pos = st->get_agent_position(player.id, agent_id);
+            position agent_pos = player.api->game_state().get_agent_position(
+                player.id, agent_id);
             EXPECT_EQ(agent_pos,
                       player.api->position_agent(player.id, agent_id));
         }
@@ -128,30 +132,32 @@ TEST_F(ApiTest, Api_PositionAgent)
 TEST_F(ApiTest, Api_InfoAlien)
 {
     const alien_info invalid = {{-1, -1}, -1, -1, -1, -1};
-    std::vector<alien_info> aliens = st->get_alien_info();
     for (auto& player : players)
     {
+        auto st = [&]() { return &player.api->game_state(); }; // Shortcut
+        std::vector<alien_info> aliens = st()->get_alien_info();
         for (int round = 0; round < NB_TOURS; round++)
         {
-            st->check_presence_alien();
+            st()->check_presence_alien();
 
             for (auto& alien : aliens)
             {
                 alien_info ret = player.api->info_alien(alien.pos);
-                if (st->is_alien_on_position(alien.pos))
+                if (st()->is_alien_on_position(alien.pos))
                     EXPECT_EQ(ret, alien);
                 else
                     EXPECT_EQ(ret, invalid);
             }
 
-            st->increment_round();
+            st()->increment_round();
         }
     }
 }
 
 TEST_F(ApiTest, Api_ListeAliens)
 {
-    std::vector<alien_info> aliens = st->get_alien_info();
+    std::vector<alien_info> aliens =
+        players[0].api->game_state().get_alien_info();
     for (auto& player : players)
         EXPECT_EQ(aliens, player.api->liste_aliens());
 }
@@ -170,24 +176,26 @@ TEST_F(ApiTest, Api_Historique)
         action_hist act3 = {ACTION_POUSSER, 2, EST};
 
         // Debug actions should not appear in the API history
-        EXPECT_EQ(OK, player.api->debug_afficher_drapeau({0, 0}, DRAPEAU_BLEU));
+        EXPECT_EQ(OK, player.api->debug_afficher_drapeau(position{0, 0},
+                                                         DRAPEAU_BLEU));
 
         std::vector<action_hist> hist = {act1, act2, act3};
         std::vector<action_hist> expected =
-            player.api->game_state()->get_history(player.id);
+            player.api->game_state().get_history(player.id);
         EXPECT_EQ(expected, hist);
     }
 }
 
 TEST_F(ApiTest, Api_Score)
 {
-    alien_info alien = st->get_alien_info(TEST_ALIEN);
-    st->set_agent_position(players[0].id, 0, alien.pos);
+    auto st = [&]() { return &players[0].api->game_state(); }; // Shortcut
+    alien_info alien = st()->get_alien_info(TEST_ALIEN);
+    st()->set_agent_position(players[0].id, 0, alien.pos);
     for (int round = 0; round < NB_TOURS; round++)
     {
-        st->increment_round();
-        st->check_presence_alien();
-        st->update_scores();
+        st()->increment_round();
+        st()->check_presence_alien();
+        st()->update_scores();
     }
     EXPECT_EQ(alien.points_capture, players[0].api->score(players[0].id));
     EXPECT_EQ(0, players[1].api->score(players[1].id));
@@ -231,7 +239,9 @@ TEST_F(ApiTest, Api_TourActuel)
     for (int round = 0; round < NB_TOURS; round++)
     {
         for (auto& player : players)
+        {
             EXPECT_EQ(round, player.api->tour_actuel());
-        st->increment_round();
+            player.api->game_state().increment_round();
+        }
     }
 }

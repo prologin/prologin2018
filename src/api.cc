@@ -22,71 +22,14 @@
 // global used in interface.cc
 Api* api;
 
-Api::Api(GameState* game_state, rules::Player_sptr player)
-    : game_state_(game_state)
-    , player_(player)
+Api::Api(std::unique_ptr<GameState> game_state, rules::Player_sptr player)
+    : rules::Api<GameState, erreur>(std::move(game_state), player)
+    , deplacer(this)
+    , glisser(this)
+    , pousser(this)
+    , debug_afficher_drapeau(this)
 {
     api = this;
-}
-
-/// Déplace l'agent ``id_agent`` d'une case dans la direction choisie.
-erreur Api::deplacer(int id_agent, direction dir)
-{
-    rules::IAction_sptr action(new ActionDeplacer(id_agent, dir, player_->id));
-
-    erreur err;
-    if ((err = static_cast<erreur>(action->check(game_state_))) != OK)
-        return err;
-
-    actions_.add(action);
-    game_state_set(action->apply(game_state_));
-    return OK;
-}
-
-/// Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il
-/// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent.
-erreur Api::glisser(int id_agent, direction dir)
-{
-    rules::IAction_sptr action(new ActionGlisser(id_agent, dir, player_->id));
-
-    erreur err;
-    if ((err = static_cast<erreur>(action->check(game_state_))) != OK)
-        return err;
-
-    actions_.add(action);
-    game_state_set(action->apply(game_state_));
-    return OK;
-}
-
-/// L'agent ``id_agent`` pousse tout autre agent se trouvant sur la case
-/// adjacente dans la direction indiquée. Ce dernier est propulsé jusqu'à ce
-/// qu'il rencontre un obstacle, c'est-à-dire soit un mur soit un autre agent.
-erreur Api::pousser(int id_agent, direction dir)
-{
-    rules::IAction_sptr action(new ActionPousser(id_agent, dir, player_->id));
-
-    erreur err;
-    if ((err = static_cast<erreur>(action->check(game_state_))) != OK)
-        return err;
-
-    actions_.add(action);
-    game_state_set(action->apply(game_state_));
-    return OK;
-}
-
-/// Affiche le drapeau spécifié sur la case indiquée.
-erreur Api::debug_afficher_drapeau(position pos, debug_drapeau drapeau)
-{
-    rules::IAction_sptr action(
-        new ActionDebugAfficherDrapeau(pos, drapeau, player_->id));
-
-    erreur err;
-    if ((err = static_cast<erreur>(action->check(game_state_))) != OK)
-        return err;
-
-    actions_.add(action);
-    game_state_set(action->apply(game_state_));
-    return OK;
 }
 
 /// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants pour
@@ -193,10 +136,10 @@ int Api::adversaire()
 /// annuler ce tour-ci.
 bool Api::annuler()
 {
-    if (!game_state_->can_cancel())
+    if (!game_state_.can_cancel())
         return false;
     actions_.cancel();
-    game_state_ = rules::cancel(game_state_);
+    game_state_.cancel();
     return true;
 }
 
