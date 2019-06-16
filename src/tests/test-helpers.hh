@@ -78,11 +78,11 @@ static rules::Players_sptr make_players(int id1, int id2)
         }});
 }
 
-static GameState* make_test_gamestate(std::string map,
-                                      const rules::Players_sptr& players)
+static std::unique_ptr<GameState>
+make_test_gamestate(std::string map, const rules::Players_sptr& players)
 {
     std::istringstream map_stream(map);
-    return new GameState(map_stream, players);
+    return std::make_unique<GameState>(map_stream, players);
 }
 
 class ActionTest : public ::testing::Test
@@ -91,8 +91,7 @@ protected:
     virtual void SetUp()
     {
         utils::Logger::get().level() = utils::Logger::DEBUG_LEVEL;
-        st.reset(
-            make_test_gamestate(test_map, make_players(PLAYER_1, PLAYER_2)));
+        st = make_test_gamestate(test_map, make_players(PLAYER_1, PLAYER_2));
     }
 
     std::unique_ptr<GameState> st;
@@ -111,7 +110,7 @@ protected:
         int player_id_2 = 42;
         utils::Logger::get().level() = utils::Logger::DEBUG_LEVEL;
         auto players_ptr = make_players(player_id_1, player_id_2);
-        const auto st = make_test_gamestate(test_map, players_ptr);
+        auto st = make_test_gamestate(test_map, players_ptr);
         players[0].id = player_id_1;
         players[0].api = std::make_unique<Api>(
             std::unique_ptr<GameState>(st->copy()), players_ptr->players[0]);

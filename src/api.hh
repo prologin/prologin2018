@@ -37,20 +37,20 @@ public:
     Api(std::unique_ptr<GameState> game_state, rules::Player_sptr player);
 
     /// Déplace l'agent ``id_agent`` d'une case dans la direction choisie.
-    ApiActionFunc<ActionDeplacer> deplacer;
+    ApiActionFunc<ActionDeplacer> deplacer{this};
 
     /// Propulse l'agent ``id_agent`` dans la direction choisie jusqu'à ce qu'il
     /// heurte un obstacle, c'est-à-dire soit un mur soit un autre agent.
-    ApiActionFunc<ActionGlisser> glisser;
+    ApiActionFunc<ActionGlisser> glisser{this};
 
     /// L'agent ``id_agent`` pousse tout autre agent se trouvant sur la case
     /// adjacente dans la direction indiquée. Ce dernier est propulsé jusqu'à ce
     /// qu'il rencontre un obstacle, c'est-à-dire soit un mur soit un autre
     /// agent.
-    ApiActionFunc<ActionPousser> pousser;
+    ApiActionFunc<ActionPousser> pousser{this};
 
     /// Affiche le drapeau spécifié sur la case indiquée.
-    ApiActionFunc<ActionDebugAfficherDrapeau> debug_afficher_drapeau;
+    ApiActionFunc<ActionDebugAfficherDrapeau> debug_afficher_drapeau{this};
 
     /// Renvoie le nombre de points d'action de l'agent ``id_agent`` restants
     /// pour le tour. Si le numéro d'agent est invalide, la fonction renvoie -1.

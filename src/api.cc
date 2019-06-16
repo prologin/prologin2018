@@ -24,10 +24,6 @@ Api* api;
 
 Api::Api(std::unique_ptr<GameState> game_state, rules::Player_sptr player)
     : rules::Api<GameState, erreur>(std::move(game_state), player)
-    , deplacer(this)
-    , glisser(this)
-    , pousser(this)
-    , debug_afficher_drapeau(this)
 {
     api = this;
 }
