@@ -29,7 +29,7 @@
 class PlayerInfo
 {
 public:
-    PlayerInfo(rules::Player_sptr player, int internal_id);
+    PlayerInfo(std::shared_ptr<rules::Player> player, int internal_id);
 
     int get_internal_id() const;
 
@@ -48,7 +48,7 @@ public:
     void add_internal_action(internal_action action);
 
 private:
-    rules::Player_sptr player_;
+    std::shared_ptr<rules::Player> player_;
     std::vector<internal_action> internal_hist_;
     std::array<int, NB_AGENTS> action_points_;
     int internal_id_;

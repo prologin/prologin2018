@@ -22,13 +22,13 @@
 #include "constant.hh"
 #include "game_state.hh"
 
-GameState::GameState(std::istream& map_stream, rules::Players_sptr players)
+GameState::GameState(std::istream& map_stream, const rules::Players& players)
     : rules::GameState()
     , map_(new Map(map_stream))
     , round_(0)
 {
     int id = 0;
-    for (auto& player : players->players)
+    for (const auto& player : players)
     {
         if (id > 2)
             FATAL("This game does not support more than two players.");
