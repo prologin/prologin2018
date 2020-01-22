@@ -16,7 +16,7 @@
 
 #include "player_info.hh"
 
-PlayerInfo::PlayerInfo(rules::Player_sptr player, int internal_id)
+PlayerInfo::PlayerInfo(std::shared_ptr<rules::Player> player, int internal_id)
     : player_(std::move(player))
     , internal_id_(internal_id)
 {
