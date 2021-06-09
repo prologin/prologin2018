@@ -18,6 +18,7 @@
 #include <memory>
 #include <rules/client-messenger.hh>
 #include <rules/server-messenger.hh>
+#include <rules/config.hh>
 #include <utils/log.hh>
 
 #include "rules.hh"
@@ -32,6 +33,11 @@ static Rules* rules_;
 
 extern "C"
 {
+    void rules_config(rules::Config* cfg)
+    {
+        cfg->name = "prologin2018";
+        cfg->player_count = 2;
+    }
 
     void rules_init(const rules::Options& opt)
     {
